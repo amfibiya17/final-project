@@ -1,5 +1,4 @@
 # < APP NAME >
-change
 
 ## Contributors
 
@@ -48,7 +47,7 @@ This app allows you to schedule a time to hang out with friends within your busy
 
 ## MVP, design and planning
 
-< INSERT MVP IMAGE HERE >
+![Screenshot 2022-07-05 at 14 03 02](https://user-images.githubusercontent.com/101583630/177338066-2a1f40f9-9400-464d-95ed-13430ad22cd5.png)
 
 ## Team Approach
 
