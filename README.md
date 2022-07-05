@@ -79,7 +79,7 @@ This app allows you to schedule a time to hang out with friends within your busy
 ## How to Run Locally
 
 1. Fork this repository
-2. Rename your fork to `sportify-<your name>`
+2. Rename your fork to `< INSERT APP NAME HERE >`
 3. Clone your fork to your local machine
 4. Install Node.js dependencies
    ```
