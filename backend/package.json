@@ -18,5 +18,8 @@
     "jest": "^28.1.2",
     "mongoose": "^6.4.3",
     "nodemon": "^2.0.18"
+  },
+  "devDependencies": {
+    "eslint": "^8.19.0"
   }
 }
