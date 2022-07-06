@@ -4,7 +4,7 @@ import React from 'react';
 import { Routes, BrowserRouter, Route } from 'react-router-dom';
 import Register from './components/Register';
 import Login from './components/Login';
-import Calendar from './components/Calendar';
+// import Calendar from './components/Calendar';
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
         <Routes>
           <Route path="/signup" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/calendar" element={<Calendar />} />
+          {/* <Route path="/calendar" element={<Calendar />} /> */}
         </Routes>
       </BrowserRouter>
     </div>

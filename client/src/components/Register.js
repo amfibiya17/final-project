@@ -24,10 +24,9 @@ function App() {
       }),
     });
 
-    const data = await response.json();
-
-    if (data.status === 'ok') {
-      history.push('/login');
+    if (response.status === 200) {
+      history('/signup');
+      window.location.href = '/login';
     }
   }
 

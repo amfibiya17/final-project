@@ -47,13 +47,14 @@ app.post('/users/login', async (req, res) => {
   if (!user) {
     return { status: 'error', error: 'Invalid login' };
   }
+  // console.log(req.body);
+  // console.log(user);
+  // const isPasswordValid = await bcrypt.compare(
+  //   req.body.password,
+  //   user.password,
+  // );
 
-  const isPasswordValid = await bcrypt.compare(
-    req.body.password,
-    user.password,
-  );
-
-  if (isPasswordValid) {
+  if (req.body.password === user.password) {
     const token = jwt.sign(
       {
         name: user.name,

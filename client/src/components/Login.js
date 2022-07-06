@@ -1,4 +1,7 @@
+/* eslint-disable no-alert */
+/* eslint-disable no-console */
 /* eslint-disable react/react-in-jsx-scope */
+
 import { useState } from 'react';
 
 function App() {
@@ -20,11 +23,11 @@ function App() {
     });
 
     const data = await response.json();
-
+    console.log(data);
     if (data.user) {
       localStorage.setItem('token', data.user);
       alert('Login successful');
-      window.location.href = '/dashboard';
+      window.location.href = '/calendar';
     } else {
       alert('Please check your username and password');
     }
