@@ -11,6 +11,10 @@ const UserController = {
     } catch (error) {
       res.status(400).json({error: error.message})
     }
+  },
+
+  LoginUser: (req, res) => {
+    res.json({message: 'Logged in!'})
   }
 }
 
