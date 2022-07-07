@@ -27,4 +27,8 @@ describe('Appointment model', () => {
   it('has a name', () => {
     expect(appointment.name).toBe('Event');
   });
+
+  it('has a user_id', () => {
+    expect(appointment.user_id).toBe(mockUserId);
+  });
 });
