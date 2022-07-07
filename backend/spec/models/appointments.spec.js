@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 const mongoose = require('mongoose');
 
 require('../mongodb_helper');
@@ -30,5 +31,22 @@ describe('Appointment model', () => {
 
   it('has a user_id', () => {
     expect(appointment.user_id).toBe(mockUserId);
+  });
+
+  it('can save an appointment', (done) => {
+    appointment.save((err) => {
+      expect(err).toBeNull();
+
+      Appointment.find((error, appointments) => {
+        expect(error).toBeNull();
+
+        expect(appointments[0]).toMatchObject({
+          date: mockDate,
+          name: 'Event',
+          user_id: mockUserId,
+        });
+        done();
+      });
+    });
   });
 });
