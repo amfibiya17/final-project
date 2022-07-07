@@ -23,4 +23,8 @@ describe('Appointment model', () => {
   it('has a date', () => {
     expect(appointment.date).toBe(mockDate);
   });
+
+  it('has a name', () => {
+    expect(appointment.name).toBe('Event');
+  });
 });
