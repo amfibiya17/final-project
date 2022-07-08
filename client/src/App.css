@@ -36,3 +36,11 @@
     transform: rotate(360deg);
   }
 }
+
+.unavailable {
+  background-color: brown;
+}
+
+.react-calendar {
+  width: 500px;
+}
