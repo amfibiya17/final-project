@@ -1,9 +1,14 @@
 const events = [
-  { title: "All Day Event", start: getDate("YEAR-MONTH-01") },
+  { 
+    title: "All Day Event", 
+    start: getDate("YEAR-MONTH-01"),
+    display: 'background',
+  },
   {
     title: "Long Event",
     start: getDate("YEAR-MONTH-07"),
-    end: getDate("YEAR-MONTH-10")
+    end: getDate("YEAR-MONTH-10"),
+    display: 'background',
   },
   {
     groupId: "999",
