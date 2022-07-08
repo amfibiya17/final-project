@@ -32,6 +32,9 @@ import axios from 'axios';
 function App() {
   const [value, setValue] = useState(new Date());
   const [datesToAddClassTo, setAppointments] = useState([new Date()]);
+  const [newDate, setNewDate] = useState(new Date());
+  const [name, setName] = useState('');
+  const [user, setUser] = useState('');
 
   useEffect(() => {
     axios.get('http://localhost:8282/appointments/calendar', {
@@ -47,8 +50,6 @@ function App() {
         setAppointments(data);
       });
   }, []);
-
-  console.log(datesToAddClassTo);
 
   function isSameDay(a, b) {
     return differenceInCalendarDays(a, b) === 0;
@@ -68,14 +69,39 @@ function App() {
     setValue(nextValue);
   }
 
+  async function submitEvent() {
+    const response = await axios.post('http://localhost:8282/appointments/new', {
+      date: new Date(newDate),
+      name,
+      user_id: user,
+    });
+
+    const data = await response.json();
+
+    console.log(data);
+  }
+
   return (
-    <Calendar
-      onChange={onChange}
-      value={value}
-      // tileDisabled={tileDisabled}
-      // tileContent={tileContent}
-      tileClassName={tileClassName}
-    />
+    <>
+      <Calendar
+        onChange={onChange}
+        value={value}
+        // tileDisabled={tileDisabled}
+        // tileContent={tileContent}
+        tileClassName={tileClassName}
+      />
+      <p className="text-center">
+        <span className="bold">Selected Date:</span>
+        {' '}
+        {value.toDateString()}
+      </p>
+      <form onSubmit={submitEvent}>
+        <input type="date" value={newDate} onChange={(e) => setNewDate(e.target.value)} />
+        <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="name" />
+        <input type="text" value={user} onChange={(e) => setUser(e.target.value)} placeholder="user" />
+        <input type="submit" value="Submit" />
+      </form>
+    </>
   );
 }
 
