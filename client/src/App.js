@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable consistent-return */
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable react/react-in-jsx-scope */
@@ -7,6 +9,8 @@ import 'react-calendar/dist/Calendar.css';
 import { differenceInCalendarDays } from 'date-fns';
 import './App.css';
 import axios from 'axios';
+// import Signup from './components/Signup';
+// import Login from './components/Login';
 
 // const disabledDates = [new Date(), new Date(2022, 10)];
 // const datesToAddContentTo = [new Date(), new Date(2022, 10)];
@@ -32,14 +36,14 @@ import axios from 'axios';
 function App() {
   const [value, setValue] = useState(new Date());
   const [datesToAddClassTo, setAppointments] = useState([new Date()]);
-  const [newDate, setNewDate] = useState(new Date());
+  const [newDate, setNewDate] = useState(new Date().toISOString().substring(0, 10));
   const [name, setName] = useState('');
   const [user, setUser] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:8282/appointments/calendar', {
+    axios.get('http://localhost:4000/appointments/calendar', {
       params: {
-        user_id: '62c6e76cb3e3fbbb177870d5',
+        user_id: '62c6139c9c28b952c0b65659',
       },
     })
       .then((response) => {
@@ -70,8 +74,8 @@ function App() {
   }
 
   async function submitEvent() {
-    const response = await axios.post('http://localhost:8282/appointments/new', {
-      date: new Date(newDate),
+    const response = await axios.post('http://localhost:4000/appointments/new', {
+      date: new Date(newDate).toISOString(),
       name,
       user_id: user,
     });
@@ -83,6 +87,8 @@ function App() {
 
   return (
     <>
+      {/* <Signup />
+      <Login /> */}
       <Calendar
         onChange={onChange}
         value={value}
