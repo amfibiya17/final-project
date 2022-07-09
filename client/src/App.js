@@ -31,10 +31,12 @@ import axios from 'axios';
 
 function App() {
   const [value, setValue] = useState(new Date());
-  const [datesToAddClassTo, setAppointments] = useState([new Date()]);
+  const [datesToAddClassTo, setAppointments] = useState([]);
   const [newDate, setNewDate] = useState(new Date());
   const [name, setName] = useState('');
   const [user, setUser] = useState('');
+  const [wholeAppointment, setWholeAppointment] = useState([]);
+  const [appointmentName, setAppointmentName] = useState('');
 
   useEffect(() => {
     axios.get('http://localhost:8282/appointments/calendar', {
@@ -43,6 +45,7 @@ function App() {
       },
     })
       .then((response) => {
+        setWholeAppointment(response.data);
         const data = [];
         response.data.forEach((appointment) => {
           data.push(new Date(appointment.date));
@@ -65,8 +68,23 @@ function App() {
     }
   }
 
+  function appointmentInformation(appointmentDate) {
+    let a = 0;
+    wholeAppointment.forEach((appointment) => {
+      // eslint-disable-next-line eqeqeq
+      if (new Date(appointment.date).toDateString() == new Date(appointmentDate).toDateString()) {
+        setAppointmentName(appointment.name);
+        a = 1;
+      }
+    });
+    if (a === 0) {
+      setAppointmentName('');
+    }
+  }
+
   function onChange(nextValue) {
     setValue(nextValue);
+    appointmentInformation(nextValue);
   }
 
   async function submitEvent() {
@@ -94,6 +112,9 @@ function App() {
         <span className="bold">Selected Date:</span>
         {' '}
         {value.toDateString()}
+      </p>
+      <p>
+        {appointmentName}
       </p>
       <form onSubmit={submitEvent}>
         <input type="date" value={newDate} onChange={(e) => setNewDate(e.target.value)} />
