@@ -1,3 +1,4 @@
+const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
 const UserController = {
@@ -20,7 +21,12 @@ const UserController = {
     });
 
     if (user) {
-      return res.json({ status: 'ok', user: true });
+      const token = jwt.sign({
+        // eslint-disable-next-line no-underscore-dangle
+        user_id: user._id,
+      }, 'secretPassword123');
+
+      return res.json({ status: 'ok', user: token });
     }
 
     return res.json({ status: 'error', user: false });

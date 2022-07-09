@@ -1,7 +1,9 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Signup() {
+  const navigate = useNavigate();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -17,7 +19,10 @@ function Signup() {
     setName('');
     setEmail('');
     setPassword('');
-    console.log(response.data);
+
+    if (response.data.status === 'ok') {
+      navigate('/login');
+    }
   }
 
   return (
