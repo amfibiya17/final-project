@@ -14,7 +14,9 @@ app.use(cors());
 app.use('/users', userRoutes);
 app.use('/appointments', appointmentRoutes);
 
-mongoose.connect(process.env.MONGO_URI)
+var mongoDbUrl = process.env.MONGO_URI || "mongodb://localhost:27017/final-project"
+
+mongoose.connect(mongoDbUrl)
   .then(() => {
     app.listen(process.env.PORT, () => {
       console.log(`Connected to DB & listening on port ${process.env.PORT}`);
