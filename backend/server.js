@@ -14,7 +14,7 @@ app.use(cors());
 app.use('/users', userRoutes);
 app.use('/appointments', appointmentRoutes);
 
-var mongoDbUrl = process.env.MONGO_URI || "mongodb://localhost:27017/final-project"
+const mongoDbUrl = process.env.MONGO_URI || 'mongodb://localhost:27017/final-project';
 
 mongoose.connect(mongoDbUrl)
   .then(() => {
