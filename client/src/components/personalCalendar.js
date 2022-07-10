@@ -32,9 +32,9 @@ import { useNavigate } from 'react-router-dom';
 function PersonalCalendar() {
   const navigate = useNavigate();
   const [value, setValue] = useState(new Date());
-  const [datesToAddClassTo, setAppointments] = useState([]);
+  const [datesToAddClassTo, setDatesToAddClassTo] = useState([]);
   const [name, setName] = useState('');
-  const [wholeAppointment, setWholeAppointment] = useState([]);
+  const [appointmentsArray, setAppointmentsArray] = useState([]);
   const [appointmentName, setAppointmentName] = useState('');
   const [userId, setUserId] = useState();
 
@@ -46,12 +46,12 @@ function PersonalCalendar() {
         },
       })
         .then((response) => {
-          setWholeAppointment(response.data);
+          setAppointmentsArray(response.data);
           const data = [];
           response.data.forEach((appointment) => {
             data.push(new Date(appointment.date));
           });
-          setAppointments(data);
+          setDatesToAddClassTo(data);
         });
     }
   }
@@ -95,11 +95,11 @@ function PersonalCalendar() {
     }
   }
 
-  function appointmentInformation(appointmentDate) {
+  function appointmentInformation(selectedDate) {
     let a = 0;
-    wholeAppointment.forEach((appointment) => {
+    appointmentsArray.forEach((appointment) => {
       // eslint-disable-next-line eqeqeq
-      if (new Date(appointment.date).toDateString() == new Date(appointmentDate).toDateString()) {
+      if (new Date(appointment.date).toDateString() == new Date(selectedDate).toDateString()) {
         setAppointmentName(appointment.name);
         a = 1;
       }
