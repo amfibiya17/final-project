@@ -71,9 +71,9 @@ function PersonalCalendar() {
 
     if (!token) {
       navigate('/login');
+    } else {
+      getUserId();
     }
-
-    getUserId();
   }, []);
 
   useEffect(() => {
@@ -152,6 +152,15 @@ function PersonalCalendar() {
         <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="name" />
         <input type="submit" value="Submit" />
       </form>
+      <button
+        type="button"
+        onClick={() => {
+          localStorage.removeItem('token');
+          navigate('/login');
+        }}
+      >
+        Log out
+      </button>
     </>
   );
 }
