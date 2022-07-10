@@ -39,19 +39,21 @@ function PersonalCalendar() {
   const [userId, setUserId] = useState();
 
   function getAppointments() {
-    axios.get('http://localhost:8282/appointments/calendar', {
-      params: {
-        user_id: userId,
-      },
-    })
-      .then((response) => {
-        setWholeAppointment(response.data);
-        const data = [];
-        response.data.forEach((appointment) => {
-          data.push(new Date(appointment.date));
+    if (userId) {
+      axios.get('http://localhost:8282/appointments/calendar', {
+        params: {
+          user_id: userId,
+        },
+      })
+        .then((response) => {
+          setWholeAppointment(response.data);
+          const data = [];
+          response.data.forEach((appointment) => {
+            data.push(new Date(appointment.date));
+          });
+          setAppointments(data);
         });
-        setAppointments(data);
-      });
+    }
   }
 
   async function getUserId() {
