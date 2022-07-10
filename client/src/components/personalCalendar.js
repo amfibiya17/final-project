@@ -33,7 +33,6 @@ function PersonalCalendar() {
   const navigate = useNavigate();
   const [value, setValue] = useState(new Date());
   const [datesToAddClassTo, setAppointments] = useState([]);
-  const [newDate, setNewDate] = useState(new Date());
   const [name, setName] = useState('');
   const [wholeAppointment, setWholeAppointment] = useState([]);
   const [appointmentName, setAppointmentName] = useState('');
@@ -116,7 +115,7 @@ function PersonalCalendar() {
   async function submitEvent(event) {
     event.preventDefault();
     const response = await axios.post('http://localhost:8282/appointments/new', {
-      date: new Date(newDate),
+      date: new Date(value),
       name,
       user_id: userId,
     });
@@ -126,7 +125,6 @@ function PersonalCalendar() {
     console.log(data);
 
     getAppointments();
-    setNewDate(new Date());
     setName('');
   }
 
@@ -148,7 +146,6 @@ function PersonalCalendar() {
         {appointmentName}
       </p>
       <form onSubmit={submitEvent}>
-        <input type="date" value={newDate} onChange={(e) => setNewDate(e.target.value)} />
         <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="name" />
         <input type="submit" value="Submit" />
       </form>
