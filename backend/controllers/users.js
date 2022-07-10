@@ -3,6 +3,19 @@ const User = require('../models/user');
 
 const UserController = {
 
+  GetUserId: async (req, res) => {
+    const token = req.headers['x-access-token'];
+
+    const userId = jwt.verify(token, 'secretPassword123', (err, decoded) => {
+      if (err) {
+        return res.status(401).send({ message: 'Unauthorized!' });
+      }
+      return decoded.user_id;
+    });
+
+    return res.json(userId);
+  },
+
   CreateNewUser: async (req, res) => {
     const { name, email, password } = req.body;
 

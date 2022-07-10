@@ -6,6 +6,7 @@ import 'react-calendar/dist/Calendar.css';
 import { differenceInCalendarDays } from 'date-fns';
 import './personalCalendar.css';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 // const disabledDates = [new Date(), new Date(2022, 10)];
 // const datesToAddContentTo = [new Date(), new Date(2022, 10)];
@@ -29,18 +30,19 @@ import axios from 'axios';
 // }
 
 function PersonalCalendar() {
+  const navigate = useNavigate();
   const [value, setValue] = useState(new Date());
   const [datesToAddClassTo, setAppointments] = useState([]);
   const [newDate, setNewDate] = useState(new Date());
   const [name, setName] = useState('');
-  const [user, setUser] = useState('');
   const [wholeAppointment, setWholeAppointment] = useState([]);
   const [appointmentName, setAppointmentName] = useState('');
+  const [userId, setUserId] = useState();
 
   function getAppointments() {
     axios.get('http://localhost:8282/appointments/calendar', {
       params: {
-        user_id: '62c6e76cb3e3fbbb177870d5',
+        user_id: userId,
       },
     })
       .then((response) => {
@@ -53,7 +55,30 @@ function PersonalCalendar() {
       });
   }
 
-  useEffect(getAppointments, []);
+  async function getUserId() {
+    await axios.get('http://localhost:8282/users/userId', {
+      headers: {
+        'x-access-token': localStorage.getItem('token'),
+      },
+    })
+      .then((response) => {
+        setUserId(response.data);
+      });
+  }
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+
+    if (!token) {
+      navigate('/login');
+    }
+
+    getUserId();
+  }, []);
+
+  useEffect(() => {
+    getAppointments();
+  }, [userId]);
 
   function isSameDay(a, b) {
     return differenceInCalendarDays(a, b) === 0;
@@ -93,7 +118,7 @@ function PersonalCalendar() {
     const response = await axios.post('http://localhost:8282/appointments/new', {
       date: new Date(newDate),
       name,
-      user_id: user,
+      user_id: userId,
     });
 
     const { data } = response;
@@ -103,7 +128,6 @@ function PersonalCalendar() {
     getAppointments();
     setNewDate(new Date());
     setName('');
-    setUser('');
   }
 
   return (
@@ -126,7 +150,6 @@ function PersonalCalendar() {
       <form onSubmit={submitEvent}>
         <input type="date" value={newDate} onChange={(e) => setNewDate(e.target.value)} />
         <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="name" />
-        <input type="text" value={user} onChange={(e) => setUser(e.target.value)} placeholder="user" />
         <input type="submit" value="Submit" />
       </form>
     </>
