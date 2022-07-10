@@ -9,6 +9,8 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import Register from './components/Register';
+import Login from './components/Login';
 import './russ.css';
 
 export default function App() {
@@ -24,12 +26,16 @@ export default function App() {
               <Link to="/signup">Sign up</Link>
             </li>
             <li>
+              <Link to="/login">Login</Link>
+            </li>
+            <li>
               <Link to="/profile">Profile</Link>
             </li>
           </ul>
         </nav>
         <Routes>
-          <Route exact path="/signup" element={<SignUp />} />
+          <Route exact path="/signup" element={<Register />} />
+          <Route exact path="/login" element={<Login />} />
           <Route exact path="/profile" element={<Profile />} />
           <Route exact path="/" element={<Home />} />
         </Routes>
