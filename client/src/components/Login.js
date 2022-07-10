@@ -1,31 +1,30 @@
 /* eslint-disable no-alert */
 /* eslint-disable react/react-in-jsx-scope */
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-function App() {
+const backendServer = 'http://localhost:4000';
+
+function Login() {
+  const history = useNavigate();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   async function loginUser(event) {
     event.preventDefault();
 
-    const response = await fetch('http://localhost:4000/users/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
+    const response = await axios.post(`${backendServer}/users/login`, {
+      email,
+      password,
     });
 
-    const data = await response.json();
-
-    if (data.user) {
-      localStorage.setItem('token', data.user);
+    if (response.status === 200) {
+      localStorage.setItem('token', response.data.user);
+      history('/login');
       alert('Login successful');
-      window.location.href = '/dashboard';
+      window.location.href = '/profile';
     } else {
       alert('Please check your username and password');
     }
@@ -55,4 +54,4 @@ function App() {
   );
 }
 
-export default App;
+export default Login;

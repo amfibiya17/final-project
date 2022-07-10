@@ -1,6 +1,9 @@
 /* eslint-disable react/react-in-jsx-scope */
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
+const backendServer = 'http://localhost:4000';
 
 function Signup() {
   const history = useNavigate();
@@ -12,22 +15,15 @@ function Signup() {
   async function registerUser(event) {
     event.preventDefault();
 
-    const response = await fetch('http://localhost:4000/users/signup', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        name,
-        email,
-        password,
-      }),
+    const response = await axios.post(`${backendServer}/users/signup`, {
+      name,
+      email,
+      password,
     });
 
-    const data = await response.json();
-
-    if (data.status === 'ok') {
-      history.push('/login');
+    if (response.status === 200) {
+      history('/signup');
+      window.location.href = '/login';
     }
   }
 

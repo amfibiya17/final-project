@@ -9,7 +9,11 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import Signup from '../src/components/Signup';
+import Login from '../src/components/Login';
 import './russ.css';
+
+const backendServer = 'http://localhost:4000';
 
 export default function App() {
   return (
@@ -24,14 +28,18 @@ export default function App() {
               <Link to="/signup">Sign up</Link>
             </li>
             <li>
+              <Link to="/login">Log in</Link>
+            </li>
+            <li>
               <Link to="/profile">Profile</Link>
             </li>
           </ul>
         </nav>
         <Routes>
-          <Route exact path="/signup" element={<SignUp />} />
-          <Route exact path="/profile" element={<Profile />} />
           <Route exact path="/" element={<Home />} />
+          <Route exact path="/signup" element={<Signup />} />
+          <Route exact path="/login" element={<Login />} />
+          <Route exact path="/profile" element={<Profile />} />
         </Routes>
       </div>
     </Router>
@@ -46,7 +54,7 @@ function Profile() {
   const [user, setUser] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:8282/appointments/calendar', {
+    axios.get(`${ backendServer }/appointments/calendar`, {
       params: {
         user_id: '62c6e76cb3e3fbbb177870d5',
       },
@@ -79,7 +87,7 @@ function Profile() {
   }
 
   async function submitEvent() {
-    const response = await axios.post('http://localhost:8282/appointments/new', {
+    const response = await axios.post(`${ backendServer }/appointments/new`, {
       date: new Date(newDate),
       name,
       user_id: user,
