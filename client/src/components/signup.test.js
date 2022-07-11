@@ -67,3 +67,16 @@ test('Email input should change', () => {
   fireEvent.change(emailInputEl, { target: { value: testValue } });
   expect(emailInputEl.value).toBe(testValue);
 });
+
+test('Password input should change', () => {
+  render(
+    <Router>
+      <Signup />
+    </Router>
+  );
+  const passwordInputEl = screen.getByPlaceholderText(/password/i);
+  const testValue = 'test-password';
+
+  fireEvent.change(passwordInputEl, { target: { value: testValue } });
+  expect(passwordInputEl).toBeInTheDocument();
+});
