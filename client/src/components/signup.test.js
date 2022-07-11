@@ -18,8 +18,8 @@ test('Email input should be rendered', () => {
       <Signup />
     </Router>
   );
-  const nameInputEl = screen.getByPlaceholderText(/email/i);
-  expect(nameInputEl).toBeInTheDocument();
+  const emailInputEl = screen.getByPlaceholderText(/email/i);
+  expect(emailInputEl).toBeInTheDocument();
 });
 
 test('Password input should be rendered', () => {
@@ -28,6 +28,16 @@ test('Password input should be rendered', () => {
       <Signup />
     </Router>
   );
-  const nameInputEl = screen.getByPlaceholderText(/password/i);
-  expect(nameInputEl).toBeInTheDocument();
+  const passwordInputEl = screen.getByPlaceholderText(/password/i);
+  expect(passwordInputEl).toBeInTheDocument();
+});
+
+test('Button should be rendered', () => {
+  render(
+    <Router>
+      <Signup />
+    </Router>
+  );
+  const buttonInputEl = screen.getByRole("button");
+  expect(buttonInputEl).toBeInTheDocument();
 });
