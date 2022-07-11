@@ -1,20 +1,48 @@
+const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
 const UserController = {
+
+  GetUserId: async (req, res) => {
+    const token = req.headers['x-access-token'];
+
+    const userId = jwt.verify(token, 'secretPassword123', (err, decoded) => {
+      if (err) {
+        return res.status(401).send({ message: 'Unauthorized!' });
+      }
+      return decoded.user_id;
+    });
+
+    return res.json(userId);
+  },
 
   CreateNewUser: async (req, res) => {
     const { name, email, password } = req.body;
 
     try {
-      const user = await User.create({ name, email, password });
-      res.status(200).json(user);
+      await User.create({ name, email, password });
+      res.status(200).json({ status: 'ok' });
     } catch (error) {
       res.status(400).json({ error: error.message });
     }
   },
 
-  LoginUser: (req, res) => {
-    res.json({ message: 'Logged in!' });
+  LoginUser: async (req, res) => {
+    const user = await User.findOne({
+      email: req.body.email,
+      password: req.body.password,
+    });
+
+    if (user) {
+      const token = jwt.sign({
+        // eslint-disable-next-line no-underscore-dangle
+        user_id: user._id,
+      }, 'secretPassword123');
+
+      return res.json({ status: 'ok', user: token });
+    }
+
+    return res.json({ status: 'error', user: false });
   },
 };
 

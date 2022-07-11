@@ -30,7 +30,7 @@ describe('Appointment model', () => {
   });
 
   it('has a user_id', () => {
-    expect(appointment.user_id).toBe(mockUserId);
+    expect(appointment.user_id).toEqual([mockUserId]);
   });
 
   it('can save an appointment', (done) => {

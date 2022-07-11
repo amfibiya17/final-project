@@ -11,10 +11,10 @@ const appointmentsSchema = new Schema({
     type: String,
     required: true,
   },
-  user_id: {
+  user_id: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-  },
+  }],
 });
 
 module.exports = mongoose.model('Appointment', appointmentsSchema);
