@@ -37,6 +37,7 @@ function PersonalCalendar() {
   const [appointmentsArray, setAppointmentsArray] = useState([]);
   const [appointmentName, setAppointmentName] = useState('');
   const [userId, setUserId] = useState();
+  const [weather, setWeather] = useState();
 
   function getAppointments() {
     if (userId) {
@@ -109,9 +110,20 @@ function PersonalCalendar() {
     }
   }
 
+  async function getWeather(day) {
+    await axios.get(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/london/${day.toISOString().split('T')[0]}?unitGroup=metric&include=days&key=BQ886JAS7TD7RNBNA8DW9JENC&contentType=json`, {
+    })
+      .then((response) => {
+        console.log(response.data);
+        setWeather(response.data.days[0].tempmax);
+      });
+  }
+
   function onChange(nextValue) {
+    const nextDay = new Date(nextValue.getTime() + (1000 * 3600 * 24));
     setValue(nextValue);
     appointmentInformation(nextValue);
+    getWeather(nextDay);
   }
 
   async function submitEvent(event) {
@@ -146,6 +158,7 @@ function PersonalCalendar() {
       </p>
       <p>
         {appointmentName}
+        {weather}
       </p>
       <form onSubmit={submitEvent}>
         <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="name" />
