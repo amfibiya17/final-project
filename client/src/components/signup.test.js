@@ -11,3 +11,15 @@ test("Name input should be rendered", () => {
   const nameInputEl = screen.getByPlaceholderText(/name/i);
   expect(nameInputEl).toBeInTheDocument();
 });
+
+test("Email input should be rendered", () => {
+  render(
+    <Router>
+      <Signup />
+    </Router>
+  );
+  const nameInputEl = screen.getByPlaceholderText(/email/i);
+  expect(nameInputEl).toBeInTheDocument();
+});
+
+
