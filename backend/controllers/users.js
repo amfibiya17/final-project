@@ -16,6 +16,15 @@ const UserController = {
     return res.json(userId);
   },
 
+  GetAllUsers: async (req, res) => {
+    try {
+      const users = await User.find().select('name');
+      res.status(200).json(users);
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  },
+
   CreateNewUser: async (req, res) => {
     const { name, email, password } = req.body;
 
