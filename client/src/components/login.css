@@ -1,6 +1,8 @@
 @import url("https://fonts.googleapis.com/css?family=Dosis:300");
-body {
-  background-image: linear-gradient(140deg, #db6241 0%, #663399 100%);
+.body {
+  background-image: url('https://source.unsplash.com/1600x900/?landscape');
+  background-size: cover;
+  /* background-image: linear-gradient(140deg, #db6241 0%, #663399 100%); */
   height: 100vh;
   overflow: hidden;
   display: flex;
@@ -9,27 +11,56 @@ body {
 }
 
 .Login {
-  background: #27282d;
-  height: 340px;
-  width: 520px;
-  margin: 0 auto;
-  border-radius: 5px;
-  box-shadow: 0px 4px 30px -5px rgba(0, 0, 0, 0.65);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center; 
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 2em;
+  width: 100%;
+  max-width: 350px;
+  height: 100%;
+  max-height: 250px;
+  margin: 1em;
+  color: white;
 }
 
 .input-container {
   position: relative;
-  margin-bottom: 30px;
-  width: 340px; 
+  margin-bottom: 0px;
+  width: 300px;
+  margin: 0.3em;
+  border: none;
+  outline: none;
+  padding: 0.4em 1em;
+  background-color: #0000000b;
+  color: none;
+  font-family: inherit;
+  font-size: 105%;
+  letter-spacing: 0.06em;
+  font-family: 'Dosis', sans-serif;
 }
 
+
 .input {
+  background-color: #9797975b;
   font-family: 'Dosis', sans-serif;
   letter-spacing: 1.3px; 
+  box-sizing: border-box;
+  background: transparent;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #626571;
+  color: #ccced3;
+  padding: 19px 6px 12px 36px;
+  font-size: 19px;
+  outline: none;
+  caret-color: #e55b8d; 
+  font-family: 'Dosis', sans-serif;
+  height: 60px;
+}
+
+.input:focus {
+  border-bottom: 1px solid transparent;
+  border-image: linear-gradient(140deg, #db6241 0%, #e55b8d 100%);
+  border-image-slice: 1; 
+  color: #ccced3; 
 }
 
 .button {
@@ -37,70 +68,27 @@ body {
   letter-spacing: 1.3px; 
 }
 
-.input {
-  box-sizing: border-box;
-  background: transparent;
-  width: 100%;
-  border: none;
-  border-bottom: 1px solid #626571;
-  color: #ccced3;
-  padding: 12px 6px 12px 36px;
-  font-size: 19px;
-  outline: none;
-  caret-color: #e55b8d; 
-}
-
-.input:focus {
-  border-bottom: 1px solid transparent;
-  border-image: linear-gradient(140deg, #db6241 0%, #e55b8d 100%);
-  border-image-slice: 1; 
-}
-
-.input:focus {
-  color: #ccced3; 
-}
-
-i {
-  color: #ccced3;
-}
-
-::placeholder {
-  color: #ffffff;
-  opacity: .7; 
-}
-
-i {
-  color: #626571;
-  position: absolute;
-  left: 6px;
-  top: 50%;
-  transform: translateY(-50%);
-  transition: color .3s; 
-}
-
 .login-button {
-  background: #33343b;
-  border: none;
-  border-radius: 30px;
-  color: #ccced3;
   font-size: 19px;
   padding: 16px 46px;
-  cursor: pointer;
-  transition: all .3s;
-  margin-top: 30px;
-  margin-bottom: -30px;
-  margin-left: 90px;;
+  margin-left: 95px;
+  margin-top: 15px;
   box-shadow: 0px 4px 15px -5px rgba(0, 0, 0, 0.65);
-  transition: all .3s; 
+  border: none;
+  cursor: pointer;
+  outline: none;
+  background: #9797975b;
+  color: rgb(191, 191, 191);
+  transition: 0.2s ease-in-out;
 }
 
 .login-button:hover {
-  background: #3f4048;
-  box-shadow: 0px 5px 20px -3px rgba(0, 0, 0, 0.65); 
+  color: rgb(0, 0, 0);
+  background: #ffffff;
 }
 
 @media screen and (max-width: 620px) {
-  .ALogin {
+  .Login {
     min-height: 300px;
     max-height: 420px;
     width: 90vw; }
@@ -113,6 +101,7 @@ i {
   } 
 }
 
-div {
-  border-color: red 1px;
-}
+.input:-webkit-autofill,
+  input:-webkit-autofill:focus {
+    transition: background-color 600000s 0s, color 600000s 0s;
+  }

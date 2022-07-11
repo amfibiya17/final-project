@@ -31,35 +31,39 @@ function Login() {
   }
 
   return (
-    <div className="Login">
+    <div className="body">
 
-      <form onSubmit={loginUser}>
+      <div className="Login">
 
-        <div className="input-container">
-          <i className="zmdi zmdi-account zmdi-hc-lg" />
-          <input
-            className="input"
-            type="email"
-            onChange={(e) => setEmail(e.target.value)}
-            value={email}
-            placeholder="Email"
-          />
-        </div>
+        <form onSubmit={loginUser}>
 
-        <div className="input-container">
-          <i className="zmdi zmdi-lock zmdi-hc-lg" />
-          <input
-            className="input"
-            type="password"
-            onChange={(e) => setPassword(e.target.value)}
-            value={password}
-            placeholder="Password"
-          />
-        </div>
+          <div className="input-container">
+            <input
+              className="input"
+              type="email"
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+              placeholder="Email"
+            />
+          </div>
 
-        <button className="login-button" type="submit">Log In</button>
+          <br />
 
-      </form>
+          <div className="input-container">
+            <input
+              className="input"
+              type="password"
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
+              placeholder="Password"
+            />
+          </div>
+
+          <button className="login-button" type="submit">Log In</button>
+
+        </form>
+
+      </div>
 
     </div>
   );
