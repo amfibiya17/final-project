@@ -1,8 +1,8 @@
-import { BrowserRouter as Router } from "react-router-dom";
-import { render, screen } from "@testing-library/react";
-import Signup from "./signup";
+import { BrowserRouter as Router } from 'react-router-dom';
+import { render, screen } from '@testing-library/react';
+import Signup from './signup';
 
-test("Name input should be rendered", () => {
+test('Name input should be rendered', () => {
   render(
     <Router>
       <Signup />
@@ -12,7 +12,7 @@ test("Name input should be rendered", () => {
   expect(nameInputEl).toBeInTheDocument();
 });
 
-test("Email input should be rendered", () => {
+test('Email input should be rendered', () => {
   render(
     <Router>
       <Signup />
@@ -22,4 +22,12 @@ test("Email input should be rendered", () => {
   expect(nameInputEl).toBeInTheDocument();
 });
 
-
+test('Password input should be rendered', () => {
+  render(
+    <Router>
+      <Signup />
+    </Router>
+  );
+  const nameInputEl = screen.getByPlaceholderText(/password/i);
+  expect(nameInputEl).toBeInTheDocument();
+});
