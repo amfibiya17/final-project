@@ -46,7 +46,7 @@ function Login() {
           placeholder="Password"
         />
         <br />
-        <input type="submit" value="Signup" />
+        <input type="submit" value="Login" />
       </form>
     </div>
   );
