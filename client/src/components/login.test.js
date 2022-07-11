@@ -11,3 +11,13 @@ test('Email input should be rendered', () => {
   const emailInputEl = screen.getByPlaceholderText(/email/i);
   expect(emailInputEl).toBeInTheDocument();
 });
+
+test('Password input should be rendered', () => {
+  render(
+    <Router>
+      <Login />
+    </Router>
+  );
+  const passwordInputEl = screen.getByPlaceholderText(/password/i);
+  expect(passwordInputEl).toBeInTheDocument();
+});
