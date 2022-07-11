@@ -136,8 +136,6 @@ function PersonalCalendar() {
 
     const { data } = response;
 
-    console.log(data);
-
     getAppointments();
     setName('');
   }
