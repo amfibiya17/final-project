@@ -42,6 +42,36 @@ test('Button should be rendered', () => {
   expect(buttonInputEl).toBeInTheDocument();
 });
 
+test('Name input should be empty', () => {
+  render(
+    <Router>
+      <Signup />
+    </Router>
+  );
+  const nameInputEl = screen.getByPlaceholderText(/name/i);
+  expect(nameInputEl.value).toBe('');
+});
+
+test('Email input should be empty', () => {
+  render(
+    <Router>
+      <Signup />
+    </Router>
+  );
+  const emailInputEl = screen.getByPlaceholderText(/email/i);
+  expect(emailInputEl.value).toBe('');
+});
+
+test('Password input should be empty', () => {
+  render(
+    <Router>
+      <Signup />
+    </Router>
+  );
+  const passwordInputEl = screen.getByPlaceholderText(/password/i);
+  expect(passwordInputEl.value).toBe('');
+});
+
 test('Name input should change', () => {
   render(
     <Router>
