@@ -38,6 +38,6 @@ test('Button should be rendered', () => {
       <Signup />
     </Router>
   );
-  const buttonInputEl = screen.getByRole("button");
+  const buttonInputEl = screen.getByRole('button');
   expect(buttonInputEl).toBeInTheDocument();
 });
