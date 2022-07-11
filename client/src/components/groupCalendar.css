@@ -1,0 +1,16 @@
+/* * {outline: solid 1px red;} */
+
+.groupEventUsers {
+  /* scroll-behavior: smooth; */
+  width: 300px;
+  height: 220px;
+  position: right;
+  background-color: rgb(214, 214, 214);
+}
+
+.scrollbox {
+  overflow-y: scroll;
+  height: 200px;
+  margin-left: 10px;
+  margin-right: 10px;
+}

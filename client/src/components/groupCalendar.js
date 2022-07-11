@@ -5,6 +5,7 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { differenceInCalendarDays } from 'date-fns';
 import './personalCalendar.css';
+import './groupCalendar.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -186,21 +187,24 @@ function GroupCalendar() {
       <p>
         {/* {weather} */}
       </p>
-      <ul>
-        {usersAll.map((user, i) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <li key={i}>
-            <input
-              type="checkbox"
-              onChange={() => {
-                // eslint-disable-next-line no-underscore-dangle
-                addingUser(user._id);
-              }}
-            />
-            {user.name}
-          </li>
-        ))}
-      </ul>
+      <div className="groupEventUsers">
+        <div>Add participants:</div>
+        <div className="scrollbox">
+          {usersAll.map((user, i) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <div key={i}>
+              <input
+                type="checkbox"
+                onChange={() => {
+                  // eslint-disable-next-line no-underscore-dangle
+                  addingUser(user._id);
+                }}
+              />
+              {user.name}
+            </div>
+          ))}
+        </div>
+      </div>
       <form onSubmit={submitEvent}>
         <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="event" />
         <input type="submit" value="Submit" />
