@@ -1,5 +1,5 @@
 import { BrowserRouter as Router } from 'react-router-dom';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import Signup from './signup';
 
 test('Name input should be rendered', () => {
@@ -40,4 +40,17 @@ test('Button should be rendered', () => {
   );
   const buttonInputEl = screen.getByRole('button');
   expect(buttonInputEl).toBeInTheDocument();
+});
+
+test('Name input should change', () => {
+  render(
+    <Router>
+      <Signup />
+    </Router>
+  );
+  const nameInputEl = screen.getByPlaceholderText(/name/i);
+  const testValue = 'test';
+
+  fireEvent.change(nameInputEl, { target: { value: testValue } });
+  expect(nameInputEl.value).toBe(testValue);
 });
