@@ -151,12 +151,12 @@ function PersonalCalendar() {
         // tileContent={tileContent}
         tileClassName={tileClassName}
       />
-      <p className="text-center">
+      <p className="text-center" data-testid="selected-date">
         <span className="bold">Selected Date:</span>
         {' '}
         {value.toDateString()}
       </p>
-      <p>
+      <p data-testid="date-info">
         {appointmentName}
         {weather}
       </p>
