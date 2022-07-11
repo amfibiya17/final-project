@@ -54,3 +54,16 @@ test('Name input should change', () => {
   fireEvent.change(nameInputEl, { target: { value: testValue } });
   expect(nameInputEl.value).toBe(testValue);
 });
+
+test('Email input should change', () => {
+  render(
+    <Router>
+      <Signup />
+    </Router>
+  );
+  const emailInputEl = screen.getByPlaceholderText(/email/i);
+  const testValue = 'test@email.com';
+
+  fireEvent.change(emailInputEl, { target: { value: testValue } });
+  expect(emailInputEl.value).toBe(testValue);
+});
