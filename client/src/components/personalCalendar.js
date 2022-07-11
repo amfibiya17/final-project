@@ -41,7 +41,7 @@ function PersonalCalendar() {
 
   function getAppointments() {
     if (userId) {
-      axios.get('http://localhost:8282/appointments/calendar', {
+      axios.get(`http://localhost:${process.env.PORT}/appointments/calendar`, {
         params: {
           user_id: userId,
         },
@@ -58,7 +58,7 @@ function PersonalCalendar() {
   }
 
   async function getUserId() {
-    await axios.get('http://localhost:8282/users/userId', {
+    await axios.get(`http://localhost:${process.env.PORT}/users/userId`, {
       headers: {
         'x-access-token': localStorage.getItem('token'),
       },
@@ -128,7 +128,7 @@ function PersonalCalendar() {
 
   async function submitEvent(event) {
     event.preventDefault();
-    const response = await axios.post('http://localhost:8282/appointments/new', {
+    const response = await axios.post(`http://localhost:${process.env.PORT}/appointments/new`, {
       date: new Date(value),
       name,
       user_id: userId,
