@@ -21,3 +21,13 @@ test('Password input should be rendered', () => {
   const passwordInputEl = screen.getByPlaceholderText(/password/i);
   expect(passwordInputEl).toBeInTheDocument();
 });
+
+test('Button should be rendered', () => {
+  render(
+    <Router>
+      <Login />
+    </Router>
+  );
+  const buttonInputEl = screen.getByRole('button');
+  expect(buttonInputEl).toBeInTheDocument();
+});
