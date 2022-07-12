@@ -8,6 +8,7 @@ import { differenceInCalendarDays } from 'date-fns';
 import './personalCalendar.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Navbar from './navbar';
 
 // const disabledDates = [new Date(), new Date(2022, 10)];
 // const datesToAddContentTo = [new Date(), new Date(2022, 10)];
@@ -43,7 +44,7 @@ function PersonalCalendar() {
   function getAppointments() {
     if (userId) {
       axios
-        .get(`http://localhost:8282/appointments/calendar`, {
+        .get('http://localhost:8282/appointments/calendar', {
           params: {
             user_id: userId,
           },
@@ -61,7 +62,7 @@ function PersonalCalendar() {
 
   async function getUserId() {
     await axios
-      .get(`http://localhost:8282/users/userId`, {
+      .get('http://localhost:8282/users/userId', {
         headers: {
           'x-access-token': localStorage.getItem('token'),
         },
@@ -134,7 +135,7 @@ function PersonalCalendar() {
   async function submitEvent(event) {
     event.preventDefault();
     const response = await axios.post(
-      `http://localhost:8282/appointments/new`,
+      'http://localhost:8282/appointments/new',
       {
         date: new Date(value),
         name,
@@ -153,6 +154,7 @@ function PersonalCalendar() {
 
   return (
     <>
+      <Navbar />
       <Calendar
         onChange={onChange}
         value={value}

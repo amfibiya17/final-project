@@ -3,6 +3,7 @@ import './signup.css';
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Navbar from './navbar';
 
 function Signup() {
   const navigate = useNavigate();
@@ -32,6 +33,8 @@ function Signup() {
 
   return (
     <div className="body">
+
+      <Navbar />
 
       <div className="Signup">
 
