@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
@@ -17,8 +18,11 @@ const UserController = {
   },
 
   GetAllUsers: async (req, res) => {
+    // console.log('req', req.query);
+    const { user_id } = req.query;
+    // console.log('user_id', user_id);
     try {
-      const users = await User.find().select('name');
+      const users = await User.find({ _id: { $ne: user_id } }).select('name');
       res.status(200).json(users);
     } catch (error) {
       res.status(400).json({ error: error.message });

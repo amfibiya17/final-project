@@ -62,11 +62,16 @@ function GroupCalendar() {
   }
 
   async function getAllUsers() {
-    await axios.get('http://localhost:8282/users/all')
-      .then((response) => {
-        setUsersAll([response.data]);
-        console.log(response.data);
-      });
+    if (userId) {
+      await axios.get('http://localhost:8282/users/all', {
+        params: {
+          user_id: userId,
+        },
+      })
+        .then((response) => {
+          setUsersAll(response.data);
+        });
+    }
   }
 
   useEffect(() => {
@@ -76,14 +81,19 @@ function GroupCalendar() {
       navigate('/login');
     } else {
       getUserId();
-      getAllUsers();
+      // getAllUsers();
     }
   }, []);
 
   useEffect(() => {
     setUserArray([userId]);
     getAppointments();
+    getAllUsers();
   }, [userId]);
+
+  // useEffect(() => {
+  //   getAppointments();
+  // }, [userArray]);
 
   function isSameDay(a, b) {
     return differenceInCalendarDays(a, b) === 0;
@@ -124,18 +134,37 @@ function GroupCalendar() {
 
   async function submitEvent(event) {
     event.preventDefault();
-    const response = await axios.post('http://localhost:8282/appointments/new', {
-      date: new Date(value),
-      name,
-      user_id: userId,
-    });
+    let response;
+    try {
+      response = await axios.post('http://localhost:8282/appointments/new', {
+        date: new Date(value),
+        name,
+        user_id: userArray,
+      });
+    } finally {
+      if (response) {
+        alert(`${name} is booked in`);
+        navigate('/home');
+      } else {
+        alert('try again... muhahahah');
+      }
+      setName('');
+    }
+    // const { data } = response;
+  }
 
-    const { data } = response;
-
-    console.log(data);
-
-    getAppointments();
-    setName('');
+  function addingUser(newUser) {
+    const auxArray = userArray;
+    if (auxArray.includes(newUser)) {
+      const index = auxArray.indexOf(newUser);
+      auxArray.splice(index, 1);
+      setUserArray(auxArray);
+      getAppointments();
+    } else {
+      auxArray.push(newUser);
+      setUserArray(auxArray);
+      getAppointments();
+    }
   }
 
   return (
@@ -155,6 +184,21 @@ function GroupCalendar() {
       <p>
         {/* {weather} */}
       </p>
+      <ul>
+        {usersAll.map((user, i) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <li key={i}>
+            <input
+              type="checkbox"
+              onChange={() => {
+                // eslint-disable-next-line no-underscore-dangle
+                addingUser(user._id);
+              }}
+            />
+            {user.name}
+          </li>
+        ))}
+      </ul>
       <form onSubmit={submitEvent}>
         <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="event" />
         <input type="submit" value="Submit" />
