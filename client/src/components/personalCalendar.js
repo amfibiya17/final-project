@@ -134,8 +134,11 @@ function PersonalCalendar() {
       user_id: userId,
     });
 
-    const { data } = response;
-
+    if (response) {
+      alert(`${name} is booked in`);
+    } else {
+      alert('try again... muhahahah');
+    }
     getAppointments();
     setName('');
   }

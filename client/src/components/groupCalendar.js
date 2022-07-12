@@ -148,7 +148,6 @@ function GroupCalendar() {
       } else {
         alert('try again... muhahahah');
       }
-      getAppointments();
       setName('');
     }
     // const { data } = response;
@@ -159,12 +158,10 @@ function GroupCalendar() {
     if (auxArray.includes(newUser)) {
       const index = auxArray.indexOf(newUser);
       auxArray.splice(index, 1);
-      console.log(auxArray);
       setUserArray(auxArray);
       getAppointments();
     } else {
       auxArray.push(newUser);
-      console.log(auxArray);
       setUserArray(auxArray);
       getAppointments();
     }
