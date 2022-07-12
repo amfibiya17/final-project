@@ -44,7 +44,7 @@ function PersonalCalendar() {
   function getAppointments() {
     if (userId) {
       axios
-        .get(`http://localhost:8282/appointments/calendar`, {
+        .get('http://localhost:8282/appointments/calendar', {
           params: {
             user_id: userId,
           },
@@ -62,7 +62,7 @@ function PersonalCalendar() {
 
   async function getUserId() {
     await axios
-      .get(`http://localhost:8282/users/userId`, {
+      .get('http://localhost:8282/users/userId', {
         headers: {
           'x-access-token': localStorage.getItem('token'),
         },
@@ -135,7 +135,7 @@ function PersonalCalendar() {
   async function submitEvent(event) {
     event.preventDefault();
     const response = await axios.post(
-      `http://localhost:8282/appointments/new`,
+      'http://localhost:8282/appointments/new',
       {
         date: new Date(value),
         name,
@@ -145,9 +145,9 @@ function PersonalCalendar() {
 
     if (response) {
       alert(`${name} is booked in`);
-      setError(null)
+      setError(null);
     } else {
-      setError('There was an error in your request. Please try again.')
+      setError('There was an error in your request. Please try again.');
     }
     getAppointments();
     setName('');
@@ -171,10 +171,10 @@ function PersonalCalendar() {
         {/* {weather} */}
       </p>
       <form onSubmit={submitEvent}>
-        <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="event" required/>
+        <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="event" required />
         <input type="submit" value="Submit" />
       </form>
-      {error && <div className='error'>{error}</div>}
+      {error && <div className="error">{error}</div>}
       <button
         type="button"
         onClick={() => {
