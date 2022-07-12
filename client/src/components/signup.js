@@ -10,11 +10,14 @@ function Signup() {
 
   async function signupUser(event) {
     event.preventDefault();
-    const response = await axios.post(`http://localhost:${process.env.PORT}/users/signup`, {
-      name,
-      email,
-      password,
-    });
+    const response = await axios.post(
+      `http://localhost:${process.env.PORT}/users/signup`,
+      {
+        name,
+        email,
+        password,
+      }
+    );
 
     setName('');
     setEmail('');
@@ -30,27 +33,27 @@ function Signup() {
       <h1>Signup</h1>
       <form onSubmit={signupUser}>
         <input
-          type="text"
+          type='text'
           onChange={(e) => setName(e.target.value)}
           value={name}
-          placeholder="Name"
+          placeholder='Name'
         />
         <br />
         <input
-          type="email"
+          type='email'
           onChange={(e) => setEmail(e.target.value)}
           value={email}
-          placeholder="Email"
+          placeholder='Email'
         />
         <br />
         <input
-          type="password"
+          type='password'
           onChange={(e) => setPassword(e.target.value)}
           value={password}
-          placeholder="Password"
+          placeholder='Password'
         />
         <br />
-        <input type="submit" value="Signup" />
+        <input type='submit' value='Signup' />
       </form>
     </div>
   );
