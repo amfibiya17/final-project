@@ -7,3 +7,4 @@ describe("Log in", () => {
     cy.get('[data-cy="login"]').click();
   });
 });
+
