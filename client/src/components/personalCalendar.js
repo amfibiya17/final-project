@@ -173,8 +173,8 @@ function PersonalCalendar() {
         {/* {weather} */}
       </p>
       <form onSubmit={submitEvent}>
-        <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="event" required />
-        <input type="submit" value="Submit" />
+        <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="event" />
+        <input disabled={!name} type="submit" value="Submit" />
       </form>
       {error && <div className="error">{error}</div>}
       {success && <div className="success">{success}</div>}
