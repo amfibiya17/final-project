@@ -8,6 +8,7 @@ import './personalCalendar.css';
 import './groupCalendar.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+// import GroupCalSelect from './groupCalSelect';
 
 // const disabledDates = [new Date(), new Date(2022, 10)];
 // const datesToAddContentTo = [new Date(), new Date(2022, 10)];
@@ -30,6 +31,7 @@ function GroupCalendar() {
   const [userId, setUserId] = useState();
   const [userArray, setUserArray] = useState([]);
   const [usersAll, setUsersAll] = useState([]);
+  const [foundUsers, setFoundUsers] = useState(usersAll);
   // const [weather, setWeather] = useState();
 
   function getAppointments() {
@@ -170,6 +172,23 @@ function GroupCalendar() {
     }
   }
 
+  const filter = (a) => {
+    const keyword = a.target.value;
+
+    if (keyword !== '') {
+      const results = usersAll.filter((user) =>
+        user.name.toLowerCase().startsWith(keyword.toLowerCase())
+        // Use the toLowerCase() method to make it case-insensitive
+      );
+      setFoundUsers(results);
+    } else {
+      setFoundUsers(usersAll);
+      // If the text field is empty, show all users
+    }
+
+    setName(keyword);
+  };
+
   return (
     <>
       <Calendar
@@ -189,7 +208,57 @@ function GroupCalendar() {
       </p>
       <div className="groupEventUsers">
         <div>Add participants:</div>
+        <div>
+          <input
+            type="search"
+            value={name}
+            onChange={filter}
+            className="input"
+            placeholder="Filter"
+          />
+        </div>
         <div className="scrollbox">
+          <div className="user-list">
+            {foundUsers && foundUsers.length > 0 ? (
+              foundUsers.map((user, i) => (
+                <div key={i}>
+                  <input
+                    type="checkbox"
+                    onChange={() => {
+                      // eslint-disable-next-line no-underscore-dangle
+                      addingUser(user._id);
+                    }}
+                  />
+                  {user.name}
+                </div>
+                // <li key={user.id} className="user">
+                //   <span className="user-name">{user.name}</span>
+                // </li>
+                // <li key={user.id} className="user">
+                //   <span className="user-name">{user.name}</span>
+                // </li>
+              ))
+            ) : (
+              <h1>No results found!</h1>
+            )}
+          </div>
+          {/* <div>
+            {usersAll.map((user, i) => (
+              // eslint-disable-next-line react/no-array-index-key
+              <div key={i}>
+                <input
+                  type="checkbox"
+                  onChange={() => {
+                    // eslint-disable-next-line no-underscore-dangle
+                    addingUser(user._id);
+                  }}
+                />
+                {user.name}
+              </div>
+            ))}
+          </div> */}
+        </div>
+        {/* <div className="scrollbox">
           {usersAll.map((user, i) => (
             // eslint-disable-next-line react/no-array-index-key
             <div key={i}>
@@ -203,7 +272,7 @@ function GroupCalendar() {
               {user.name}
             </div>
           ))}
-        </div>
+        </div> */}
       </div>
       <form onSubmit={submitEvent}>
         <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="event" />
