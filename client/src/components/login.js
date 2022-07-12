@@ -21,7 +21,6 @@ function Login() {
 
     if (response.data.user) {
       localStorage.setItem('token', response.data.user);
-      alert('Login successful');
       navigate('/home');
     } else {
       setError('Please check your username and password');
@@ -61,7 +60,7 @@ function Login() {
           </div>
 
           <button className="login-button" type="submit">Log In</button>
-          {error && <div className='error'>{error}</div>}
+          {error && <div className="error">{error}</div>}
         </form>
 
       </div>
