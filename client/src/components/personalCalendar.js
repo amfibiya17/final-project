@@ -39,6 +39,7 @@ function PersonalCalendar() {
   const [appointmentName, setAppointmentName] = useState('');
   const [userId, setUserId] = useState();
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
   // const [weather, setWeather] = useState();
 
   function getAppointments() {
@@ -144,10 +145,11 @@ function PersonalCalendar() {
     );
 
     if (response) {
-      alert(`${name} is booked in`);
+      setSuccess(`${name} has been added to your calendar!`);
       setError(null);
     } else {
       setError('There was an error in your request. Please try again.');
+      setSuccess(null);
     }
     getAppointments();
     setName('');
@@ -175,6 +177,7 @@ function PersonalCalendar() {
         <input type="submit" value="Submit" />
       </form>
       {error && <div className="error">{error}</div>}
+      {success && <div className="success">{success}</div>}
       <button
         type="button"
         onClick={() => {
