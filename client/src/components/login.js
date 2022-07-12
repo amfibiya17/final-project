@@ -23,7 +23,7 @@ function Login() {
       localStorage.setItem('token', response.data.user);
       navigate('/home');
     } else {
-      setError('Please check your username and password');
+      setError('Please check your username and password.');
     }
 
     setEmail('');
