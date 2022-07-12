@@ -6,7 +6,7 @@ const AppointmentController = {
   GetAppointments: async (req, res) => {
     const { user_id } = req.query;
     try {
-      const appointments = await Appointment.find({ user_id: { $in: user_id } });
+      const appointments = await Appointment.find({ user_id: { $in: user_id } }).sort('date');
       res.status(200).json(appointments);
     } catch (error) {
       res.status(400).json({ error: error.message });

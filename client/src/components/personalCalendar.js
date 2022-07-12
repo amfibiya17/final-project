@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable consistent-return */
 /* eslint-disable react/jsx-no-bind */
 import React, { useEffect, useState } from 'react';
@@ -182,6 +183,20 @@ function PersonalCalendar() {
       >
         Create group event
       </button>
+      <div>
+        <ul>
+          {appointmentsArray
+            .filter((appointment) => new Date(new Date(appointment.date)
+              .getTime() + (1000 * 3600 * 20)) >= new Date())
+            .map((appointment, index) => (
+              <li key={index}>
+                <span>{new Date(appointment.date).toLocaleDateString()}</span>
+                &ensp;
+                <span>{appointment.name}</span>
+              </li>
+            ))}
+        </ul>
+      </div>
     </>
   );
 }
