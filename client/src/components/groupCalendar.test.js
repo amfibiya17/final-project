@@ -1,12 +1,12 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
-import PersonalCalendar from './personalCalendar';
+import GroupCalendar from './groupCalendar';
 
 test('Can render the calendar', () => {
   const { container } = render(
     <Router>
-      <PersonalCalendar />
+      <GroupCalendar />
     </Router>
   );
   expect(container.firstChild.classList.contains('react-calendar')).toBe(true);
@@ -15,7 +15,7 @@ test('Can render the calendar', () => {
 test('Button should be rendered', () => {
   render(
     <Router>
-      <PersonalCalendar />
+      <GroupCalendar />
     </Router>
   );
   const buttonInputEl = screen.getByRole('button', {
@@ -29,7 +29,7 @@ test('Can click on date and date buttons to be rendered', () => {
   let todaysDate = newDate.toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'})
   render(
     <Router>
-      <PersonalCalendar />
+      <GroupCalendar />
     </Router>
   );
   const element = screen.getByRole('button', {
@@ -47,7 +47,7 @@ test('Can click on date and for the selected date to be shown', () => {
   let selectedDate = newDate2.toLocaleDateString('en-US', {month: 'short', day: 'numeric'})
   render(
     <Router>
-      <PersonalCalendar />
+      <GroupCalendar />
     </Router>
   );
   const element = screen.getByRole('button', {
@@ -68,7 +68,7 @@ test('Can click on date and for the selected date to be shown', () => {
 test('event name input should be rendered', () => {
   render(
     <Router>
-      <PersonalCalendar />
+      <GroupCalendar />
     </Router>
   );
   const nameInputEl = screen.getByPlaceholderText(/event/i);
@@ -78,7 +78,7 @@ test('event name input should be rendered', () => {
 test('event name input should be empty', () => {
   render(
     <Router>
-      <PersonalCalendar />
+      <GroupCalendar />
     </Router>
   );
   const nameInputEl = screen.getByPlaceholderText(/event/i);
@@ -88,11 +88,11 @@ test('event name input should be empty', () => {
 test('event name input should change', () => {
   render(
     <Router>
-      <PersonalCalendar />
+      <GroupCalendar />
     </Router>
   );
   const nameInputEl = screen.getByPlaceholderText(/event/i);
-  const testValue = 'test dinner';
+  const testValue = 'test group dinner';
 
   fireEvent.change(nameInputEl, { target: { value: testValue } });
   expect(nameInputEl.value).toBe(testValue);
