@@ -193,6 +193,13 @@ function PersonalCalendar() {
                 <span>{new Date(appointment.date).toLocaleDateString()}</span>
                 &ensp;
                 <span>{appointment.name}</span>
+                {appointment.user_id.map((user, i) => (
+                  <span key={i}>
+                    {user.name}
+                  &ensp;
+                  </span>
+                ))}
+                {/* <span>{appointment.user_id}</span> */}
               </li>
             ))}
         </ul>
