@@ -3,6 +3,7 @@ import './signup.css';
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import getBackend from '../globals';
 
 function Signup() {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ function Signup() {
   async function signupUser(event) {
     event.preventDefault();
     const response = await axios.post(
-      'http://localhost:8282/users/signup',
+      `${getBackend()}/users/signup`,
       {
         name,
         email,

@@ -3,6 +3,7 @@ import './login.css';
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import getBackend from '../globals';
 
 function Login() {
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ function Login() {
 
   async function loginUser(event) {
     event.preventDefault();
-    const response = await axios.post('http://localhost:8282/users/login', {
+    const response = await axios.post(`${getBackend()}/users/login`, {
       email,
       password,
     });

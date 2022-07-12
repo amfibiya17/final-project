@@ -8,6 +8,7 @@ import { differenceInCalendarDays } from 'date-fns';
 import './personalCalendar.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import getBackend from '../globals';
 
 // const disabledDates = [new Date(), new Date(2022, 10)];
 // const datesToAddContentTo = [new Date(), new Date(2022, 10)];
@@ -34,7 +35,7 @@ function GroupCalendar() {
 
   function getAppointments() {
     if (userId) {
-      axios.get('http://localhost:8282/appointments/calendar', {
+      axios.get(`${getBackend()}/appointments/calendar`, {
         params: {
           user_id: userArray,
         },
@@ -50,7 +51,7 @@ function GroupCalendar() {
   }
 
   async function getUserId() {
-    await axios.get('http://localhost:8282/users/userId', {
+    await axios.get(`${getBackend()}/users/userId`, {
       headers: {
         'x-access-token': localStorage.getItem('token'),
       },
@@ -63,7 +64,7 @@ function GroupCalendar() {
 
   async function getAllUsers() {
     if (userId) {
-      await axios.get('http://localhost:8282/users/all', {
+      await axios.get(`${getBackend()}/users/all`, {
         params: {
           user_id: userId,
         },
@@ -136,7 +137,7 @@ function GroupCalendar() {
     event.preventDefault();
     let response;
     try {
-      response = await axios.post('http://localhost:8282/appointments/new', {
+      response = await axios.post(`${getBackend()}/appointments/new`, {
         date: new Date(value),
         name,
         user_id: userArray,
