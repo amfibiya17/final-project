@@ -153,16 +153,18 @@ function PersonalCalendar() {
     setName('');
   }
 
-  async function deleteEvent(eventId) {
-    const response = await axios.delete(
-      'http://localhost:8282/appointments/delete',
-      {
-        params: {
-          eventId,
+  async function deleteEvent(eventId, eventUsersId) {
+    if (eventUsersId.length <= 2) {
+      const response = await axios.delete(
+        'http://localhost:8282/appointments/delete',
+        {
+          params: {
+            eventId,
+          },
         },
-      },
-    );
-    getAppointments();
+      );
+      getAppointments();
+    }
   }
 
   return (
@@ -232,7 +234,7 @@ function PersonalCalendar() {
                   type="submit"
                   onClick={() => {
                     // eslint-disable-next-line no-underscore-dangle
-                    deleteEvent(appointment._id);
+                    deleteEvent(appointment._id, appointment.user_id);
                   }}
                 >
                   delete
