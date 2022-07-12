@@ -38,6 +38,7 @@ function PersonalCalendar() {
   const [appointmentsArray, setAppointmentsArray] = useState([]);
   const [appointmentName, setAppointmentName] = useState('');
   const [userId, setUserId] = useState();
+  const [error, setError] = useState(null);
   // const [weather, setWeather] = useState();
 
   function getAppointments() {
@@ -144,8 +145,9 @@ function PersonalCalendar() {
 
     if (response) {
       alert(`${name} is booked in`);
+      setError(null)
     } else {
-      alert('try again... muhahahah');
+      setError('There was an error in your request. Please try again.')
     }
     getAppointments();
     setName('');
