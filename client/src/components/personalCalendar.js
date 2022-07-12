@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable consistent-return */
 /* eslint-disable react/jsx-no-bind */
 import React, { useEffect, useState } from 'react';
@@ -41,11 +42,12 @@ function PersonalCalendar() {
 
   function getAppointments() {
     if (userId) {
-      axios.get('http://localhost:8282/appointments/calendar', {
-        params: {
-          user_id: userId,
-        },
-      })
+      axios
+        .get(`http://localhost:8282/appointments/calendar`, {
+          params: {
+            user_id: userId,
+          },
+        })
         .then((response) => {
           setAppointmentsArray(response.data);
           const data = [];
@@ -58,11 +60,12 @@ function PersonalCalendar() {
   }
 
   async function getUserId() {
-    await axios.get('http://localhost:8282/users/userId', {
-      headers: {
-        'x-access-token': localStorage.getItem('token'),
-      },
-    })
+    await axios
+      .get(`http://localhost:8282/users/userId`, {
+        headers: {
+          'x-access-token': localStorage.getItem('token'),
+        },
+      })
       .then((response) => {
         setUserId(response.data);
       });
@@ -100,7 +103,9 @@ function PersonalCalendar() {
     let a = 0;
     appointmentsArray.forEach((appointment) => {
       // eslint-disable-next-line eqeqeq
-      if (new Date(appointment.date).toDateString() == new Date(selectedDate).toDateString()) {
+      if (
+        new Date(appointment.date).toDateString() === new Date(selectedDate).toDateString()
+      ) {
         setAppointmentName(appointment.name);
         a = 1;
       }
@@ -128,11 +133,14 @@ function PersonalCalendar() {
 
   async function submitEvent(event) {
     event.preventDefault();
-    const response = await axios.post('http://localhost:8282/appointments/new', {
-      date: new Date(value),
-      name,
-      user_id: userId,
-    });
+    const response = await axios.post(
+      `http://localhost:8282/appointments/new`,
+      {
+        date: new Date(value),
+        name,
+        user_id: userId,
+      },
+    );
 
     if (response) {
       alert(`${name} is booked in`);
@@ -154,7 +162,6 @@ function PersonalCalendar() {
       />
       <p className="text-center">
         <span className="bold">Selected Date:</span>
-        {' '}
         {value.toDateString()}
       </p>
       <p>
@@ -182,6 +189,30 @@ function PersonalCalendar() {
       >
         Create group event
       </button>
+      <div>
+        <ul>
+          {appointmentsArray
+            .filter((appointment) => new Date(new Date(appointment.date)
+              .getTime() + (1000 * 3600 * 20)) >= new Date())
+            .map((appointment, index) => (
+              <li key={index}>
+                <span>{new Date(appointment.date).toLocaleDateString()}</span>
+                  &ensp;
+                <span>
+                  {appointment.name}
+                  &ensp;
+                </span>
+                {appointment.user_id.map((user, i) => (
+                  <span key={i}>
+                    {user.name}
+                  &ensp;
+                  </span>
+                ))}
+                {/* <span>{appointment.user_id}</span> */}
+              </li>
+            ))}
+        </ul>
+      </div>
     </>
   );
 }
