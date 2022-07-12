@@ -191,6 +191,7 @@ function GroupCalendar() {
             <input
               type="checkbox"
               data-testid="checkbox"
+              data-cy="checkbox"
               onChange={() => {
                 // eslint-disable-next-line no-underscore-dangle
                 addingUser(user._id);
@@ -202,7 +203,7 @@ function GroupCalendar() {
       </ul>
       <form onSubmit={submitEvent}>
         <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="event" />
-        <input type="submit" value="Submit" />
+        <input type="submit" data-cy="submit-group-event" value="Submit" />
       </form>
       <button
         type="button"

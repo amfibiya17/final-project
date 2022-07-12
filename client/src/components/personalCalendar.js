@@ -182,6 +182,7 @@ function PersonalCalendar() {
       </button>
       <button
         type="button"
+        data-cy="create-group-event"
         onClick={() => {
           navigate('/group_event');
         }}

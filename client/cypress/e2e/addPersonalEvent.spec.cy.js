@@ -1,6 +1,3 @@
-let newDate = new Date();
-const todaysDate = newDate.toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric'})
-
 describe("add personal event", () => {
   it("can make a personal event", () => {
     cy.visit("http://localhost:3000/login");
