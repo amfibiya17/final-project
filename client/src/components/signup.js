@@ -13,7 +13,7 @@ function Signup() {
   async function signupUser(event) {
     event.preventDefault();
     const response = await axios.post(
-      `http://localhost:8282/users/signup`,
+      'http://localhost:8282/users/signup',
       {
         name,
         email,
