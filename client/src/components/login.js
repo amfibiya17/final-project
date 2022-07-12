@@ -11,12 +11,10 @@ function Login() {
 
   async function loginUser(event) {
     event.preventDefault();
-    const response = await axios.post('http://localhost:8282/users/login', {
+    const response = await axios.post('http://localhost:$8282/users/login', {
       email,
       password,
     });
-
-    console.log(response.data);
 
     if (response.data.user) {
       localStorage.setItem('token', response.data.user);
