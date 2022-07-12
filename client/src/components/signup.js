@@ -18,7 +18,7 @@ function Signup() {
         name,
         email,
         password,
-      }
+      },
     );
 
     setName('');

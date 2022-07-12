@@ -103,8 +103,7 @@ function PersonalCalendar() {
     appointmentsArray.forEach((appointment) => {
       // eslint-disable-next-line eqeqeq
       if (
-        new Date(appointment.date).toDateString() ==
-        new Date(selectedDate).toDateString()
+        new Date(appointment.date).toDateString() === new Date(selectedDate).toDateString()
       ) {
         setAppointmentName(appointment.name);
         a = 1;
@@ -139,7 +138,7 @@ function PersonalCalendar() {
         date: new Date(value),
         name,
         user_id: userId,
-      }
+      },
     );
 
     if (response) {
@@ -160,8 +159,9 @@ function PersonalCalendar() {
         // tileContent={tileContent}
         tileClassName={tileClassName}
       />
-      <p className='text-center'>
-        <span className='bold'>Selected Date:</span> {value.toDateString()}
+      <p className="text-center">
+        <span className="bold">Selected Date:</span>
+        {value.toDateString()}
       </p>
       <p>
         {appointmentName}
@@ -172,11 +172,12 @@ function PersonalCalendar() {
         <input type="submit" value="Submit" />
       </form>
       <button
-        type='button'
+        type="button"
         onClick={() => {
           localStorage.removeItem('token');
           navigate('/login');
-        }}>
+        }}
+      >
         Log out
       </button>
       <button
