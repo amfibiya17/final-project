@@ -5,19 +5,21 @@ require('../mongodb_helper');
 const Appointment = require('../../models/appointment');
 
 describe('Appointment model', () => {
-  let mockUserId;
+  let mockUserId1;
+  let mockUserId2;
   let mockDate;
   let appointment;
   beforeEach((done) => {
     mongoose.connection.collections.appointments.drop(() => {
       done();
     });
-    mockUserId = new mongoose.Types.ObjectId();
+    mockUserId1 = new mongoose.Types.ObjectId();
+    mockUserId2 = new mongoose.Types.ObjectId();
     mockDate = new Date();
     appointment = new Appointment({
       date: mockDate,
       name: 'Event',
-      user_id: mockUserId,
+      user_id: [mockUserId1, mockUserId2],
     });
   });
 
@@ -29,8 +31,12 @@ describe('Appointment model', () => {
     expect(appointment.name).toBe('Event');
   });
 
-  it('has a user_id', () => {
-    expect(appointment.user_id).toEqual([mockUserId]);
+  it('has one of two Users in user_id', () => {
+    expect(appointment.user_id[0]).toEqual(mockUserId1);
+  });
+
+  it('has two of two Users in user_id', () => {
+    expect(appointment.user_id[1]).toEqual(mockUserId2);
   });
 
   it('can save an appointment', (done) => {
@@ -43,7 +49,7 @@ describe('Appointment model', () => {
         expect(appointments[0]).toMatchObject({
           date: mockDate,
           name: 'Event',
-          user_id: mockUserId,
+          user_id: [mockUserId1, mockUserId2],
         });
         done();
       });
