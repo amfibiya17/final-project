@@ -29,6 +29,18 @@ const AppointmentController = {
       res.status(400).json({ error: error.message });
     }
   },
+
+  DeleteAppointment: async (req, res) => {
+    const { eventId } = req.query;
+
+    try {
+      await Appointment.remove({ _id: eventId });
+      res.status(200).json({ message: 'ok' });
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  },
+
 };
 
 module.exports = AppointmentController;

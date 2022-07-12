@@ -56,8 +56,8 @@ function GroupCalendar() {
       },
     })
       .then((response) => {
-        setUserId(response.data);
-        setUserArray(response.data);
+        setUserId(response.data.user_id);
+        setUserArray(response.data.user_id);
       });
   }
 

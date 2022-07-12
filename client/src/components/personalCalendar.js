@@ -38,12 +38,13 @@ function PersonalCalendar() {
   const [appointmentsArray, setAppointmentsArray] = useState([]);
   const [appointmentName, setAppointmentName] = useState('');
   const [userId, setUserId] = useState();
+  const [userName, setUserName] = useState('');
   // const [weather, setWeather] = useState();
 
   function getAppointments() {
     if (userId) {
       axios
-        .get(`http://localhost:8282/appointments/calendar`, {
+        .get('http://localhost:8282/appointments/calendar', {
           params: {
             user_id: userId,
           },
@@ -61,13 +62,14 @@ function PersonalCalendar() {
 
   async function getUserId() {
     await axios
-      .get(`http://localhost:8282/users/userId`, {
+      .get('http://localhost:8282/users/userId', {
         headers: {
           'x-access-token': localStorage.getItem('token'),
         },
       })
       .then((response) => {
-        setUserId(response.data);
+        setUserId(response.data.user_id);
+        setUserName(response.data.name);
       });
   }
 
@@ -134,7 +136,7 @@ function PersonalCalendar() {
   async function submitEvent(event) {
     event.preventDefault();
     const response = await axios.post(
-      `http://localhost:8282/appointments/new`,
+      'http://localhost:8282/appointments/new',
       {
         date: new Date(value),
         name,
@@ -151,8 +153,26 @@ function PersonalCalendar() {
     setName('');
   }
 
+  async function deleteEvent(eventId) {
+    const response = await axios.delete(
+      'http://localhost:8282/appointments/delete',
+      {
+        params: {
+          eventId,
+        },
+      },
+    );
+    getAppointments();
+  }
+
   return (
     <>
+      <h1>
+        Hi
+        {' '}
+        {userName}
+        , this is you personal Calendar
+      </h1>
       <Calendar
         onChange={onChange}
         value={value}
@@ -208,7 +228,15 @@ function PersonalCalendar() {
                   &ensp;
                   </span>
                 ))}
-                {/* <span>{appointment.user_id}</span> */}
+                <button
+                  type="submit"
+                  onClick={() => {
+                    // eslint-disable-next-line no-underscore-dangle
+                    deleteEvent(appointment._id);
+                  }}
+                >
+                  delete
+                </button>
               </li>
             ))}
         </ul>
