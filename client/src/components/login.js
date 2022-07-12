@@ -9,10 +9,13 @@ function Login() {
 
   async function loginUser(event) {
     event.preventDefault();
-    const response = await axios.post(`http://localhost:${process.env.PORT}/users/login`, {
-      email,
-      password,
-    });
+    const response = await axios.post(
+      `http://localhost:${process.env.PORT}/users/login`,
+      {
+        email,
+        password,
+      }
+    );
 
     console.log(response.data);
 
@@ -33,20 +36,20 @@ function Login() {
       <h1>Login</h1>
       <form onSubmit={loginUser}>
         <input
-          type="email"
+          type='email'
           onChange={(e) => setEmail(e.target.value)}
           value={email}
-          placeholder="Email"
+          placeholder='Email'
         />
         <br />
         <input
-          type="password"
+          type='password'
           onChange={(e) => setPassword(e.target.value)}
           value={password}
-          placeholder="Password"
+          placeholder='Password'
         />
         <br />
-        <input type="submit" value="Login" />
+        <input type='submit' value='Login' />
       </form>
     </div>
   );

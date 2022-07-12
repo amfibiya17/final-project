@@ -8,5 +8,5 @@ test('Can click on date', () => {
       <PersonalCalendar />
     </Router>
   );
-  expect(container.firstChild.classList.contains('react-calendar')).toBe(true)
+  expect(container.firstChild.classList.contains('react-calendar')).toBe(true);
 });

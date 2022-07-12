@@ -41,11 +41,12 @@ function PersonalCalendar() {
 
   function getAppointments() {
     if (userId) {
-      axios.get(`http://localhost:${process.env.PORT}/appointments/calendar`, {
-        params: {
-          user_id: userId,
-        },
-      })
+      axios
+        .get(`http://localhost:${process.env.PORT}/appointments/calendar`, {
+          params: {
+            user_id: userId,
+          },
+        })
         .then((response) => {
           setAppointmentsArray(response.data);
           const data = [];
@@ -58,11 +59,12 @@ function PersonalCalendar() {
   }
 
   async function getUserId() {
-    await axios.get(`http://localhost:${process.env.PORT}/users/userId`, {
-      headers: {
-        'x-access-token': localStorage.getItem('token'),
-      },
-    })
+    await axios
+      .get(`http://localhost:${process.env.PORT}/users/userId`, {
+        headers: {
+          'x-access-token': localStorage.getItem('token'),
+        },
+      })
       .then((response) => {
         setUserId(response.data);
       });
@@ -100,7 +102,10 @@ function PersonalCalendar() {
     let a = 0;
     appointmentsArray.forEach((appointment) => {
       // eslint-disable-next-line eqeqeq
-      if (new Date(appointment.date).toDateString() == new Date(selectedDate).toDateString()) {
+      if (
+        new Date(appointment.date).toDateString() ==
+        new Date(selectedDate).toDateString()
+      ) {
         setAppointmentName(appointment.name);
         a = 1;
       }
@@ -111,8 +116,13 @@ function PersonalCalendar() {
   }
 
   async function getWeather(day) {
-    await axios.get(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/london/${day.toISOString().split('T')[0]}?unitGroup=metric&include=days&key=BQ886JAS7TD7RNBNA8DW9JENC&contentType=json`, {
-    })
+    await axios
+      .get(
+        `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/london/${
+          day.toISOString().split('T')[0]
+        }?unitGroup=metric&include=days&key=BQ886JAS7TD7RNBNA8DW9JENC&contentType=json`,
+        {}
+      )
       .then((response) => {
         console.log(response.data);
         setWeather(response.data.days[0].tempmax);
@@ -120,7 +130,7 @@ function PersonalCalendar() {
   }
 
   function onChange(nextValue) {
-    const nextDay = new Date(nextValue.getTime() + (1000 * 3600 * 24));
+    const nextDay = new Date(nextValue.getTime() + 1000 * 3600 * 24);
     setValue(nextValue);
     appointmentInformation(nextValue);
     getWeather(nextDay);
@@ -128,11 +138,14 @@ function PersonalCalendar() {
 
   async function submitEvent(event) {
     event.preventDefault();
-    const response = await axios.post(`http://localhost:${process.env.PORT}/appointments/new`, {
-      date: new Date(value),
-      name,
-      user_id: userId,
-    });
+    const response = await axios.post(
+      `http://localhost:${process.env.PORT}/appointments/new`,
+      {
+        date: new Date(value),
+        name,
+        user_id: userId,
+      }
+    );
 
     const { data } = response;
 
@@ -151,26 +164,28 @@ function PersonalCalendar() {
         // tileContent={tileContent}
         tileClassName={tileClassName}
       />
-      <p className="text-center">
-        <span className="bold">Selected Date:</span>
-        {' '}
-        {value.toDateString()}
+      <p className='text-center'>
+        <span className='bold'>Selected Date:</span> {value.toDateString()}
       </p>
       <p>
         {appointmentName}
         {weather}
       </p>
       <form onSubmit={submitEvent}>
-        <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="name" />
-        <input type="submit" value="Submit" />
+        <input
+          type='text'
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder='name'
+        />
+        <input type='submit' value='Submit' />
       </form>
       <button
-        type="button"
+        type='button'
         onClick={() => {
           localStorage.removeItem('token');
           navigate('/login');
-        }}
-      >
+        }}>
         Log out
       </button>
     </>
