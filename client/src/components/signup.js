@@ -12,11 +12,14 @@ function Signup() {
 
   async function signupUser(event) {
     event.preventDefault();
-    const response = await axios.post(`http://localhost:${process.env.PORT}/users/signup`, {
-      name,
-      email,
-      password,
-    });
+    const response = await axios.post(
+      `http://localhost:${process.env.PORT}/users/signup`,
+      {
+        name,
+        email,
+        password,
+      }
+    );
 
     setName('');
     setEmail('');

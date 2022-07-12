@@ -41,11 +41,12 @@ function PersonalCalendar() {
 
   function getAppointments() {
     if (userId) {
-      axios.get(`http://localhost:${process.env.PORT}/appointments/calendar`, {
-        params: {
-          user_id: userId,
-        },
-      })
+      axios
+        .get(`http://localhost:${process.env.PORT}/appointments/calendar`, {
+          params: {
+            user_id: userId,
+          },
+        })
         .then((response) => {
           setAppointmentsArray(response.data);
           const data = [];
@@ -58,11 +59,12 @@ function PersonalCalendar() {
   }
 
   async function getUserId() {
-    await axios.get(`http://localhost:${process.env.PORT}/users/userId`, {
-      headers: {
-        'x-access-token': localStorage.getItem('token'),
-      },
-    })
+    await axios
+      .get(`http://localhost:${process.env.PORT}/users/userId`, {
+        headers: {
+          'x-access-token': localStorage.getItem('token'),
+        },
+      })
       .then((response) => {
         setUserId(response.data);
       });
@@ -100,7 +102,10 @@ function PersonalCalendar() {
     let a = 0;
     appointmentsArray.forEach((appointment) => {
       // eslint-disable-next-line eqeqeq
-      if (new Date(appointment.date).toDateString() == new Date(selectedDate).toDateString()) {
+      if (
+        new Date(appointment.date).toDateString() ==
+        new Date(selectedDate).toDateString()
+      ) {
         setAppointmentName(appointment.name);
         a = 1;
       }
@@ -128,11 +133,14 @@ function PersonalCalendar() {
 
   async function submitEvent(event) {
     event.preventDefault();
-    const response = await axios.post(`http://localhost:${process.env.PORT}/appointments/new`, {
-      date: new Date(value),
-      name,
-      user_id: userId,
-    });
+    const response = await axios.post(
+      `http://localhost:${process.env.PORT}/appointments/new`,
+      {
+        date: new Date(value),
+        name,
+        user_id: userId,
+      }
+    );
 
     if (response) {
       alert(`${name} is booked in`);
@@ -152,10 +160,8 @@ function PersonalCalendar() {
         // tileContent={tileContent}
         tileClassName={tileClassName}
       />
-      <p className="text-center">
-        <span className="bold">Selected Date:</span>
-        {' '}
-        {value.toDateString()}
+      <p className='text-center'>
+        <span className='bold'>Selected Date:</span> {value.toDateString()}
       </p>
       <p>
         {appointmentName}
@@ -166,12 +172,11 @@ function PersonalCalendar() {
         <input type="submit" value="Submit" />
       </form>
       <button
-        type="button"
+        type='button'
         onClick={() => {
           localStorage.removeItem('token');
           navigate('/login');
-        }}
-      >
+        }}>
         Log out
       </button>
       <button
