@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable consistent-return */
 /* eslint-disable react/jsx-no-bind */
 import React, { useEffect, useState } from 'react';
@@ -42,7 +43,7 @@ function PersonalCalendar() {
   function getAppointments() {
     if (userId) {
       axios
-        .get(`http://localhost:${process.env.PORT}/appointments/calendar`, {
+        .get(`http://localhost:8282/appointments/calendar`, {
           params: {
             user_id: userId,
           },
@@ -60,7 +61,7 @@ function PersonalCalendar() {
 
   async function getUserId() {
     await axios
-      .get(`http://localhost:${process.env.PORT}/users/userId`, {
+      .get(`http://localhost:8282/users/userId`, {
         headers: {
           'x-access-token': localStorage.getItem('token'),
         },
@@ -133,7 +134,7 @@ function PersonalCalendar() {
   async function submitEvent(event) {
     event.preventDefault();
     const response = await axios.post(
-      `http://localhost:${process.env.PORT}/appointments/new`,
+      `http://localhost:8282/appointments/new`,
       {
         date: new Date(value),
         name,
@@ -188,6 +189,30 @@ function PersonalCalendar() {
       >
         Create group event
       </button>
+      <div>
+        <ul>
+          {appointmentsArray
+            .filter((appointment) => new Date(new Date(appointment.date)
+              .getTime() + (1000 * 3600 * 20)) >= new Date())
+            .map((appointment, index) => (
+              <li key={index}>
+                <span>{new Date(appointment.date).toLocaleDateString()}</span>
+                  &ensp;
+                <span>
+                  {appointment.name}
+                  &ensp;
+                </span>
+                {appointment.user_id.map((user, i) => (
+                  <span key={i}>
+                    {user.name}
+                  &ensp;
+                  </span>
+                ))}
+                {/* <span>{appointment.user_id}</span> */}
+              </li>
+            ))}
+        </ul>
+      </div>
     </>
   );
 }
