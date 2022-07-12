@@ -30,6 +30,7 @@ function GroupCalendar() {
   const [userId, setUserId] = useState();
   const [userArray, setUserArray] = useState([]);
   const [usersAll, setUsersAll] = useState([]);
+  const [error, setError] = useState(null);
   // const [weather, setWeather] = useState();
 
   function getAppointments() {
@@ -146,7 +147,7 @@ function GroupCalendar() {
         alert(`${name} is booked in`);
         navigate('/home');
       } else {
-        alert('try again... muhahahah');
+        setError('There was an error in your request. Please try again.')
       }
       setName('');
     }
@@ -202,6 +203,7 @@ function GroupCalendar() {
       <form onSubmit={submitEvent}>
         <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="event" />
         <input type="submit" value="Submit" />
+        {error && <div className='error'>{error}</div>}
       </form>
       <button
         type="button"
