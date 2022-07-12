@@ -71,7 +71,7 @@ test('event name input should be rendered', () => {
       <PersonalCalendar />
     </Router>
   );
-  const nameInputEl = screen.getByPlaceholderText(/name/i);
+  const nameInputEl = screen.getByPlaceholderText(/event/i);
   expect(nameInputEl).toBeInTheDocument();
 });
 
@@ -81,7 +81,7 @@ test('event name input should be empty', () => {
       <PersonalCalendar />
     </Router>
   );
-  const nameInputEl = screen.getByPlaceholderText(/name/i);
+  const nameInputEl = screen.getByPlaceholderText(/event/i);
   expect(nameInputEl.value).toBe('');
 });
 
@@ -91,7 +91,7 @@ test('event name input should change', () => {
       <PersonalCalendar />
     </Router>
   );
-  const nameInputEl = screen.getByPlaceholderText(/name/i);
+  const nameInputEl = screen.getByPlaceholderText(/event/i);
   const testValue = 'test dinner';
 
   fireEvent.change(nameInputEl, { target: { value: testValue } });

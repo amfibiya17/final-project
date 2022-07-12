@@ -4,6 +4,6 @@ describe("Log in", () => {
 
     cy.get("input[placeholder=\"Email\"]").type("test@test");
     cy.get("input[placeholder=\"Password\"]").type("test");
-    cy.get("input[value=\"Login\"]").click();
+    cy.get('[data-cy="login"]').click();
   });
 });

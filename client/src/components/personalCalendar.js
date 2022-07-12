@@ -163,7 +163,7 @@ function PersonalCalendar() {
       </p>
       <form onSubmit={submitEvent}>
         <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="event" />
-        <input type="submit" value="Submit" />
+        <input type="submit" data-cy="submit" value="Submit" />
       </form>
       <button
         type="button"

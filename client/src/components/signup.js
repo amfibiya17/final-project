@@ -64,7 +64,7 @@ function Signup() {
             />
           </div>
 
-          <button className="login-button" type="submit">Sign up</button>
+          <button className="login-button" data-cy="submit" type="submit">Sign up</button>
 
         </form>
       </div>
