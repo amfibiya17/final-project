@@ -208,7 +208,7 @@ function GroupCalendar() {
           onChange={(e) => setName(e.target.value)}
           placeholder="event"
         />
-        <input type="submit" value="Submit" onClick={() => setIsOpen(true)} />
+        <input disabled={!name} type="submit" value="Submit" onClick={() => setIsOpen(true)} />
       </form>
       <div>
         <Modal open={isOpen} onClose={() => setIsOpen(false)}>
