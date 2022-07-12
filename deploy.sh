@@ -8,3 +8,4 @@ mv client/build backend
 git add .
 git commit -m "heroku deploy"
 git subtree push --prefix backend heroku main
+heroku open
