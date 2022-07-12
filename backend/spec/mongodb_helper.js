@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 beforeAll((done) => {
-  mongoose.connect(process.env.MONGO_URI_TEST, {
+  mongoose.connect(process.env.MONGODB_URI_TEST, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });

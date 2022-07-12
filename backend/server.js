@@ -14,7 +14,7 @@ app.use(cors());
 app.use('/users', userRoutes);
 app.use('/appointments', appointmentRoutes);
 
-mongoose.connect(process.env.MONGO_URI)
+mongoose.connect(process.env.MONGODB_URI)
   .then(() => {
     app.listen(process.env.PORT, () => {
       console.log(`Connected to DB & listening on port ${process.env.PORT}`);
