@@ -5,7 +5,6 @@ const AppointmentController = {
 
   GetAppointments: async (req, res) => {
     const { user_id } = req.query;
-
     try {
       const appointments = await Appointment.find({ user_id: { $in: user_id } });
       res.status(200).json(appointments);

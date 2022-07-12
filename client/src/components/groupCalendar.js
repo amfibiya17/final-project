@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable consistent-return */
 /* eslint-disable react/jsx-no-bind */
 import React, { useEffect, useState } from 'react';
@@ -11,14 +12,6 @@ import { useNavigate } from 'react-router-dom';
 // const disabledDates = [new Date(), new Date(2022, 10)];
 // const datesToAddContentTo = [new Date(), new Date(2022, 10)];
 
-// function tileDisabled({ date, view }) {
-//   // Disable tiles in month view only
-//   if (view === 'month') {
-//     // Check if a date React-Calendar wants to check is on the list of disabled dates
-//     return disabledDates.find((dDate) => isSameDay(dDate, date));
-//   }
-// }
-
 // function tileContent({ date, view }) {
 //   // Add class to tiles in month view only
 //   if (view === 'month') {
@@ -29,30 +22,29 @@ import { useNavigate } from 'react-router-dom';
 //   }
 // }
 
-function PersonalCalendar() {
+function GroupCalendar() {
   const navigate = useNavigate();
   const [value, setValue] = useState(new Date());
-  const [datesToAddClassTo, setDatesToAddClassTo] = useState([]);
+  const [disabledDates, setDisabledDates] = useState([]);
   const [name, setName] = useState('');
-  const [appointmentsArray, setAppointmentsArray] = useState([]);
-  const [appointmentName, setAppointmentName] = useState('');
   const [userId, setUserId] = useState();
+  const [userArray, setUserArray] = useState([]);
+  const [usersAll, setUsersAll] = useState([]);
   // const [weather, setWeather] = useState();
 
   function getAppointments() {
     if (userId) {
       axios.get('http://localhost:8282/appointments/calendar', {
         params: {
-          user_id: userId,
+          user_id: userArray,
         },
       })
         .then((response) => {
-          setAppointmentsArray(response.data);
           const data = [];
           response.data.forEach((appointment) => {
             data.push(new Date(appointment.date));
           });
-          setDatesToAddClassTo(data);
+          setDisabledDates(data);
         });
     }
   }
@@ -65,6 +57,15 @@ function PersonalCalendar() {
     })
       .then((response) => {
         setUserId(response.data);
+        setUserArray(response.data);
+      });
+  }
+
+  async function getAllUsers() {
+    await axios.get('http://localhost:8282/users/all')
+      .then((response) => {
+        setUsersAll([response.data]);
+        console.log(response.data);
       });
   }
 
@@ -75,10 +76,12 @@ function PersonalCalendar() {
       navigate('/login');
     } else {
       getUserId();
+      getAllUsers();
     }
   }, []);
 
   useEffect(() => {
+    setUserArray([userId]);
     getAppointments();
   }, [userId]);
 
@@ -86,29 +89,15 @@ function PersonalCalendar() {
     return differenceInCalendarDays(a, b) === 0;
   }
 
-  function tileClassName({ date, view }) {
-    // Add class to tiles in month view only
-    if (view === 'month') {
-      // Check if a date React-Calendar wants to check is on the list of dates to add class to
-      if (datesToAddClassTo.find((dDate) => isSameDay(dDate, date))) {
-        return 'unavailable';
-      }
-    }
-  }
-
-  function appointmentInformation(selectedDate) {
-    let a = 0;
-    appointmentsArray.forEach((appointment) => {
-      // eslint-disable-next-line eqeqeq
-      if (new Date(appointment.date).toDateString() == new Date(selectedDate).toDateString()) {
-        setAppointmentName(appointment.name);
-        a = 1;
-      }
-    });
-    if (a === 0) {
-      setAppointmentName('');
-    }
-  }
+  // function tileClassName({ date, view }) {
+  //   // Add class to tiles in month view only
+  //   if (view === 'month') {
+  //     // Check if a date React-Calendar wants to check is on the list of dates to add class to
+  //     if (datesToAddClassTo.find((dDate) => isSameDay(dDate, date))) {
+  //       return 'unavailable';
+  //     }
+  //   }
+  // }
 
   // async function getWeather(day) {
   //   await axios.get(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/london/${day.toISOString().split('T')[0]}?unitGroup=metric&include=days&key=BQ886JAS7TD7RNBNA8DW9JENC&contentType=json`, {
@@ -122,8 +111,15 @@ function PersonalCalendar() {
   function onChange(nextValue) {
     // const nextDay = new Date(nextValue.getTime() + (1000 * 3600 * 24));
     setValue(nextValue);
-    appointmentInformation(nextValue);
     // getWeather(nextDay);
+  }
+
+  function tileDisabled({ date, view }) {
+    // Disable tiles in month view only
+    if (view === 'month') {
+      // Check if a date React-Calendar wants to check is on the list of disabled dates
+      return disabledDates.find((dDate) => isSameDay(dDate, date));
+    }
   }
 
   async function submitEvent(event) {
@@ -147,9 +143,9 @@ function PersonalCalendar() {
       <Calendar
         onChange={onChange}
         value={value}
-        // tileDisabled={tileDisabled}
+        tileDisabled={tileDisabled}
         // tileContent={tileContent}
-        tileClassName={tileClassName}
+        // tileClassName={tileClassName}
       />
       <p className="text-center">
         <span className="bold">Selected Date:</span>
@@ -157,7 +153,6 @@ function PersonalCalendar() {
         {value.toDateString()}
       </p>
       <p>
-        {appointmentName}
         {/* {weather} */}
       </p>
       <form onSubmit={submitEvent}>
@@ -173,16 +168,8 @@ function PersonalCalendar() {
       >
         Log out
       </button>
-      <button
-        type="button"
-        onClick={() => {
-          navigate('/group_event');
-        }}
-      >
-        Create group event
-      </button>
     </>
   );
 }
 
-export default PersonalCalendar;
+export default GroupCalendar;
