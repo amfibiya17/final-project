@@ -72,11 +72,10 @@ function Signup() {
               placeholder="Password"
             />
           </div>
-
           <button className="login-button" type="submit">Sign up</button>
+          {error && <div className='error'>{error}</div>}
         </form>
       </div>
-          {error && <div className='error'>{error}</div>}
     </div>
   );
 }

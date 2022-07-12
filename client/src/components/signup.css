@@ -1,13 +1,13 @@
 @import url("https://fonts.googleapis.com/css?family=Dosis:300");
 .body {
-  background-image: url('https://source.unsplash.com/1600x900/?landscape');
+  background-image: url("https://source.unsplash.com/1600x900/?landscape");
   background-size: cover;
   /* background-image: linear-gradient(140deg, #db6241 0%, #663399 100%); */
   height: 100vh;
   overflow: hidden;
   display: flex;
   justify-content: center;
-  align-items: center; 
+  align-items: center;
 }
 
 .Signup {
@@ -34,14 +34,13 @@
   font-family: inherit;
   font-size: 105%;
   letter-spacing: 0.06em;
-  font-family: 'Dosis', sans-serif;
+  font-family: "Dosis", sans-serif;
 }
-
 
 .input {
   background-color: #9797975b;
-  font-family: 'Dosis', sans-serif;
-  letter-spacing: 1.3px; 
+  font-family: "Dosis", sans-serif;
+  letter-spacing: 1.3px;
   box-sizing: border-box;
   background: transparent;
   width: 100%;
@@ -51,21 +50,21 @@
   padding: 19px 6px 12px 36px;
   font-size: 19px;
   outline: none;
-  caret-color: #e55b8d; 
-  font-family: 'Dosis', sans-serif;
+  caret-color: #e55b8d;
+  font-family: "Dosis", sans-serif;
   height: 60px;
 }
 
 .input:focus {
   border-bottom: 1px solid transparent;
   border-image: linear-gradient(140deg, #db6241 0%, #e55b8d 100%);
-  border-image-slice: 1; 
-  color: #ccced3; 
+  border-image-slice: 1;
+  color: #ccced3;
 }
 
 .button {
-  font-family: 'Dosis', sans-serif;
-  letter-spacing: 1.3px; 
+  font-family: "Dosis", sans-serif;
+  letter-spacing: 1.3px;
 }
 
 .login-button {
@@ -91,17 +90,31 @@
   .Signup {
     min-height: 300px;
     max-height: 420px;
-    width: 90vw; }
+    width: 90vw;
+  }
   .input-container {
     width: 80%;
-    margin-bottom: 40px; }
+    margin-bottom: 40px;
+  }
   .login-button {
     margin-top: 10px;
-    margin-bottom: -20px; 
-  } 
+    margin-bottom: -20px;
+  }
 }
 
 .input:-webkit-autofill,
-  input:-webkit-autofill:focus {
-    transition: background-color 600000s 0s, color 600000s 0s;
-  }
+input:-webkit-autofill:focus {
+  transition: background-color 600000s 0s, color 600000s 0s;
+}
+
+.error {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  padding: 10px;
+  background: #ffefef;
+  border: 1px solid #e7195a;
+  color: #e7195a;
+  border-radius: 4px;
+  margin: 40px 0;
+}
