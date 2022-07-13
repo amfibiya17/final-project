@@ -3,9 +3,10 @@
 /* eslint-disable react/jsx-no-bind */
 import React, { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
+// import 'react-calendar/dist/Calendar.css';
 import { differenceInCalendarDays } from 'date-fns';
-import './personalCalendar.css';
+// import './personalCalendar.css';
+import './reactCal.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -168,50 +169,108 @@ function PersonalCalendar() {
   }
 
   return (
-    <>
-      <h1>
-        Hi
-        {' '}
-        {userName}
-        , this is you personal Calendar
-      </h1>
-      <Calendar
-        onChange={onChange}
-        value={value}
-        // tileDisabled={tileDisabled}
-        // tileContent={tileContent}
-        tileClassName={tileClassName}
-      />
-      <p className="text-center">
-        <span className="bold">Selected Date:</span>
-        {value.toDateString()}
-      </p>
-      <p>
-        {appointmentName}
-        {/* {weather} */}
-      </p>
-      <form onSubmit={submitEvent}>
-        <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="event" />
-        <input type="submit" value="Submit" />
-      </form>
-      <button
-        type="button"
-        onClick={() => {
-          localStorage.removeItem('token');
-          navigate('/login');
-        }}
-      >
-        Log out
-      </button>
-      <button
-        type="button"
-        onClick={() => {
-          navigate('/group_event');
-        }}
-      >
-        Create group event
-      </button>
-      <div>
+    <div className="calbody">
+      <div className="navbar">Navbar Placeholder</div>
+      <div className="center-element">
+        <div className="center-child">
+          <div className="calbox">
+            <div className="greeting">
+              Hi
+              {' '}
+              {userName}
+              ,
+            </div>
+          </div>
+          <div className="calbox">
+            <div className="greeting1">
+              this is you personal Calendar
+            </div>
+          </div>
+          <Calendar
+            // className="calbody"
+            onChange={onChange}
+            value={value}
+            // tileDisabled={tileDisabled}
+            // tileContent={tileContent}
+            tileClassName={tileClassName}
+          />
+          <div className="select-body">
+            <p className="text-center">
+              <span className="bold">Selected Date:</span>
+              {value.toDateString()}
+            </p>
+            <p>
+              {appointmentName}
+              {/* {weather} */}
+            </p>
+            <form onSubmit={submitEvent}>
+              <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="event" />
+              <input type="submit" value="Submit" />
+            </form>
+            {/* <button
+              type="button"
+              onClick={() => {
+                localStorage.removeItem('token');
+                navigate('/login');
+              }}
+            >
+              Log out
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                navigate('/group_event');
+              }}
+            >
+              Create group event
+            </button> */}
+          </div>
+        </div>
+        <div className="center-child">
+          <div className="calbox"></div>
+          <div className="greeting"></div>
+          <div className="greeting2">your upcoming appointments</div>
+          <div className="appointmentscroll">
+            <ul>
+              {appointmentsArray
+                .filter((appointment) => new Date(new Date(appointment.date)
+                  .getTime() + (1000 * 3600 * 20)) >= new Date())
+                .map((appointment, index) => (
+                  <li className="scroll-list" key={index}>
+                    <span className="scroll-date">
+                      {new Date(appointment.date).toLocaleDateString()}
+                    </span>
+                      &ensp;
+                    <span>
+                      {appointment.name}
+                      &ensp;
+                    </span>
+                    {appointment.user_id.map((user, i) => (
+                      <span key={i}>
+                        {user.name}
+                      &ensp;
+                      </span>
+                    ))}
+                    <button
+                      className="delete-button"
+                      type="submit"
+                      onClick={() => {
+                        // eslint-disable-next-line no-underscore-dangle
+                        deleteEvent(appointment._id, appointment.user_id);
+                      }}
+                    >
+                      delete
+                    </button>
+                  </li>
+                ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+      {/* <div className="select-bottom ">
+        
+      </div> */}
+      {/* <div className="appointment-scroll">
         <ul>
           {appointmentsArray
             .filter((appointment) => new Date(new Date(appointment.date)
@@ -242,8 +301,8 @@ function PersonalCalendar() {
               </li>
             ))}
         </ul>
-      </div>
-    </>
+      </div> */}
+    </div>
   );
 }
 
