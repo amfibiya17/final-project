@@ -21,8 +21,8 @@ function Signup() {
         email,
         password,
       });
-    } catch (error) {
-      null
+    } catch {
+      return null;
     }
 
     setName('');
@@ -30,10 +30,11 @@ function Signup() {
     setPassword('');
 
     if (!response) {
-      setError('Please ensure you have filled out the sign up form properly.')
+      setError('Please ensure you have filled out the sign up form properly.');
     } else {
       navigate('/login');
     }
+    return false;
   }
 
   return (
@@ -73,7 +74,7 @@ function Signup() {
             />
           </div>
           <button className="login-button" type="submit">Sign up</button>
-          {error && <div className='error'>{error}</div>}
+          {error && <div className="error">{error}</div>}
         </form>
       </div>
     </div>

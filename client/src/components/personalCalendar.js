@@ -41,7 +41,10 @@ function PersonalCalendar() {
   const [userName, setUserName] = useState('');
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
-  // const [weather, setWeather] = useState();
+  const [weatherTempMax, setWeatherTempMax] = useState();
+  const [weatherTempMin, setWeatherTempMin] = useState();
+  const [weatherConditions, setWeatherConditions] = useState();
+  const [weatherIcon, setWeatherIcon] = useState();
 
   function getAppointments() {
     if (userId) {
@@ -119,20 +122,23 @@ function PersonalCalendar() {
     }
   }
 
-  // async function getWeather(day) {
-  //   await axios.get(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/london/${day.toISOString().split('T')[0]}?unitGroup=metric&include=days&key=BQ886JAS7TD7RNBNA8DW9JENC&contentType=json`, {
-  //   })
-  //     .then((response) => {
-  //       console.log(response.data);
-  //       setWeather(response.data.days[0].tempmax);
-  //     });
-  // }
+  async function getWeather(day) {
+    await axios.get(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/london/${day.toISOString().split('T')[0]}?unitGroup=metric&include=days&key=BQ886JAS7TD7RNBNA8DW9JENC&contentType=json`, {
+    })
+      .then((response) => {
+        console.log(response.data.days[0]);
+        setWeatherTempMax(response.data.days[0].tempmax);
+        setWeatherTempMin(response.data.days[0].tempmin);
+        setWeatherConditions(response.data.days[0].conditions);
+        setWeatherIcon(`./images/weather/${response.data.days[0].icon}.png`);
+      });
+  }
 
   function onChange(nextValue) {
-    // const nextDay = new Date(nextValue.getTime() + (1000 * 3600 * 24));
+    const nextDay = new Date(nextValue.getTime() + (1000 * 3600 * 24));
     setValue(nextValue);
     appointmentInformation(nextValue);
-    // getWeather(nextDay);
+    getWeather(nextDay);
   }
 
   async function submitEvent(event) {
@@ -200,8 +206,31 @@ function PersonalCalendar() {
       </p>
       <p>
         {appointmentName}
-        {/* {weather} */}
       </p>
+      <div className="weather">
+        <p className="maxT">
+          MaxT:
+          {' '}
+          { weatherTempMax }
+          {' '}
+          C
+        </p>
+        <p className="minT">
+          MinT:
+          {' '}
+          { weatherTempMin }
+          {' '}
+          C
+        </p>
+        <p className="conditions">
+          Weather:
+          {' '}
+          { weatherConditions }
+        </p>
+        <p className="icon">
+          <img src={weatherIcon} alt="" />
+        </p>
+      </div>
       <form onSubmit={submitEvent}>
         <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="event" />
         <input disabled={!name} type="submit" value="Submit" />
