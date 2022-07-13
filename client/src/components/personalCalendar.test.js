@@ -3,13 +3,15 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
 import PersonalCalendar from './personalCalendar';
 
-test('Can render the calendar', () => {
-  const { container } = render(
+test('Can render personal calendar and welcome message', () => {
+  render(
     <Router>
       <PersonalCalendar />
     </Router>
   );
-  expect(container.firstChild.classList.contains('react-calendar')).toBe(true);
+  const checkContent = screen.getByTestId('welcome-message');
+  expect(checkContent).toBeInTheDocument();
+
 });
 
 test('Button should be rendered', () => {
