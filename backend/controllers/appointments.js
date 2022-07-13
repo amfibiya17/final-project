@@ -41,6 +41,22 @@ const AppointmentController = {
     }
   },
 
+  RemoveUser: async (req, res) => {
+    const { eventId, userId } = req.body;
+    const filter = { _id: eventId };
+    const update = { $pullAll: { user_id: [{ _id: userId }] } };
+
+    try {
+      await Appointment.findOneAndUpdate(
+        filter,
+        update,
+        { new: true, useFindAndModify: false },
+      );
+      res.status(200).json({ message: 'ok' });
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  },
 };
 
 module.exports = AppointmentController;
