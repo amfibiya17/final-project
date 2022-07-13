@@ -281,7 +281,7 @@ function PersonalCalendar() {
                     <li className="scroll-list" key={index}>
                       <div>
 
-                        <div className="scroll-date">
+                        <div className="scroll-date1">
                           {'When: '}
                           {new Date(appointment.date).toLocaleDateString()}
                           &ensp;
@@ -295,6 +295,7 @@ function PersonalCalendar() {
 
                         <div className="scroll-date">
                           {'Who: '}
+                          {'   '}
                           {appointment.user_id.map((user, i) => (
                             <span key={i}>
                               {' '}

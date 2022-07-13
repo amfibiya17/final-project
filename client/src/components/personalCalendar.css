@@ -78,6 +78,16 @@
   align-items: center;
 }
 
+.scroll-date1 {
+  font-weight: bold;
+  margin-top: 6px;
+  letter-spacing: 1.3px;
+  color: #000000;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+}
+
 .delete-button {
   /* background-color: rgba(0, 0, 0, 0.8); */
   /* color: rgb(57, 56, 56);
