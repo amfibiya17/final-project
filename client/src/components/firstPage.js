@@ -17,8 +17,8 @@ function FirstPage() {
 
   return (
     <div>
-      <div className="body">
       <Navbar />
+      <div className="body">
         <div className="two-buttons">
 
           <button className="first-button" type="submit" onClick={navigateToSignup}>Sign up</button>
@@ -27,6 +27,7 @@ function FirstPage() {
 
         </div>
       </div>
+      <div className="full-size-img" />
 
     </div>
   );
