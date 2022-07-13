@@ -185,12 +185,12 @@ function GroupCalendar() {
         // tileContent={tileContent}
         // tileClassName={tileClassName}
       />
-      <p className="text-center">
+      <p className="text-center" data-testid="selected-date">
         <span className="bold">Selected Date:</span>
         {' '}
         {value.toDateString()}
       </p>
-      <div className="weather">
+      <div data-testid="date-info" className="weather">
         <p className="maxT">
           MaxT:
           {' '}
@@ -220,6 +220,8 @@ function GroupCalendar() {
           <li key={i}>
             <input
               type="checkbox"
+              data-testid="checkbox"
+              data-cy="checkbox"
               onChange={() => {
                 // eslint-disable-next-line no-underscore-dangle
                 addingUser(user._id);
@@ -236,7 +238,7 @@ function GroupCalendar() {
           onChange={(e) => setName(e.target.value)}
           placeholder="event"
         />
-        <input disabled={!name} type="submit" value="Submit" onClick={() => setIsOpen(true)} />
+        <input disabled={!name} type="submit" data-cy="submit-group-event" value="Submit" onClick={() => setIsOpen(true)} />
       </form>
       <div>
         <Modal open={isOpen} onClose={() => setIsOpen(false)}>

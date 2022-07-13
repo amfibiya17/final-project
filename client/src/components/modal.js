@@ -30,7 +30,7 @@ function Modal({ open, children }) {
     <>
       <div style={OVERLAY_STYLES} />
       <div style={MODAL_STYLES}>
-        <button type="button" onClick={() => navigate('/home')}>Close</button>
+        <button type="button" data-cy="close-event-added-modal" onClick={() => navigate('/home')}>Close</button>
         {children}
       </div>
     </>,

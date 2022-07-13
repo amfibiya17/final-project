@@ -77,3 +77,4 @@ test('Password input should change', () => {
   fireEvent.change(passwordInputEl, { target: { value: testValue } });
   expect(passwordInputEl).toBeInTheDocument();
 });
+

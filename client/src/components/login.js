@@ -57,7 +57,7 @@ function Login() {
             />
           </div>
 
-          <button className="login-button" type="submit">Log In</button>
+          <button className="login-button" data-cy="login" type="submit">Log In</button>
           {error && <div className="error">{error}</div>}
         </form>
 

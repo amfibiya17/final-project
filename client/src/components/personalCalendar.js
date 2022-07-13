@@ -186,7 +186,7 @@ function PersonalCalendar() {
 
   return (
     <>
-      <h1>
+      <h1 data-testid="welcome-message">
         Hi
         {' '}
         {userName}
@@ -199,11 +199,11 @@ function PersonalCalendar() {
         // tileContent={tileContent}
         tileClassName={tileClassName}
       />
-      <p className="text-center">
+      <p className="text-center" data-testid="selected-date">
         <span className="bold">Selected Date:</span>
         {value.toDateString()}
       </p>
-      <p>
+      <p data-testid="date-info">
         {appointmentName}
       </p>
       <div className="weather">
@@ -232,7 +232,7 @@ function PersonalCalendar() {
       </div>
       <form onSubmit={submitEvent}>
         <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="event" />
-        <input disabled={!name} type="submit" value="Submit" />
+        <input disabled={!name} type="submit" data-cy="submit" value="Submit" />
       </form>
       {error && <div className="error">{error}</div>}
       {success && <div className="success">{success}</div>}
@@ -247,6 +247,7 @@ function PersonalCalendar() {
       </button>
       <button
         type="button"
+        data-cy="create-group-event"
         onClick={() => {
           navigate('/group_event');
         }}
