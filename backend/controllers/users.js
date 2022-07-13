@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
@@ -30,10 +31,15 @@ const UserController = {
   },
 
   CreateNewUser: async (req, res) => {
-    const { name, email, password } = req.body;
-
     try {
-      await User.create({ name, email, password });
+      const salt = await bcrypt.genSalt();
+      const hashedPassword = await bcrypt.hash(req.body.password, salt);
+
+      await User.create({
+        name: req.body.name,
+        email: req.body.email,
+        password: hashedPassword,
+      });
       res.status(200).json({ status: 'ok' });
     } catch (error) {
       res.status(400).json({ error: error.message });
