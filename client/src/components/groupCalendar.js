@@ -8,6 +8,7 @@ import { differenceInCalendarDays } from 'date-fns';
 import './personalCalendar.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Navbar from './navbar';
 import Modal from './modal';
 
 // const disabledDates = [new Date(), new Date(2022, 10)];
@@ -178,6 +179,7 @@ function GroupCalendar() {
 
   return (
     <>
+      <Navbar />
       <Calendar
         onChange={onChange}
         value={value}

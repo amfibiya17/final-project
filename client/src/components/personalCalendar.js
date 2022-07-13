@@ -8,6 +8,7 @@ import { differenceInCalendarDays } from 'date-fns';
 import './personalCalendar.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Navbar from './navbar';
 
 // const disabledDates = [new Date(), new Date(2022, 10)];
 // const datesToAddContentTo = [new Date(), new Date(2022, 10)];
@@ -186,6 +187,7 @@ function PersonalCalendar() {
 
   return (
     <>
+      <Navbar />
       <h1 data-testid="welcome-message">
         Hi
         {' '}

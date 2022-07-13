@@ -2,6 +2,7 @@ import './firstPage.css';
 
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
+import Navbar from './navbar';
 
 function FirstPage() {
   const navigate = useNavigate();
@@ -16,6 +17,8 @@ function FirstPage() {
 
   return (
     <div className="body">
+
+      <Navbar />
 
       <button className="first-button" type="submit" onClick={navigateToSignup}>Sign up</button>
 
