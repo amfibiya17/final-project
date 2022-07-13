@@ -156,6 +156,7 @@ function PersonalCalendar() {
 
   async function deleteEvent(eventId, eventUsersId) {
     if (eventUsersId.length <= 2) {
+      // eslint-disable-next-line no-unused-vars
       const response = await axios.delete(
         'http://localhost:8282/appointments/delete',
         {
@@ -227,8 +228,8 @@ function PersonalCalendar() {
           </div>
         </div>
         <div className="center-child">
-          <div className="calbox"></div>
-          <div className="greeting"></div>
+          <div className="calbox" />
+          <div className="greeting" />
           <div className="greeting2">your upcoming appointments</div>
           <div className="appointmentscroll">
             <ul>
@@ -268,7 +269,6 @@ function PersonalCalendar() {
         </div>
       </div>
       {/* <div className="select-bottom ">
-        
       </div> */}
       {/* <div className="appointment-scroll">
         <ul>
