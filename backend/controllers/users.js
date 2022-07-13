@@ -12,7 +12,7 @@ const UserController = {
       if (err) {
         return res.status(401).send({ message: 'Unauthorized!' });
       }
-      return decoded.user_id;
+      return decoded;
     });
 
     return res.json(userId);
@@ -55,6 +55,7 @@ const UserController = {
       const token = jwt.sign({
         // eslint-disable-next-line no-underscore-dangle
         user_id: user._id,
+        name: user.name,
       }, 'secretPassword123');
 
       return res.json({ status: 'ok', user: token });
