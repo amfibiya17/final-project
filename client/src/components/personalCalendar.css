@@ -379,7 +379,7 @@ ul {
   text-align: left;
   color: #000000;
   margin-left: 15px;
-  margin-top: -15px;
+  margin-top: 5px;
   float: left;
   padding: 9px 16px;
   font-weight: 500;
@@ -388,9 +388,18 @@ ul {
   width: 100%;
 }
 
+.temperature {
+  float: left;
+  width: 55%;
+}
+
+.conditions {
+  float: left;
+  width: 45%;
+}
+
 .icon {
   width: 40px;
   max-width: 10%;
   max-height: 10%;
-  margin-top: 5px;
 }

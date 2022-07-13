@@ -227,27 +227,33 @@ function PersonalCalendar() {
               </div>
 
               <div className="weather">
-                <p className="maxT">
-                  Max Temp:
-                  {' '}
-                  { weatherTempMax }
-                  {' '}
-                  C
-                </p>
-                <p className="minT">
-                  Min Temp:
-                  {' '}
-                  { weatherTempMin }
-                  {' '}
-                  C
-                </p>
-                <p className="conditions">
+
+                <div className="temperature">
+                  <div>
+                    Max Temp:
+                    {' '}
+                    { weatherTempMax }
+                    {' '}
+                    C
+                  </div>
+
+                  <div>
+                    Min Temp:
+                    {' '}
+                    { weatherTempMin }
+                    {' '}
+                    C
+                  </div>
+                </div>
+
+                <div className="conditions">
                   {/* Weather:
                   {' '} */}
                   { weatherConditions }
-                  {' '}
+                  {'   '}
                   <img src={weatherIcon} alt="" className="icon" />
-                </p>
+                </div>
+
               </div>
 
               <form onSubmit={submitEvent}>
