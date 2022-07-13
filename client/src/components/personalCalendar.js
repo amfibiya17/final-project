@@ -3,9 +3,10 @@
 /* eslint-disable react/jsx-no-bind */
 import React, { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
+// import 'react-calendar/dist/Calendar.css';
 import { differenceInCalendarDays } from 'date-fns';
-import './personalCalendar.css';
+// import './personalCalendar.css';
+import './reactCal.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Navbar from './navbar';
@@ -188,106 +189,131 @@ function PersonalCalendar() {
   return (
     <>
       <Navbar />
-      <h1 data-testid="welcome-message">
-        Hi
-        {' '}
-        {userName}
-        , this is you personal Calendar
-      </h1>
-      <Calendar
-        onChange={onChange}
-        value={value}
-        // tileDisabled={tileDisabled}
-        // tileContent={tileContent}
-        tileClassName={tileClassName}
-      />
-      <p className="text-center" data-testid="selected-date">
-        <span className="bold">Selected Date:</span>
-        {value.toDateString()}
-      </p>
-      <p data-testid="date-info">
-        {appointmentName}
-      </p>
-      <div className="weather">
-        <p className="maxT">
-          MaxT:
-          {' '}
-          { weatherTempMax }
-          {' '}
-          C
-        </p>
-        <p className="minT">
-          MinT:
-          {' '}
-          { weatherTempMin }
-          {' '}
-          C
-        </p>
-        <p className="conditions">
-          Weather:
-          {' '}
-          { weatherConditions }
-        </p>
-        <p className="icon">
-          <img src={weatherIcon} alt="" />
-        </p>
-      </div>
-      <form onSubmit={submitEvent}>
-        <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="event" />
-        <input disabled={!name} type="submit" data-cy="submit" value="Submit" />
-      </form>
-      {error && <div className="error">{error}</div>}
-      {success && <div className="success">{success}</div>}
-      <button
-        type="button"
-        onClick={() => {
-          localStorage.removeItem('token');
-          navigate('/login');
-        }}
-      >
-        Log out
-      </button>
-      <button
-        type="button"
-        data-cy="create-group-event"
-        onClick={() => {
-          navigate('/group_event');
-        }}
-      >
-        Create group event
-      </button>
-      <div>
-        <ul>
-          {appointmentsArray
-            .filter((appointment) => new Date(new Date(appointment.date)
-              .getTime() + (1000 * 3600 * 20)) >= new Date())
-            .map((appointment, index) => (
-              <li key={index}>
-                <span>{new Date(appointment.date).toLocaleDateString()}</span>
-                  &ensp;
-                <span>
-                  {appointment.name}
-                  &ensp;
-                </span>
-                {appointment.user_id.map((user, i) => (
-                  <span key={i}>
-                    {user.name}
-                  &ensp;
-                  </span>
-                ))}
-                <button
-                  className="delete-button"
-                  type="submit"
-                  onClick={() => {
-                    // eslint-disable-next-line no-underscore-dangle
-                    deleteEvent(appointment._id, appointment.user_id);
-                  }}
-                >
-                  delete
-                </button>
-              </li>
-            ))}
-        </ul>
+      <div className="calbody">
+        <div className="center-element">
+          <div className="center-child">
+            <div className="calbox">
+              <div className="greeting">
+                Hi
+                {' '}
+                {userName}
+                ,
+              </div>
+            </div>
+            <div className="calbox">
+              <div className="greeting1">
+                this is you personal Calendar
+              </div>
+            </div>
+            <Calendar
+              // className="calbody"
+              onChange={onChange}
+              value={value}
+              // tileDisabled={tileDisabled}
+              // tileContent={tileContent}
+              tileClassName={tileClassName}
+            />
+            <div className="select-body">
+              <p className="text-center">
+                <span className="bold">Selected Date:</span>
+                {value.toDateString()}
+              </p>
+              <p>
+                {appointmentName}
+              </p>
+              <div className="weather">
+                <p className="maxT">
+                  MaxT:
+                  {' '}
+                  { weatherTempMax }
+                  {' '}
+                  C
+                </p>
+                <p className="minT">
+                  MinT:
+                  {' '}
+                  { weatherTempMin }
+                  {' '}
+                  C
+                </p>
+                <p className="conditions">
+                  Weather:
+                  {' '}
+                  { weatherConditions }
+                </p>
+                <p className="icon">
+                  <img src={weatherIcon} alt="" />
+                </p>
+              </div>
+              <form onSubmit={submitEvent}>
+                <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="event" />
+                <input disabled={!name} type="submit" data-cy="submit" value="Submit" />
+              </form>
+              {error && <div className="error">{error}</div>}
+              {success && <div className="success">{success}</div>}
+              <button
+                type="button"
+                onClick={() => {
+                  localStorage.removeItem('token');
+                  navigate('/login');
+                }}
+              >
+                Log out
+              </button>
+              <button
+                type="button"
+                data-cy="create-group-event"
+                onClick={() => {
+                  navigate('/group_event');
+                }}
+              >
+                Create group event
+              </button>
+            </div>
+          </div>
+          <div className="center-child">
+            <div className="calbox" />
+            <div className="greeting" />
+            <div className="greeting2">your upcoming appointments</div>
+            <div className="appointmentscroll">
+              <ul>
+                {appointmentsArray
+                  .filter((appointment) => new Date(new Date(appointment.date)
+                    .getTime() + (1000 * 3600 * 20)) >= new Date())
+                  .map((appointment, index) => (
+                    <li className="scroll-list" key={index}>
+                      <div className="appointment-overview">
+                        <span className="scroll-date">
+                          {new Date(appointment.date).toLocaleDateString()}
+                        </span>
+                          &ensp;
+                        <span>
+                          {appointment.name}
+                          &ensp;
+                        </span>
+                        {appointment.user_id.map((user, i) => (
+                          <span key={i}>
+                            {user.name}
+                          &ensp;
+                          </span>
+                        ))}
+                        <button
+                          className="delete-button"
+                          type="submit"
+                          onClick={() => {
+                            // eslint-disable-next-line no-underscore-dangle
+                            deleteEvent(appointment._id, appointment.user_id);
+                          }}
+                        >
+                          delete
+                        </button>
+                      </div>
+                    </li>
+                  ))}
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );
