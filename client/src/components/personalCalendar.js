@@ -126,7 +126,6 @@ function PersonalCalendar() {
     await axios.get(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/london/${day.toISOString().split('T')[0]}?unitGroup=metric&include=days&key=BQ886JAS7TD7RNBNA8DW9JENC&contentType=json`, {
     })
       .then((response) => {
-        console.log(response.data.days[0]);
         setWeatherTempMax(response.data.days[0].tempmax);
         setWeatherTempMin(response.data.days[0].tempmin);
         setWeatherConditions(response.data.days[0].conditions);
