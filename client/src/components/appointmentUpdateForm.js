@@ -1,15 +1,24 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 function AppointmentUpdateForm({ appointment }) {
   const [name, setName] = useState(appointment.name);
-  const [date, setDate] = useState(appointment.date);
+  const [date, setDate] = useState(new Date(appointment.date).getTime() + 1000 * 3600 * 20);
+
+  async function submitEvent() {
+    await axios.patch('http://localhost:8282/appointments/update', {
+        eventId : appointment._id,
+        date: new Date(new Date(date).getTime() - 1000 * 3600),
+        name,
+      });
+  }
 
   return (
     <>
       <form onSubmit={submitEvent}>
         <input
           type="date"
-          value={date}
+          value={new Date(date).toISOString().split('T')[0]}
           onChange={(e) => setDate(e.target.value)}
         />
         <input

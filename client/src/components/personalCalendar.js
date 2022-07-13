@@ -49,6 +49,7 @@ function PersonalCalendar() {
   const [weatherTempMin, setWeatherTempMin] = useState();
   const [weatherConditions, setWeatherConditions] = useState();
   const [weatherIcon, setWeatherIcon] = useState();
+  const [appointmentToUpdate, setAppointmentToUpdate] = useState();
 
   function getAppointments() {
     if (userId) {
@@ -295,19 +296,20 @@ function PersonalCalendar() {
                   className="update-button"
                   type="submit"
                   onClick={() => {
+                    setAppointmentToUpdate(appointment);
                     setIsOpen(true);
                   }}
                 >
                   update
                 </button>
-                <div>
-                  <Modal open={isOpen} onClose={() => setIsOpen(false)}>
-                    <AppointmentUpdateForm />
-                  </Modal>
-                </div>
               </li>
             ))}
         </ul>
+        <div>
+          <Modal open={isOpen} onClose={() => setIsOpen(false)}>
+            <AppointmentUpdateForm appointment={appointmentToUpdate} />
+          </Modal>
+        </div>
       </div>
     </>
   );
