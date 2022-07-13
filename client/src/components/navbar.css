@@ -3,5 +3,21 @@
   flex-direction: row;
   position: fixed;
   background-color: #2d2d2d7e;
-  width: 100%;
+  width: 1150px;
+  border-radius: 25px;
+  margin-top: 15px;
+}
+
+.nav-link {
+  text-decoration: none;
+  text-align: center;
+  color: #804bce;
+  margin-left: 25px;
+  float: left;
+  padding: 11px 16px;
+  font-size: 150%;
+}
+
+.nav-link:hover {
+  text-shadow: 0 0 10px #228DFF, 0 0 20px #228DFF, 0 0 30px #228DFF, 0 0 40px #228DFF, 0 0 70px #228DFF, 0 0 80px #228DFF, 0 0 100px #228DFF, 0 0 150px #228DFF;
 }

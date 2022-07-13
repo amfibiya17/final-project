@@ -2,8 +2,7 @@ import './signup.css';
 
 import axios from 'axios';
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Navbar from './navbar';
+import { useNavigate, Link } from 'react-router-dom';
 
 function Signup() {
   const navigate = useNavigate();
@@ -40,8 +39,6 @@ function Signup() {
 
   return (
     <div>
-
-      <Navbar />
 
       <div className="body">
         <div className="Signup">
@@ -80,6 +77,15 @@ function Signup() {
             <button className="login-button" data-cy="submit" type="submit">Sign up</button>
             {error && <div className="error">{error}</div>}
           </form>
+
+          <div className="text-center-signup">
+            Already registered?
+            {' '}
+            <Link to="/login">
+              Login
+            </Link>
+          </div>
+
         </div>
 
       </div>

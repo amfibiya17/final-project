@@ -10,13 +10,30 @@
   align-items: center;
 }
 
+.text-center-signup {
+  margin-top: 10px;
+  text-align: center;
+  color: rgb(159, 159, 159);
+}
+
+a:-webkit-any-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:-webkit-any-link:hover {
+  text-decoration: none;
+  color: inherit;
+  color: #ffffff;
+}
+
 .Signup {
   background-color: rgba(0, 0, 0, 0.8);
   padding: 2em;
   width: 100%;
   max-width: 350px;
   height: 100%;
-  max-height: 300px;
+  max-height: 320px;
   margin: 1em;
   color: white;
 }

@@ -2,7 +2,6 @@ import './firstPage.css';
 
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
-import Navbar from './navbar';
 
 function FirstPage() {
   const navigate = useNavigate();
@@ -17,8 +16,6 @@ function FirstPage() {
 
   return (
     <div>
-
-      <Navbar />
 
       <div className="body">
         <div className="two-buttons">

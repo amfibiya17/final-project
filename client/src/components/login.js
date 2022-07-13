@@ -2,8 +2,7 @@ import './login.css';
 
 import axios from 'axios';
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Navbar from './navbar';
+import { useNavigate, Link } from 'react-router-dom';
 
 function Login() {
   const navigate = useNavigate();
@@ -31,8 +30,6 @@ function Login() {
 
   return (
     <div>
-
-      <Navbar />
 
       <div className="body">
 
@@ -65,6 +62,14 @@ function Login() {
             <button className="login-button" data-cy="login" type="submit">Log In</button>
             {error && <div className="error">{error}</div>}
           </form>
+
+          <div className="text-center-login">
+            Already registered?
+            {' '}
+            <Link to="/signup">
+              Signup
+            </Link>
+          </div>
 
         </div>
 

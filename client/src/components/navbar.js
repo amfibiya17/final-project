@@ -28,15 +28,15 @@ function UserNavbar() {
   }
   return (
     <div className="navbar">
-      <div className="logo">
+      {/* <div className="logo">
         <img className="logo" src="/IconoDeCalendario.jpeg" alt="" width="50px" />
-      </div>
-      <div className="link">
+      </div> */}
+      <div className="nav-link">
         <Link to="/home">
           Home
         </Link>
       </div>
-      <div className="link">
+      <div className="nav-link">
         <a href="/" onClick={logout}>
           Log out
         </a>
