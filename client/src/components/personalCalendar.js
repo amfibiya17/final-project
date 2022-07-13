@@ -204,7 +204,7 @@ function PersonalCalendar() {
             </div>
             <div className="calbox">
               <div className="greeting1">
-                this is you personal Calendar
+                this is your personal Calendar
               </div>
             </div>
             <Calendar
@@ -251,26 +251,10 @@ function PersonalCalendar() {
                 <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="event" />
                 <input disabled={!name} type="submit" data-cy="submit" value="Submit" />
               </form>
+
               {error && <div className="error">{error}</div>}
               {success && <div className="success">{success}</div>}
-              <button
-                type="button"
-                onClick={() => {
-                  localStorage.removeItem('token');
-                  navigate('/login');
-                }}
-              >
-                Log out
-              </button>
-              <button
-                type="button"
-                data-cy="create-group-event"
-                onClick={() => {
-                  navigate('/group_event');
-                }}
-              >
-                Create group event
-              </button>
+
             </div>
           </div>
           <div className="center-child1">

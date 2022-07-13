@@ -36,11 +36,19 @@ function UserNavbar() {
           Home
         </Link>
       </div>
+
+      <div className="nav-link">
+        <Link to="/group_event">
+          Create group event
+        </Link>
+      </div>
+
       <div className="nav-link">
         <a href="/" onClick={logout}>
           Log out
         </a>
       </div>
+
     </div>
   );
 }
