@@ -270,7 +270,7 @@ function PersonalCalendar() {
           <div className="center-child1">
             <div className="calbox" />
             <div className="greeting" />
-            <div className="greeting2">your upcoming appointments</div>
+            <div className="greeting2">Your upcoming appointments</div>
             <div className="appointmentscroll">
               <ul>
                 {appointmentsArray
