@@ -32,8 +32,7 @@ const UserController = {
 
   CreateNewUser: async (req, res) => {
     try {
-      const salt = await bcrypt.genSalt();
-      const hashedPassword = await bcrypt.hash(req.body.password, salt);
+      const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
       await User.create({
         name: req.body.name,
