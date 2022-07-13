@@ -257,7 +257,7 @@ function PersonalCalendar() {
               </div>
 
               <form onSubmit={submitEvent}>
-                <input className="input-event" type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Create event" />
+                <input maxLength="50" className="input-event" type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Create event" />
                 <input className="input-button" disabled={!name} type="submit" data-cy="submit" value="Submit" />
               </form>
 
@@ -281,23 +281,23 @@ function PersonalCalendar() {
                     <li className="scroll-list" key={index}>
                       <div>
 
-                        <div>
+                        <div className="scroll-date">
                           {'When: '}
                           {new Date(appointment.date).toLocaleDateString()}
                           &ensp;
                         </div>
 
-                        <div>
+                        <div className="scroll-date">
                           {'What: '}
                           {appointment.name}
                           &ensp;
                         </div>
 
-                        <div>
+                        <div className="scroll-date">
                           {'Who: '}
                           {appointment.user_id.map((user, i) => (
-
                             <span key={i}>
+                              {' '}
                               {user.name}
                             &ensp;
                             </span>
