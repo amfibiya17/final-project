@@ -395,11 +395,45 @@ ul {
 
 .conditions {
   float: left;
-  width: 45%;
+  width: 40%;
 }
 
 .icon {
   width: 40px;
   max-width: 10%;
   max-height: 10%;
+}
+
+.input-event {
+  margin-top: 10px;
+  margin-left: 30px;
+  background-color: rgba(241, 241, 241, 0.272);
+  letter-spacing: 1.3px;
+  box-sizing: border-box;
+  width: 30%;
+  border: none;
+  color: #000000;
+  padding: 10px 1px 12px 25px;
+  font-size: 17px;
+  outline: none;
+  height: 25px;
+}
+
+.input-button {
+  background-color: #00000051;
+  text-decoration: none;
+  text-align: center;
+  color: #00000085;
+  height: 25px;
+  font-weight: 500;
+  font-family: inherit;
+  letter-spacing: 0.06em;
+  border: none;
+  cursor: pointer;
+  margin-bottom:5px;
+}
+
+.input-button:hover {
+  color: rgba(135, 135, 135, 0.613);
+  background: rgba(255, 255, 255, 0.428);
 }
