@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-rsouter-dom';
 
 const MODAL_STYLES = {
   position: 'fixed',
@@ -23,14 +23,14 @@ const OVERLAY_STYLES = {
   zIndex: 1000,
 };
 
-function Modal({ open, children }) {
-  const navigate = useNavigate();
+function Modal({ open, children, onClose }) {
+  // const navigate = useNavigate();
   if (!open) return null;
   return ReactDOM.createPortal(
     <>
       <div style={OVERLAY_STYLES} />
       <div style={MODAL_STYLES}>
-        <button type="button" onClick={() => navigate('/home')}>Close</button>
+        <button type="button" onClick={onClose}>Close</button>
         {children}
       </div>
     </>,

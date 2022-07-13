@@ -8,6 +8,7 @@ import { differenceInCalendarDays } from 'date-fns';
 import './personalCalendar.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Modal from './modal';
 
 // const disabledDates = [new Date(), new Date(2022, 10)];
 // const datesToAddContentTo = [new Date(), new Date(2022, 10)];
@@ -41,6 +42,7 @@ function PersonalCalendar() {
   const [userName, setUserName] = useState('');
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
   // const [weather, setWeather] = useState();
 
   function getAppointments() {
@@ -108,7 +110,8 @@ function PersonalCalendar() {
     appointmentsArray.forEach((appointment) => {
       // eslint-disable-next-line eqeqeq
       if (
-        new Date(appointment.date).toDateString() === new Date(selectedDate).toDateString()
+        new Date(appointment.date).toDateString()
+        === new Date(selectedDate).toDateString()
       ) {
         setAppointmentName(appointment.name);
         a = 1;
@@ -159,22 +162,16 @@ function PersonalCalendar() {
 
   async function deleteEvent(eventId, eventUsersId) {
     if (eventUsersId.length <= 2) {
-      await axios.delete(
-        'http://localhost:8282/appointments/delete',
-        {
-          params: {
-            eventId,
-          },
-        },
-      );
-    } else {
-      await axios.patch(
-        'http://localhost:8282/appointments/remove_user',
-        {
+      await axios.delete('http://localhost:8282/appointments/delete', {
+        params: {
           eventId,
-          userId,
         },
-      );
+      });
+    } else {
+      await axios.patch('http://localhost:8282/appointments/remove_user', {
+        eventId,
+        userId,
+      });
     }
     getAppointments();
   }
@@ -203,7 +200,12 @@ function PersonalCalendar() {
         {/* {weather} */}
       </p>
       <form onSubmit={submitEvent}>
-        <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="event" />
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="event"
+        />
         <input disabled={!name} type="submit" value="Submit" />
       </form>
       {error && <div className="error">{error}</div>}
@@ -228,12 +230,15 @@ function PersonalCalendar() {
       <div>
         <ul>
           {appointmentsArray
-            .filter((appointment) => new Date(new Date(appointment.date)
-              .getTime() + (1000 * 3600 * 20)) >= new Date())
+            .filter(
+              (appointment) => new Date(
+                new Date(appointment.date).getTime() + 1000 * 3600 * 20,
+              ) >= new Date(),
+            )
             .map((appointment, index) => (
               <li key={index}>
                 <span>{new Date(appointment.date).toLocaleDateString()}</span>
-                  &ensp;
+                &ensp;
                 <span>
                   {appointment.name}
                   &ensp;
@@ -241,7 +246,7 @@ function PersonalCalendar() {
                 {appointment.user_id.map((user, i) => (
                   <span key={i}>
                     {user.name}
-                  &ensp;
+                    &ensp;
                   </span>
                 ))}
                 <button
@@ -254,6 +259,20 @@ function PersonalCalendar() {
                 >
                   delete
                 </button>
+                <button
+                  className="update-button"
+                  type="submit"
+                  onClick={() => {
+                    setIsOpen(true);
+                  }}
+                >
+                  update
+                </button>
+                <div>
+                  <Modal open={isOpen} onClose={() => setIsOpen(false)}>
+                    Event Added
+                  </Modal>
+                </div>
               </li>
             ))}
         </ul>
