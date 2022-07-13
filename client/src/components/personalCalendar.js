@@ -10,6 +10,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Modal from './modal';
 import Navbar from './navbar';
+import AppointmentUpdateForm from './appointmentUpdateForm';
 
 // const disabledDates = [new Date(), new Date(2022, 10)];
 // const datesToAddContentTo = [new Date(), new Date(2022, 10)];
@@ -301,7 +302,7 @@ function PersonalCalendar() {
                 </button>
                 <div>
                   <Modal open={isOpen} onClose={() => setIsOpen(false)}>
-                    Event Added
+                    <AppointmentUpdateForm />
                   </Modal>
                 </div>
               </li>
