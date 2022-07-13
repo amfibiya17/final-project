@@ -17,7 +17,9 @@ function FirstPage() {
 
   return (
     <div>
+
       <Navbar />
+
       <div className="body">
         <div className="two-buttons">
 
@@ -27,7 +29,6 @@ function FirstPage() {
 
         </div>
       </div>
-      <div className="full-size-img" />
 
     </div>
   );

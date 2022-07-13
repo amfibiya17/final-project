@@ -3,6 +3,7 @@ import './login.css';
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Navbar from './navbar';
 
 function Login() {
   const navigate = useNavigate();
@@ -29,37 +30,43 @@ function Login() {
   }
 
   return (
-    <div className="body">
+    <div>
 
-      <div className="Login">
+      <Navbar />
 
-        <form onSubmit={loginUser}>
+      <div className="body">
 
-          <div className="input-container">
-            <input
-              className="input"
-              type="email"
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
-              placeholder="Email"
-            />
-          </div>
+        <div className="Login">
 
-          <br />
+          <form onSubmit={loginUser}>
 
-          <div className="input-container">
-            <input
-              className="input"
-              type="password"
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
-              placeholder="Password"
-            />
-          </div>
+            <div className="input-container">
+              <input
+                className="input"
+                type="email"
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
+                placeholder="Email"
+              />
+            </div>
 
-          <button className="login-button" data-cy="login" type="submit">Log In</button>
-          {error && <div className="error">{error}</div>}
-        </form>
+            <br />
+
+            <div className="input-container">
+              <input
+                className="input"
+                type="password"
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
+                placeholder="Password"
+              />
+            </div>
+
+            <button className="login-button" data-cy="login" type="submit">Log In</button>
+            {error && <div className="error">{error}</div>}
+          </form>
+
+        </div>
 
       </div>
 
