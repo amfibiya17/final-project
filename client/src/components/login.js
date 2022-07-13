@@ -8,6 +8,7 @@ function Login() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState();
 
   async function loginUser(event) {
     event.preventDefault();
@@ -18,10 +19,9 @@ function Login() {
 
     if (response.data.user) {
       localStorage.setItem('token', response.data.user);
-      alert('Login successful');
       navigate('/home');
     } else {
-      alert('Please check your username and password');
+      setError('Please check your username and password.');
     }
 
     setEmail('');
@@ -58,7 +58,7 @@ function Login() {
           </div>
 
           <button className="login-button" type="submit">Log In</button>
-
+          {error && <div className="error">{error}</div>}
         </form>
 
       </div>
