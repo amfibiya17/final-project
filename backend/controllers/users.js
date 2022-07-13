@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
@@ -11,7 +12,7 @@ const UserController = {
       if (err) {
         return res.status(401).send({ message: 'Unauthorized!' });
       }
-      return decoded.user_id;
+      return decoded;
     });
 
     return res.json(userId);
@@ -30,10 +31,14 @@ const UserController = {
   },
 
   CreateNewUser: async (req, res) => {
-    const { name, email, password } = req.body;
-
     try {
-      await User.create({ name, email, password });
+      const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
+      await User.create({
+        name: req.body.name,
+        email: req.body.email,
+        password: hashedPassword,
+      });
       res.status(200).json({ status: 'ok' });
     } catch (error) {
       res.status(400).json({ error: error.message });
@@ -43,13 +48,14 @@ const UserController = {
   LoginUser: async (req, res) => {
     const user = await User.findOne({
       email: req.body.email,
-      password: req.body.password,
     });
+    const passwordCompare = await bcrypt.compare(req.body.password, user.password);
 
-    if (user) {
+    if (passwordCompare === true) {
       const token = jwt.sign({
         // eslint-disable-next-line no-underscore-dangle
         user_id: user._id,
+        name: user.name,
       }, 'secretPassword123');
 
       return res.json({ status: 'ok', user: token });
