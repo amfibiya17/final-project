@@ -17,7 +17,12 @@ function FirstPage() {
   return (
     <div>
 
+      <div className="logo-palendar">
+        <span className="span">Palendar</span>
+      </div>
+
       <div className="body">
+
         <div className="two-buttons">
 
           <button className="first-button" type="submit" onClick={navigateToSignup}>Sign up</button>
