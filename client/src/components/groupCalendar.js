@@ -8,6 +8,7 @@ import { differenceInCalendarDays } from 'date-fns';
 import './personalCalendar.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Modal from './modal';
 
 // const disabledDates = [new Date(), new Date(2022, 10)];
 // const datesToAddContentTo = [new Date(), new Date(2022, 10)];
@@ -30,15 +31,17 @@ function GroupCalendar() {
   const [userId, setUserId] = useState();
   const [userArray, setUserArray] = useState([]);
   const [usersAll, setUsersAll] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
   // const [weather, setWeather] = useState();
 
   function getAppointments() {
     if (userId) {
-      axios.get('http://localhost:8282/appointments/calendar', {
-        params: {
-          user_id: userArray,
-        },
-      })
+      axios
+        .get('http://localhost:8282/appointments/calendar', {
+          params: {
+            user_id: userArray,
+          },
+        })
         .then((response) => {
           const data = [];
           response.data.forEach((appointment) => {
@@ -50,11 +53,12 @@ function GroupCalendar() {
   }
 
   async function getUserId() {
-    await axios.get('http://localhost:8282/users/userId', {
-      headers: {
-        'x-access-token': localStorage.getItem('token'),
-      },
-    })
+    await axios
+      .get('http://localhost:8282/users/userId', {
+        headers: {
+          'x-access-token': localStorage.getItem('token'),
+        },
+      })
       .then((response) => {
         setUserId(response.data);
         setUserArray(response.data);
@@ -63,11 +67,12 @@ function GroupCalendar() {
 
   async function getAllUsers() {
     if (userId) {
-      await axios.get('http://localhost:8282/users/all', {
-        params: {
-          user_id: userId,
-        },
-      })
+      await axios
+        .get('http://localhost:8282/users/all', {
+          params: {
+            user_id: userId,
+          },
+        })
         .then((response) => {
           setUsersAll(response.data);
         });
@@ -141,12 +146,11 @@ function GroupCalendar() {
         name,
         user_id: userArray,
       });
+    } catch (err) {
+      setIsOpen(false);
     } finally {
       if (response) {
-        alert(`${name} is booked in`);
-        navigate('/home');
-      } else {
-        alert('try again... muhahahah');
+        setIsOpen(true);
       }
       setName('');
     }
@@ -181,9 +185,7 @@ function GroupCalendar() {
         {' '}
         {value.toDateString()}
       </p>
-      <p data-testid="date-info">
-        {/* {weather} */}
-      </p>
+      <p data-testid="date-info">{/* {weather} */}</p>
       <ul>
         {usersAll.map((user, i) => (
           // eslint-disable-next-line react/no-array-index-key
@@ -202,9 +204,20 @@ function GroupCalendar() {
         ))}
       </ul>
       <form onSubmit={submitEvent}>
-        <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="event" />
-        <input type="submit" data-cy="submit-group-event" value="Submit" />
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="event"
+          data-cy="submit-group-event"
+        />
+        <input disabled={!name} type="submit" value="Submit" onClick={() => setIsOpen(true)} />
       </form>
+      <div>
+        <Modal open={isOpen} onClose={() => setIsOpen(false)}>
+          Event Added
+        </Modal>
+      </div>
       <button
         type="button"
         onClick={() => {
