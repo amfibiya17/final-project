@@ -38,6 +38,7 @@ function PersonalCalendar() {
   const [appointmentsArray, setAppointmentsArray] = useState([]);
   const [appointmentName, setAppointmentName] = useState('');
   const [userId, setUserId] = useState();
+  const [userName, setUserName] = useState('');
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   // const [weather, setWeather] = useState();
@@ -69,7 +70,8 @@ function PersonalCalendar() {
         },
       })
       .then((response) => {
-        setUserId(response.data);
+        setUserId(response.data.user_id);
+        setUserName(response.data.name);
       });
   }
 
@@ -155,8 +157,36 @@ function PersonalCalendar() {
     setName('');
   }
 
+  async function deleteEvent(eventId, eventUsersId) {
+    if (eventUsersId.length <= 2) {
+      await axios.delete(
+        'http://localhost:8282/appointments/delete',
+        {
+          params: {
+            eventId,
+          },
+        },
+      );
+    } else {
+      await axios.patch(
+        'http://localhost:8282/appointments/remove_user',
+        {
+          eventId,
+          userId,
+        },
+      );
+    }
+    getAppointments();
+  }
+
   return (
     <>
+      <h1>
+        Hi
+        {' '}
+        {userName}
+        , this is you personal Calendar
+      </h1>
       <Calendar
         onChange={onChange}
         value={value}
@@ -215,7 +245,16 @@ function PersonalCalendar() {
                   &ensp;
                   </span>
                 ))}
-                {/* <span>{appointment.user_id}</span> */}
+                <button
+                  className="delete-button"
+                  type="submit"
+                  onClick={() => {
+                    // eslint-disable-next-line no-underscore-dangle
+                    deleteEvent(appointment._id, appointment.user_id);
+                  }}
+                >
+                  delete
+                </button>
               </li>
             ))}
         </ul>
