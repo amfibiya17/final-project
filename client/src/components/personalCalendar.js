@@ -207,6 +207,7 @@ function PersonalCalendar() {
                 this is your personal Calendar
               </div>
             </div>
+
             <Calendar
               // className="calbody"
               onChange={onChange}
@@ -215,24 +216,26 @@ function PersonalCalendar() {
               // tileContent={tileContent}
               tileClassName={tileClassName}
             />
+
             <div className="select-body">
-              <p className="text-center">
-                <span className="bold">Selected Date:</span>
+
+              <div className="text-center">
+                <span className="bold">Selected Date: </span>
                 {value.toDateString()}
-              </p>
-              <p>
+                {'   '}
                 {appointmentName}
-              </p>
+              </div>
+
               <div className="weather">
                 <p className="maxT">
-                  MaxT:
+                  Max Temp:
                   {' '}
                   { weatherTempMax }
                   {' '}
                   C
                 </p>
                 <p className="minT">
-                  MinT:
+                  Min Temp:
                   {' '}
                   { weatherTempMin }
                   {' '}
@@ -247,6 +250,7 @@ function PersonalCalendar() {
                   <img src={weatherIcon} alt="" />
                 </p>
               </div>
+
               <form onSubmit={submitEvent}>
                 <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="event" />
                 <input disabled={!name} type="submit" data-cy="submit" value="Submit" />
@@ -257,6 +261,7 @@ function PersonalCalendar() {
 
             </div>
           </div>
+
           <div className="center-child1">
             <div className="calbox" />
             <div className="greeting" />
@@ -283,6 +288,7 @@ function PersonalCalendar() {
                           &ensp;
                           </span>
                         ))}
+
                         <button
                           className="delete-button"
                           type="submit"

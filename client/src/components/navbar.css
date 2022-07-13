@@ -14,12 +14,11 @@
   color: #8d34d6;
   margin-left: 25px;
   float: left;
-  padding: 9px 16px;
-  font-weight: 900;
+  padding: 11px 16px;
+  font-weight: 700;
   font-family: inherit;
-  font-size: 150%;
+  font-size: 120%;
   letter-spacing: 0.06em;
-  font-family: 'Dosis', sans-serif;
 }
 
 .nav-link:hover {

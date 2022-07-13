@@ -1,4 +1,4 @@
-/* * { border: solid 0.01px red } */
+* { border: solid 0.01px red }
 
 .calbody {
   background-image: url("../../public/images/mohammad-alizade-XgeZu2jBaVI-unsplash.jpg");
@@ -11,7 +11,6 @@
   display: flex;
   justify-content: center;
   /* width: 400px; */
-  margin-top: 70px; /* needs to be deleted */
 }
 
 .center-element {
@@ -359,4 +358,33 @@ ul {
 .center-child1 {
   /* border: 2px solid pink; */
   width: 500px;
+}
+
+/* css for bar with weather */
+.text-center {
+  text-decoration: none;
+  text-align: left;
+  color: #000000;
+  margin-left: 15px;
+  float: left;
+  padding: 9px 16px;
+  font-weight: 700;
+  font-family: inherit;
+  font-size: 100%;
+  letter-spacing: 0.06em;
+  width: 100%;
+}
+
+.weather {
+  text-decoration: none;
+  text-align: left;
+  color: #000000;
+  margin-left: 15px;
+  float: left;
+  padding: 9px 16px;
+  font-weight: 200;
+  font-family: inherit;
+  font-size: 100%;
+  letter-spacing: 0.06em;
+  width: 100%;
 }
