@@ -233,74 +233,45 @@ function PersonalCalendar() {
           <div className="greeting2">your upcoming appointments</div>
           <div className="appointmentscroll">
             <ul>
-              {appointmentsArray
-                .filter((appointment) => new Date(new Date(appointment.date)
-                  .getTime() + (1000 * 3600 * 20)) >= new Date())
-                .map((appointment, index) => (
-                  <li className="scroll-list" key={index}>
-                    <span className="scroll-date">
-                      {new Date(appointment.date).toLocaleDateString()}
-                    </span>
-                      &ensp;
-                    <span>
-                      {appointment.name}
-                      &ensp;
-                    </span>
-                    {appointment.user_id.map((user, i) => (
-                      <span key={i}>
-                        {user.name}
-                      &ensp;
-                      </span>
-                    ))}
-                    <button
-                      className="delete-button"
-                      type="submit"
-                      onClick={() => {
-                        // eslint-disable-next-line no-underscore-dangle
-                        deleteEvent(appointment._id, appointment.user_id);
-                      }}
-                    >
-                      delete
-                    </button>
-                  </li>
-                ))}
+                {appointmentsArray
+                  .filter((appointment) => new Date(new Date(appointment.date)
+                    .getTime() + (1000 * 3600 * 20)) >= new Date())
+                  .map((appointment, index) => (
+                    <li className="scroll-list" key={index}>
+                      <div className="appointment-overview">
+                        <span className="scroll-date">
+                          {new Date(appointment.date).toLocaleDateString()}
+                        </span>
+                          &ensp;
+                        <span>
+                          {appointment.name}
+                          &ensp;
+                        </span>
+                        {appointment.user_id.map((user, i) => (
+                          <span key={i}>
+                            {user.name}
+                          &ensp;
+                          </span>
+                        ))}
+                        <button
+                          className="delete-button"
+                          type="submit"
+                          onClick={() => {
+                            // eslint-disable-next-line no-underscore-dangle
+                            deleteEvent(appointment._id, appointment.user_id);
+                          }}
+                        >
+                          delete
+                        </button>
+                      </div>
+                    </li>
+                  ))}
+              
             </ul>
           </div>
         </div>
       </div>
       {/* <div className="select-bottom ">
-      </div> */}
-      {/* <div className="appointment-scroll">
-        <ul>
-          {appointmentsArray
-            .filter((appointment) => new Date(new Date(appointment.date)
-              .getTime() + (1000 * 3600 * 20)) >= new Date())
-            .map((appointment, index) => (
-              <li key={index}>
-                <span>{new Date(appointment.date).toLocaleDateString()}</span>
-                  &ensp;
-                <span>
-                  {appointment.name}
-                  &ensp;
-                </span>
-                {appointment.user_id.map((user, i) => (
-                  <span key={i}>
-                    {user.name}
-                  &ensp;
-                  </span>
-                ))}
-                <button
-                  type="submit"
-                  onClick={() => {
-                    // eslint-disable-next-line no-underscore-dangle
-                    deleteEvent(appointment._id, appointment.user_id);
-                  }}
-                >
-                  delete
-                </button>
-              </li>
-            ))}
-        </ul>
       </div> */}
     </div>
   );
