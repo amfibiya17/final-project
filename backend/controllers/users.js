@@ -48,10 +48,10 @@ const UserController = {
   LoginUser: async (req, res) => {
     const user = await User.findOne({
       email: req.body.email,
-      password: req.body.password,
-    });
+    });  
+    const passwordCompare = await bcrypt.compare(req.body.password, user.password);
 
-    if (user) {
+    if (passwordCompare === true) {
       const token = jwt.sign({
         // eslint-disable-next-line no-underscore-dangle
         user_id: user._id,
