@@ -324,3 +324,29 @@ ul {
 .unavailable {
   background-color: #605374;
 }
+
+.error {
+  display: flex;
+  max-width: fit-content;
+  align-items: center;
+  text-align: center;
+  padding: 10px;
+  background: #ffefef;
+  border: 1px solid #e7195a;
+  color: #e7195a;
+  border-radius: 4px;
+  margin: 10px 0;
+}
+
+.success {
+  display: flex;
+  max-width: fit-content;
+  align-items: center;
+  text-align: center;
+  padding: 10px;
+  background: #f1ffeff6;
+  border: 1px solid #4BB543;
+  color: #4BB543;
+  border-radius: 4px;
+  margin: 10px 0;
+}

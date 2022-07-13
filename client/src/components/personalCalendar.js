@@ -9,6 +9,7 @@ import { differenceInCalendarDays } from 'date-fns';
 import './reactCal.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Navbar from './navbar';
 
 // const disabledDates = [new Date(), new Date(2022, 10)];
 // const datesToAddContentTo = [new Date(), new Date(2022, 10)];
@@ -40,7 +41,12 @@ function PersonalCalendar() {
   const [appointmentName, setAppointmentName] = useState('');
   const [userId, setUserId] = useState();
   const [userName, setUserName] = useState('');
-  // const [weather, setWeather] = useState();
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
+  const [weatherTempMax, setWeatherTempMax] = useState();
+  const [weatherTempMin, setWeatherTempMin] = useState();
+  const [weatherConditions, setWeatherConditions] = useState();
+  const [weatherIcon, setWeatherIcon] = useState();
 
   function getAppointments() {
     if (userId) {
@@ -118,20 +124,22 @@ function PersonalCalendar() {
     }
   }
 
-  // async function getWeather(day) {
-  //   await axios.get(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/london/${day.toISOString().split('T')[0]}?unitGroup=metric&include=days&key=BQ886JAS7TD7RNBNA8DW9JENC&contentType=json`, {
-  //   })
-  //     .then((response) => {
-  //       console.log(response.data);
-  //       setWeather(response.data.days[0].tempmax);
-  //     });
-  // }
+  async function getWeather(day) {
+    await axios.get(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/london/${day.toISOString().split('T')[0]}?unitGroup=metric&include=days&key=BQ886JAS7TD7RNBNA8DW9JENC&contentType=json`, {
+    })
+      .then((response) => {
+        setWeatherTempMax(response.data.days[0].tempmax);
+        setWeatherTempMin(response.data.days[0].tempmin);
+        setWeatherConditions(response.data.days[0].conditions);
+        setWeatherIcon(`./images/weather/${response.data.days[0].icon}.png`);
+      });
+  }
 
   function onChange(nextValue) {
-    // const nextDay = new Date(nextValue.getTime() + (1000 * 3600 * 24));
+    const nextDay = new Date(nextValue.getTime() + (1000 * 3600 * 24));
     setValue(nextValue);
     appointmentInformation(nextValue);
-    // getWeather(nextDay);
+    getWeather(nextDay);
   }
 
   async function submitEvent(event) {
@@ -146,9 +154,11 @@ function PersonalCalendar() {
     );
 
     if (response) {
-      alert(`${name} is booked in`);
+      setSuccess(`${name} has been added to your calendar!`);
+      setError(null);
     } else {
-      alert('try again... muhahahah');
+      setError('There was an error in your request. Please try again.');
+      setSuccess(null);
     }
     getAppointments();
     setName('');
@@ -156,8 +166,7 @@ function PersonalCalendar() {
 
   async function deleteEvent(eventId, eventUsersId) {
     if (eventUsersId.length <= 2) {
-      // eslint-disable-next-line no-unused-vars
-      const response = await axios.delete(
+      await axios.delete(
         'http://localhost:8282/appointments/delete',
         {
           params: {
@@ -165,74 +174,109 @@ function PersonalCalendar() {
           },
         },
       );
-      getAppointments();
+    } else {
+      await axios.patch(
+        'http://localhost:8282/appointments/remove_user',
+        {
+          eventId,
+          userId,
+        },
+      );
     }
+    getAppointments();
   }
 
   return (
-    <div className="calbody">
-      <div className="navbar">Navbar Placeholder</div>
-      <div className="center-element">
-        <div className="center-child">
-          <div className="calbox">
-            <div className="greeting">
-              Hi
-              {' '}
-              {userName}
-              ,
+    <>
+      <Navbar />
+      <div className="calbody">
+        <div className="center-element">
+          <div className="center-child">
+            <div className="calbox">
+              <div className="greeting">
+                Hi
+                {' '}
+                {userName}
+                ,
+              </div>
+            </div>
+            <div className="calbox">
+              <div className="greeting1">
+                this is you personal Calendar
+              </div>
+            </div>
+            <Calendar
+              // className="calbody"
+              onChange={onChange}
+              value={value}
+              // tileDisabled={tileDisabled}
+              // tileContent={tileContent}
+              tileClassName={tileClassName}
+            />
+            <div className="select-body">
+              <p className="text-center">
+                <span className="bold">Selected Date:</span>
+                {value.toDateString()}
+              </p>
+              <p>
+                {appointmentName}
+              </p>
+              <div className="weather">
+                <p className="maxT">
+                  MaxT:
+                  {' '}
+                  { weatherTempMax }
+                  {' '}
+                  C
+                </p>
+                <p className="minT">
+                  MinT:
+                  {' '}
+                  { weatherTempMin }
+                  {' '}
+                  C
+                </p>
+                <p className="conditions">
+                  Weather:
+                  {' '}
+                  { weatherConditions }
+                </p>
+                <p className="icon">
+                  <img src={weatherIcon} alt="" />
+                </p>
+              </div>
+              <form onSubmit={submitEvent}>
+                <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="event" />
+                <input disabled={!name} type="submit" data-cy="submit" value="Submit" />
+              </form>
+              {error && <div className="error">{error}</div>}
+              {success && <div className="success">{success}</div>}
+              <button
+                type="button"
+                onClick={() => {
+                  localStorage.removeItem('token');
+                  navigate('/login');
+                }}
+              >
+                Log out
+              </button>
+              <button
+                type="button"
+                data-cy="create-group-event"
+                onClick={() => {
+                  navigate('/group_event');
+                }}
+              >
+                Create group event
+              </button>
             </div>
           </div>
-          <div className="calbox">
-            <div className="greeting1">
-              this is you personal Calendar
-            </div>
-          </div>
-          <Calendar
-            // className="calbody"
-            onChange={onChange}
-            value={value}
-            // tileDisabled={tileDisabled}
-            // tileContent={tileContent}
-            tileClassName={tileClassName}
-          />
-          <div className="select-body">
-            <p className="text-center">
-              <span className="bold">Selected Date:</span>
-              {value.toDateString()}
-            </p>
-            <p>
-              {appointmentName}
-              {/* {weather} */}
-            </p>
-            <form onSubmit={submitEvent}>
-              <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="event" />
-              <input type="submit" value="Submit" />
-            </form>
-            {/* <button
-              type="button"
-              onClick={() => {
-                localStorage.removeItem('token');
-                navigate('/login');
-              }}
-            >
-              Log out
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                navigate('/group_event');
-              }}
-            >
-              Create group event
-            </button> */}
-          </div>
-        </div>
-        <div className="center-child">
-          <div className="calbox" />
-          <div className="greeting" />
-          <div className="greeting2">your upcoming appointments</div>
-          <div className="appointmentscroll">
-            <ul>
+          <div className="center-child">
+            <div className="calbox" />
+            <div className="greeting" />
+            <div className="greeting2">your upcoming appointments</div>
+            <div className="appointmentscroll">
+              <ul>
                 {appointmentsArray
                   .filter((appointment) => new Date(new Date(appointment.date)
                     .getTime() + (1000 * 3600 * 20)) >= new Date())
@@ -266,14 +310,12 @@ function PersonalCalendar() {
                       </div>
                     </li>
                   ))}
-              
-            </ul>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
-      {/* <div className="select-bottom ">
-      </div> */}
-    </div>
+    </>
   );
 }
 

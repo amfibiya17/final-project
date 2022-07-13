@@ -9,25 +9,32 @@ function Signup() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
 
   async function signupUser(event) {
     event.preventDefault();
-    const response = await axios.post(
-      'http://localhost:8282/users/signup',
-      {
+
+    let response;
+    try {
+      response = await axios.post('http://localhost:8282/users/signup', {
         name,
         email,
         password,
-      },
-    );
+      });
+    } catch {
+      return null;
+    }
 
     setName('');
     setEmail('');
     setPassword('');
 
-    if (response.data.status === 'ok') {
+    if (!response) {
+      setError('Please ensure you have filled out the sign up form properly.');
+    } else {
       navigate('/login');
     }
+    return false;
   }
 
   return (
@@ -43,7 +50,7 @@ function Signup() {
               type="text"
               onChange={(e) => setName(e.target.value)}
               value={name}
-              placeholder="Name"
+              placeholder="Full Name"
             />
           </div>
 
@@ -66,9 +73,8 @@ function Signup() {
               placeholder="Password"
             />
           </div>
-
-          <button className="login-button" type="submit">Sign up</button>
-
+          <button className="login-button" data-cy="submit" type="submit">Sign up</button>
+          {error && <div className="error">{error}</div>}
         </form>
       </div>
     </div>
