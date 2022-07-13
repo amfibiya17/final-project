@@ -181,7 +181,7 @@ function PersonalCalendar() {
 
   return (
     <>
-      <h1>
+      <h1 data-testid="welcome-message">
         Hi
         {' '}
         {userName}
