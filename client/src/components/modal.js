@@ -30,7 +30,7 @@ function Modal({ open, children, onClose }) {
     <>
       <div style={OVERLAY_STYLES} />
       <div style={MODAL_STYLES}>
-        <button type="button" onClick={onClose}>Close</button>
+        <button type="button" data-cy="close-event-added-modal" onClick={onClose}>Close</button>
         {children}
       </div>
     </>,

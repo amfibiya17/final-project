@@ -8,7 +8,7 @@ test('Name input should be rendered', () => {
       <Signup />
     </Router>
   );
-  const nameInputEl = screen.getByPlaceholderText(/name/i);
+  const nameInputEl = screen.getByPlaceholderText(/Full Name/i);
   expect(nameInputEl).toBeInTheDocument();
 });
 
@@ -48,7 +48,7 @@ test('Name input should be empty', () => {
       <Signup />
     </Router>
   );
-  const nameInputEl = screen.getByPlaceholderText(/name/i);
+  const nameInputEl = screen.getByPlaceholderText(/Full Name/i);
   expect(nameInputEl.value).toBe('');
 });
 
@@ -78,7 +78,7 @@ test('Name input should change', () => {
       <Signup />
     </Router>
   );
-  const nameInputEl = screen.getByPlaceholderText(/name/i);
+  const nameInputEl = screen.getByPlaceholderText(/Full Name/i);
   const testValue = 'test';
 
   fireEvent.change(nameInputEl, { target: { value: testValue } });

@@ -21,8 +21,8 @@ function Signup() {
         email,
         password,
       });
-    } catch (error) {
-      null
+    } catch {
+      return null;
     }
 
     setName('');
@@ -30,10 +30,11 @@ function Signup() {
     setPassword('');
 
     if (!response) {
-      setError('Please ensure you have filled out the sign up form properly.')
+      setError('Please ensure you have filled out the sign up form properly.');
     } else {
       navigate('/login');
     }
+    return false;
   }
 
   return (
@@ -49,7 +50,7 @@ function Signup() {
               type="text"
               onChange={(e) => setName(e.target.value)}
               value={name}
-              placeholder="Name"
+              placeholder="Full Name"
             />
           </div>
 
@@ -72,8 +73,8 @@ function Signup() {
               placeholder="Password"
             />
           </div>
-          <button className="login-button" type="submit">Sign up</button>
-          {error && <div className='error'>{error}</div>}
+          <button className="login-button" data-cy="submit" type="submit">Sign up</button>
+          {error && <div className="error">{error}</div>}
         </form>
       </div>
     </div>

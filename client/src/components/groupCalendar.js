@@ -8,6 +8,7 @@ import { differenceInCalendarDays } from 'date-fns';
 import './personalCalendar.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Navbar from './navbar';
 import Modal from './modal';
 
 // const disabledDates = [new Date(), new Date(2022, 10)];
@@ -32,7 +33,10 @@ function GroupCalendar() {
   const [userArray, setUserArray] = useState([]);
   const [usersAll, setUsersAll] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
-  // const [weather, setWeather] = useState();
+  const [weatherTempMax, setWeatherTempMax] = useState();
+  const [weatherTempMin, setWeatherTempMin] = useState();
+  const [weatherConditions, setWeatherConditions] = useState();
+  const [weatherIcon, setWeatherIcon] = useState();
 
   function getAppointments() {
     if (userId) {
@@ -114,19 +118,21 @@ function GroupCalendar() {
   //   }
   // }
 
-  // async function getWeather(day) {
-  //   await axios.get(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/london/${day.toISOString().split('T')[0]}?unitGroup=metric&include=days&key=BQ886JAS7TD7RNBNA8DW9JENC&contentType=json`, {
-  //   })
-  //     .then((response) => {
-  //       console.log(response.data);
-  //       setWeather(response.data.days[0].tempmax);
-  //     });
-  // }
+  async function getWeather(day) {
+    await axios.get(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/london/${day.toISOString().split('T')[0]}?unitGroup=metric&include=days&key=BQ886JAS7TD7RNBNA8DW9JENC&contentType=json`, {
+    })
+      .then((response) => {
+        setWeatherTempMax(response.data.days[0].tempmax);
+        setWeatherTempMin(response.data.days[0].tempmin);
+        setWeatherConditions(response.data.days[0].conditions);
+        setWeatherIcon(`./images/weather/${response.data.days[0].icon}.png`);
+      });
+  }
 
   function onChange(nextValue) {
-    // const nextDay = new Date(nextValue.getTime() + (1000 * 3600 * 24));
+    const nextDay = new Date(nextValue.getTime() + (1000 * 3600 * 24));
     setValue(nextValue);
-    // getWeather(nextDay);
+    getWeather(nextDay);
   }
 
   function tileDisabled({ date, view }) {
@@ -173,6 +179,7 @@ function GroupCalendar() {
 
   return (
     <>
+      <Navbar />
       <Calendar
         onChange={onChange}
         value={value}
@@ -180,18 +187,43 @@ function GroupCalendar() {
         // tileContent={tileContent}
         // tileClassName={tileClassName}
       />
-      <p className="text-center">
+      <p className="text-center" data-testid="selected-date">
         <span className="bold">Selected Date:</span>
         {' '}
         {value.toDateString()}
       </p>
-      <p>{/* {weather} */}</p>
+      <div data-testid="date-info" className="weather">
+        <p className="maxT">
+          MaxT:
+          {' '}
+          { weatherTempMax }
+          {' '}
+          C
+        </p>
+        <p className="minT">
+          MinT:
+          {' '}
+          { weatherTempMin }
+          {' '}
+          C
+        </p>
+        <p className="conditions">
+          Weather:
+          {' '}
+          { weatherConditions }
+        </p>
+        <p className="icon">
+          <img src={weatherIcon} alt="" />
+        </p>
+      </div>
       <ul>
         {usersAll.map((user, i) => (
           // eslint-disable-next-line react/no-array-index-key
           <li key={i}>
             <input
               type="checkbox"
+              data-testid="checkbox"
+              data-cy="checkbox"
               onChange={() => {
                 // eslint-disable-next-line no-underscore-dangle
                 addingUser(user._id);
@@ -208,7 +240,7 @@ function GroupCalendar() {
           onChange={(e) => setName(e.target.value)}
           placeholder="event"
         />
-        <input disabled={!name} type="submit" value="Submit" onClick={() => setIsOpen(true)} />
+        <input disabled={!name} type="submit" data-cy="submit-group-event" value="Submit" onClick={() => setIsOpen(true)} />
       </form>
       <div>
         <Modal open={isOpen} onClose={() => navigate('/home')}>

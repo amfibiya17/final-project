@@ -1,1 +1,4 @@
 /node_modules
+client/cypress/fixtures/example.json
+client/cypress/support/commands.js
+client/cypress/support/e2e.js
