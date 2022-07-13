@@ -242,12 +242,11 @@ function PersonalCalendar() {
                   C
                 </p>
                 <p className="conditions">
-                  Weather:
-                  {' '}
+                  {/* Weather:
+                  {' '} */}
                   { weatherConditions }
-                </p>
-                <p className="icon">
-                  <img src={weatherIcon} alt="" />
+                  {' '}
+                  <img src={weatherIcon} alt="" className="icon" />
                 </p>
               </div>
 

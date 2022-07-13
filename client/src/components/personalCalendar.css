@@ -1,4 +1,4 @@
-* { border: solid 0.01px red }
+/* * { border: solid 0.01px red } */
 
 .calbody {
   background-image: url("../../public/images/mohammad-alizade-XgeZu2jBaVI-unsplash.jpg");
@@ -368,8 +368,7 @@ ul {
   margin-left: 15px;
   float: left;
   padding: 9px 16px;
-  font-weight: 700;
-  font-family: inherit;
+  font-weight: 500;
   font-size: 100%;
   letter-spacing: 0.06em;
   width: 100%;
@@ -380,11 +379,18 @@ ul {
   text-align: left;
   color: #000000;
   margin-left: 15px;
+  margin-top: -15px;
   float: left;
   padding: 9px 16px;
-  font-weight: 200;
-  font-family: inherit;
-  font-size: 100%;
+  font-weight: 500;
+  font-size: 90%;
   letter-spacing: 0.06em;
   width: 100%;
+}
+
+.icon {
+  width: 40px;
+  max-width: 10%;
+  max-height: 10%;
+  margin-top: 5px;
 }
