@@ -38,12 +38,14 @@ function PersonalCalendar() {
   const [appointmentsArray, setAppointmentsArray] = useState([]);
   const [appointmentName, setAppointmentName] = useState('');
   const [userId, setUserId] = useState();
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
   // const [weather, setWeather] = useState();
 
   function getAppointments() {
     if (userId) {
       axios
-        .get(`http://localhost:8282/appointments/calendar`, {
+        .get('http://localhost:8282/appointments/calendar', {
           params: {
             user_id: userId,
           },
@@ -61,7 +63,7 @@ function PersonalCalendar() {
 
   async function getUserId() {
     await axios
-      .get(`http://localhost:8282/users/userId`, {
+      .get('http://localhost:8282/users/userId', {
         headers: {
           'x-access-token': localStorage.getItem('token'),
         },
@@ -134,7 +136,7 @@ function PersonalCalendar() {
   async function submitEvent(event) {
     event.preventDefault();
     const response = await axios.post(
-      `http://localhost:8282/appointments/new`,
+      'http://localhost:8282/appointments/new',
       {
         date: new Date(value),
         name,
@@ -143,9 +145,11 @@ function PersonalCalendar() {
     );
 
     if (response) {
-      alert(`${name} is booked in`);
+      setSuccess(`${name} has been added to your calendar!`);
+      setError(null);
     } else {
-      alert('try again... muhahahah');
+      setError('There was an error in your request. Please try again.');
+      setSuccess(null);
     }
     getAppointments();
     setName('');
@@ -170,8 +174,10 @@ function PersonalCalendar() {
       </p>
       <form onSubmit={submitEvent}>
         <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="event" />
-        <input type="submit" value="Submit" />
+        <input disabled={!name} type="submit" value="Submit" />
       </form>
+      {error && <div className="error">{error}</div>}
+      {success && <div className="success">{success}</div>}
       <button
         type="button"
         onClick={() => {
