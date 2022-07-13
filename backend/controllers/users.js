@@ -48,7 +48,7 @@ const UserController = {
   LoginUser: async (req, res) => {
     const user = await User.findOne({
       email: req.body.email,
-    });  
+    });
     const passwordCompare = await bcrypt.compare(req.body.password, user.password);
 
     if (passwordCompare === true) {
