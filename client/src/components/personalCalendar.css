@@ -53,26 +53,29 @@
 
 .appointment-overview {
   display: flex;
+  inline-size: 150px;
+  overflow-wrap: break-word;
 }
 
 .scroll-list {
   margin-left: 15px;
   margin-right: 15px;
-  height: 60px;
+  height: 75px;
+  max-height: 150px;
   border-bottom: 0.5px solid rgba(255, 255, 255, 0.268);
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   font-size: 14px;
   display: block;
 }
 
 .scroll-date {
-  margin-left: 15px;
+  /* margin-left: 15px;
   margin-right: 15px;
   font-weight: bold;
   font-size: 11px;
   display: flex;
-  align-items: center;
+  align-items: center; */
 }
 
 .delete-button {

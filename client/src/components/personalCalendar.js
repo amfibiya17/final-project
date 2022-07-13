@@ -281,19 +281,20 @@ function PersonalCalendar() {
                     <li className="scroll-list" key={index}>
                       <div>
 
-                        <div className="appointment-overview">
-                          <span className="scroll-date">
-                            {new Date(appointment.date).toLocaleDateString()}
-                            &ensp;
-                          </span>
-
-                          <span>
-                            {appointment.name}
-                            &ensp;
-                          </span>
+                        <div>
+                          {'When: '}
+                          {new Date(appointment.date).toLocaleDateString()}
+                          &ensp;
                         </div>
 
                         <div>
+                          {'What: '}
+                          {appointment.name}
+                          &ensp;
+                        </div>
+
+                        <div>
+                          {'Who: '}
                           {appointment.user_id.map((user, i) => (
 
                             <span key={i}>
@@ -302,18 +303,18 @@ function PersonalCalendar() {
                             </span>
 
                           ))}
-
-                          <button
-                            className="delete-button"
-                            type="submit"
-                            onClick={() => {
-                              // eslint-disable-next-line no-underscore-dangle
-                              deleteEvent(appointment._id, appointment.user_id);
-                            }}
-                          >
-                            Delete
-                          </button>
                         </div>
+
+                        <button
+                          className="delete-button"
+                          type="submit"
+                          onClick={() => {
+                            // eslint-disable-next-line no-underscore-dangle
+                            deleteEvent(appointment._id, appointment.user_id);
+                          }}
+                        >
+                          Delete
+                        </button>
 
                       </div>
                     </li>
