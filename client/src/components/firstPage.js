@@ -16,13 +16,17 @@ function FirstPage() {
   };
 
   return (
-    <div className="body">
-
+    <div>
+      <div className="body">
       <Navbar />
+        <div className="two-buttons">
 
-      <button className="first-button" type="submit" onClick={navigateToSignup}>Sign up</button>
+          <button className="first-button" type="submit" onClick={navigateToSignup}>Sign up</button>
 
-      <button className="first-button" type="submit" onClick={navigateToLogin}>Log in</button>
+          <button className="first-button" type="submit" onClick={navigateToLogin}>Log in</button>
+
+        </div>
+      </div>
 
     </div>
   );
