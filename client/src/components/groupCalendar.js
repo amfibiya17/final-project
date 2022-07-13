@@ -209,9 +209,8 @@ function GroupCalendar() {
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="event"
-          data-cy="submit-group-event"
         />
-        <input disabled={!name} type="submit" value="Submit" onClick={() => setIsOpen(true)} />
+        <input disabled={!name} type="submit" data-cy="submit-group-event" value="Submit" onClick={() => setIsOpen(true)} />
       </form>
       <div>
         <Modal open={isOpen} onClose={() => setIsOpen(false)}>

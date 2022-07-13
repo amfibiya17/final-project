@@ -20,5 +20,6 @@ describe("add group event", () => {
 
     cy.get('[data-cy="checkbox"]').click()
     cy.get('[data-cy="submit-group-event"]').click()
+    cy.get('[data-cy="close-event-added-modal"]').click()
   });
 });
