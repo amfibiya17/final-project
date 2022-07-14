@@ -9,7 +9,9 @@ import { differenceInCalendarDays } from 'date-fns';
 import './reactCal.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Modal from './modal';
 import Navbar from './navbar';
+import AppointmentUpdateForm from './appointmentUpdateForm';
 
 // const disabledDates = [new Date(), new Date(2022, 10)];
 // const datesToAddContentTo = [new Date(), new Date(2022, 10)];
@@ -43,10 +45,12 @@ function PersonalCalendar() {
   const [userName, setUserName] = useState('');
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
   const [weatherTempMax, setWeatherTempMax] = useState();
   const [weatherTempMin, setWeatherTempMin] = useState();
   const [weatherConditions, setWeatherConditions] = useState();
   const [weatherIcon, setWeatherIcon] = useState();
+  const [appointmentToUpdate, setAppointmentToUpdate] = useState();
 
   function getAppointments() {
     if (userId) {
@@ -65,6 +69,17 @@ function PersonalCalendar() {
           setDatesToAddClassTo(data);
         });
     }
+  }
+
+  async function getWeather(day) {
+    await axios.get(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/london/${day.toISOString().split('T')[0]}?unitGroup=metric&include=days&key=BQ886JAS7TD7RNBNA8DW9JENC&contentType=json`, {
+    })
+      .then((response) => {
+        setWeatherTempMax(response.data.days[0].tempmax.toFixed(0));
+        setWeatherTempMin(response.data.days[0].tempmin.toFixed(0));
+        setWeatherConditions(response.data.days[0].conditions);
+        setWeatherIcon(`./images/weather/${response.data.days[0].icon}.png`);
+      });
   }
 
   async function getUserId() {
@@ -87,6 +102,7 @@ function PersonalCalendar() {
       navigate('/login');
     } else {
       getUserId();
+      getWeather(value);
     }
   }, []);
 
@@ -113,7 +129,8 @@ function PersonalCalendar() {
     appointmentsArray.forEach((appointment) => {
       // eslint-disable-next-line eqeqeq
       if (
-        new Date(appointment.date).toDateString() === new Date(selectedDate).toDateString()
+        new Date(appointment.date).toDateString()
+        === new Date(selectedDate).toDateString()
       ) {
         setAppointmentName(appointment.name);
         a = 1;
@@ -122,17 +139,6 @@ function PersonalCalendar() {
     if (a === 0) {
       setAppointmentName('');
     }
-  }
-
-  async function getWeather(day) {
-    await axios.get(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/london/${day.toISOString().split('T')[0]}?unitGroup=metric&include=days&key=BQ886JAS7TD7RNBNA8DW9JENC&contentType=json`, {
-    })
-      .then((response) => {
-        setWeatherTempMax(response.data.days[0].tempmax);
-        setWeatherTempMin(response.data.days[0].tempmin);
-        setWeatherConditions(response.data.days[0].conditions);
-        setWeatherIcon(`./images/weather/${response.data.days[0].icon}.png`);
-      });
   }
 
   function onChange(nextValue) {
@@ -166,29 +172,25 @@ function PersonalCalendar() {
 
   async function deleteEvent(eventId, eventUsersId) {
     if (eventUsersId.length <= 2) {
-      await axios.delete(
-        'http://localhost:8282/appointments/delete',
-        {
-          params: {
-            eventId,
-          },
-        },
-      );
-    } else {
-      await axios.patch(
-        'http://localhost:8282/appointments/remove_user',
-        {
+      await axios.delete('http://localhost:8282/appointments/delete', {
+        params: {
           eventId,
-          userId,
         },
-      );
+      });
+    } else {
+      await axios.patch('http://localhost:8282/appointments/remove_user', {
+        eventId,
+        userId,
+      });
     }
     getAppointments();
   }
 
   return (
     <>
-      <Navbar />
+      <div className="nav-center">
+        <Navbar />
+      </div>
       <div className="calbody">
         <div className="center-element">
           <div className="center-child">
@@ -202,9 +204,10 @@ function PersonalCalendar() {
             </div>
             <div className="calbox">
               <div className="greeting1">
-                this is you personal Calendar
+                this is your personal Calendar
               </div>
             </div>
+
             <Calendar
               // className="calbody"
               onChange={onChange}
@@ -213,90 +216,94 @@ function PersonalCalendar() {
               // tileContent={tileContent}
               tileClassName={tileClassName}
             />
+
             <div className="select-body" data-testid="selected-date">
-              <p className="text-center">
-                <span className="bold">Selected Date:</span>
+
+              <div className="text-center">
+                <span className="bold">Selected Date: </span>
                 {value.toDateString()}
-              </p>
-              <p>
+                {'   '}
                 {appointmentName}
-              </p>
-              <div className="weather" data-testid="date-info">
-                <p className="maxT">
-                  MaxT:
-                  {' '}
-                  { weatherTempMax }
-                  {' '}
-                  C
-                </p>
-                <p className="minT">
-                  MinT:
-                  {' '}
-                  { weatherTempMin }
-                  {' '}
-                  C
-                </p>
-                <p className="conditions">
-                  Weather:
-                  {' '}
-                  { weatherConditions }
-                </p>
-                <p className="icon">
-                  <img src={weatherIcon} alt="" />
-                </p>
               </div>
+
+              <div className="weather" data-testid="date-info">
+
+                <div className="temperature">
+                  <div>
+                    Max Temp:
+                    {' '}
+                    { weatherTempMax }
+                    ºC
+                  </div>
+
+                  <div>
+                    Min Temp:
+                    {' '}
+                    { weatherTempMin }
+                    ºC
+                  </div>
+                </div>
+
+                <div className="conditions">
+                  {/* Weather:
+                  {' '} */}
+                  { weatherConditions }
+                  {'   '}
+                  <img src={weatherIcon} alt="" className="icon" />
+                </div>
+
+              </div>
+
               <form onSubmit={submitEvent}>
-                <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="event" />
-                <input disabled={!name} type="submit" data-cy="submit" value="Submit" />
+                <input maxLength="50" className="input-event" type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Create event" />
+                <input className="input-button" disabled={!name} type="submit" data-cy="submit" value="Submit" />
               </form>
+
               {error && <div className="error">{error}</div>}
               {success && <div className="success">{success}</div>}
-              <button
-                type="button"
-                onClick={() => {
-                  localStorage.removeItem('token');
-                  navigate('/login');
-                }}
-              >
-                Log out
-              </button>
-              <button
-                type="button"
-                data-cy="create-group-event"
-                onClick={() => {
-                  navigate('/group_event');
-                }}
-              >
-                Create group event
-              </button>
+
             </div>
           </div>
-          <div className="center-child">
+
+          <div className="center-child1">
             <div className="calbox" />
             <div className="greeting" />
-            <div className="greeting2">your upcoming appointments</div>
+            <div className="greeting2">Your upcoming appointments</div>
             <div className="appointmentscroll">
               <ul>
                 {appointmentsArray
                   .filter((appointment) => new Date(new Date(appointment.date)
                     .getTime() + (1000 * 3600 * 20)) >= new Date())
                   .map((appointment, index) => (
+
                     <li className="scroll-list" key={index}>
-                      <div className="appointment-overview">
-                        <span className="scroll-date">
+                      <div>
+
+                        <div className="scroll-date1">
+                          {'When: '}
                           {new Date(appointment.date).toLocaleDateString()}
-                        </span>
                           &ensp;
-                        <span>
+                        </div>
+
+                        <div className="scroll-date">
+                          {'What: '}
                           {appointment.name}
                           &ensp;
-                        </span>
-                        {appointment.user_id.map((user, i) => (
-                          <span key={i}>
-                            {user.name}
-                          &ensp;
-                          </span>
-                        ))}
+                        </div>
+
+                        <div className="scroll-date">
+                          {'Who: '}
+                          {'   '}
+                          {appointment.user_id.map((user, i) => (
+                            <span key={i}>
+                              {' '}
+                              {user.name}
+                            &ensp;
+                            </span>
+
+                          ))}
+                        </div>
+
                         <button
                           className="delete-button"
                           type="submit"
@@ -305,12 +312,27 @@ function PersonalCalendar() {
                             deleteEvent(appointment._id, appointment.user_id);
                           }}
                         >
-                          delete
+                          Delete
+                        </button>
+                        <button
+                          className="update-button"
+                          type="submit"
+                          onClick={() => {
+                            setAppointmentToUpdate(appointment);
+                            setIsOpen(true);
+                          }}
+                        >
+                          Update
                         </button>
                       </div>
                     </li>
                   ))}
               </ul>
+              <div>
+                <Modal open={isOpen} onClose={() => setIsOpen(false)}>
+                  <AppointmentUpdateForm appointment={appointmentToUpdate} />
+                </Modal>
+              </div>
             </div>
           </div>
         </div>
