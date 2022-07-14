@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import ReactDOM from 'react-dom';
+import './modal.css';
 // import { useNavigate } from 'react-rsouter-dom';
 
 const MODAL_STYLES = {
@@ -10,7 +11,7 @@ const MODAL_STYLES = {
   transform: 'translate(-50%, -50%)',
   padding: '50px',
   zIndex: 1000,
-  backgroundColor: 'rgba(255, 255, 255, 0.75)',
+  backgroundColor: 'rgba(255, 255, 255, 0.6)',
 };
 
 const OVERLAY_STYLES = {
@@ -34,9 +35,14 @@ const BUTTON_STYLES = {
   letterSpacing: '0.06em',
   border: 'none',
   cursor: 'pointer',
-  marginBottom: '5px',
-  marginTop: '10px',
+  marginTop: '25px',
+  marginLeft: '19px',
 };
+
+// const BUTTON_STYLES:hover = {
+//   color: 'rgba(135, 135, 135, 0.613)',
+//   background: 'rgba(255, 255, 255, 0.428)',
+// };
 
 function Modal({ open, children, onClose }) {
   // const navigate = useNavigate();
