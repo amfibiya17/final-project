@@ -57,6 +57,17 @@ function GroupCalendar() {
     }
   }
 
+  async function getWeather(day) {
+    await axios.get(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/london/${day.toISOString().split('T')[0]}?unitGroup=metric&include=days&key=BQ886JAS7TD7RNBNA8DW9JENC&contentType=json`, {
+    })
+      .then((response) => {
+        setWeatherTempMax(response.data.days[0].tempmax);
+        setWeatherTempMin(response.data.days[0].tempmin);
+        setWeatherConditions(response.data.days[0].conditions);
+        setWeatherIcon(`./images/weather/${response.data.days[0].icon}.png`);
+      });
+  }
+
   async function getUserId() {
     await axios
       .get('http://localhost:8282/users/userId', {
@@ -91,6 +102,7 @@ function GroupCalendar() {
       navigate('/login');
     } else {
       getUserId();
+      getWeather(value);
       // getAllUsers();
     }
   }, []);
@@ -118,17 +130,6 @@ function GroupCalendar() {
   //     }
   //   }
   // }
-
-  async function getWeather(day) {
-    await axios.get(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/london/${day.toISOString().split('T')[0]}?unitGroup=metric&include=days&key=BQ886JAS7TD7RNBNA8DW9JENC&contentType=json`, {
-    })
-      .then((response) => {
-        setWeatherTempMax(response.data.days[0].tempmax);
-        setWeatherTempMin(response.data.days[0].tempmin);
-        setWeatherConditions(response.data.days[0].conditions);
-        setWeatherIcon(`./images/weather/${response.data.days[0].icon}.png`);
-      });
-  }
 
   function onChange(nextValue) {
     const nextDay = new Date(nextValue.getTime() + (1000 * 3600 * 24));
@@ -207,7 +208,7 @@ function GroupCalendar() {
             <div className="group-select-body">
               <div className="group-select-section">
                 <div data-testid="date-info" className="weather">
-                  <div className="temperature">
+                  <div className="temperature current-date-select ">
                     <div>
                       Max Temp:
                       {' '}
@@ -225,7 +226,7 @@ function GroupCalendar() {
                     </div>
                   </div>
 
-                  <div className="conditions">
+                  <div className="conditions current-date-select ">
                     {/* Weather:
                     {' '} */}
                     { weatherConditions }

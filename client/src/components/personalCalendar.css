@@ -425,7 +425,7 @@ ul {
 .react-calendar__tile:disabled {
   background-color: #60537493;
   border-radius: 20px;
-  border-radius: 22px;
+  /* border-radius: 22px; */
   /* background-color: rgba(18, 79, 93, 0.416);
   box-shadow: 0px 0px 0px 1px rgba(18, 79, 93, 0.07);
   color: rgb(98, 98, 98); */
