@@ -3,9 +3,10 @@
 /* eslint-disable react/jsx-no-bind */
 import React, { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
+// import 'react-calendar/dist/Calendar.css';
 import { differenceInCalendarDays } from 'date-fns';
-import './personalCalendar.css';
+// import './personalCalendar.css';
+import './reactCal.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Modal from './modal';
@@ -70,6 +71,17 @@ function PersonalCalendar() {
     }
   }
 
+  async function getWeather(day) {
+    await axios.get(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/london/${day.toISOString().split('T')[0]}?unitGroup=metric&include=days&key=BQ886JAS7TD7RNBNA8DW9JENC&contentType=json`, {
+    })
+      .then((response) => {
+        setWeatherTempMax(response.data.days[0].tempmax);
+        setWeatherTempMin(response.data.days[0].tempmin);
+        setWeatherConditions(response.data.days[0].conditions);
+        setWeatherIcon(`./images/weather/${response.data.days[0].icon}.png`);
+      });
+  }
+
   async function getUserId() {
     await axios
       .get('http://localhost:8282/users/userId', {
@@ -90,6 +102,7 @@ function PersonalCalendar() {
       navigate('/login');
     } else {
       getUserId();
+      getWeather(value);
     }
   }, []);
 
@@ -126,17 +139,6 @@ function PersonalCalendar() {
     if (a === 0) {
       setAppointmentName('');
     }
-  }
-
-  async function getWeather(day) {
-    await axios.get(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/london/${day.toISOString().split('T')[0]}?unitGroup=metric&include=days&key=BQ886JAS7TD7RNBNA8DW9JENC&contentType=json`, {
-    })
-      .then((response) => {
-        setWeatherTempMax(response.data.days[0].tempmax);
-        setWeatherTempMin(response.data.days[0].tempmin);
-        setWeatherConditions(response.data.days[0].conditions);
-        setWeatherIcon(`./images/weather/${response.data.days[0].icon}.png`);
-      });
   }
 
   function onChange(nextValue) {
@@ -186,129 +188,155 @@ function PersonalCalendar() {
 
   return (
     <>
-      <Navbar />
-      <h1 data-testid="welcome-message">
-        Hi
-        {' '}
-        {userName}
-        , this is you personal Calendar
-      </h1>
-      <Calendar
-        onChange={onChange}
-        value={value}
-        // tileDisabled={tileDisabled}
-        // tileContent={tileContent}
-        tileClassName={tileClassName}
-      />
-      <p className="text-center" data-testid="selected-date">
-        <span className="bold">Selected Date:</span>
-        {value.toDateString()}
-      </p>
-      <p data-testid="date-info">
-        {appointmentName}
-      </p>
-      <div className="weather">
-        <p className="maxT">
-          MaxT:
-          {' '}
-          { weatherTempMax }
-          {' '}
-          C
-        </p>
-        <p className="minT">
-          MinT:
-          {' '}
-          { weatherTempMin }
-          {' '}
-          C
-        </p>
-        <p className="conditions">
-          Weather:
-          {' '}
-          { weatherConditions }
-        </p>
-        <p className="icon">
-          <img src={weatherIcon} alt="" />
-        </p>
+      <div className="nav-center">
+        <Navbar />
       </div>
-      <form onSubmit={submitEvent}>
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="event"
-        />
-        <input disabled={!name} data-cy="submit" type="submit" value="Submit" />
-      </form>
-      {error && <div className="error">{error}</div>}
-      {success && <div className="success">{success}</div>}
-      <button
-        type="button"
-        onClick={() => {
-          localStorage.removeItem('token');
-          navigate('/login');
-        }}
-      >
-        Log out
-      </button>
-      <button
-        type="button"
-        data-cy="create-group-event"
-        onClick={() => {
-          navigate('/group_event');
-        }}
-      >
-        Create group event
-      </button>
-      <div>
-        <ul>
-          {appointmentsArray
-            .filter(
-              (appointment) => new Date(
-                new Date(appointment.date).getTime() + 1000 * 3600 * 20,
-              ) >= new Date(),
-            )
-            .map((appointment, index) => (
-              <li key={index}>
-                <span>{new Date(appointment.date).toLocaleDateString()}</span>
-                &ensp;
-                <span>
-                  {appointment.name}
-                  &ensp;
-                </span>
-                {appointment.user_id.map((user, i) => (
-                  <span key={i}>
-                    {user.name}
-                    &ensp;
-                  </span>
-                ))}
-                <button
-                  className="delete-button"
-                  type="submit"
-                  onClick={() => {
-                    // eslint-disable-next-line no-underscore-dangle
-                    deleteEvent(appointment._id, appointment.user_id);
-                  }}
-                >
-                  delete
-                </button>
-                <button
-                  className="update-button"
-                  type="submit"
-                  onClick={() => {
-                    setAppointmentToUpdate(appointment);
-                    setIsOpen(true);
-                  }}
-                >
-                  update
-                </button>
-              </li>
-            ))}
-        </ul>
-        <div>
-          <Modal open={isOpen} onClose={() => setIsOpen(false)}>
-            <AppointmentUpdateForm appointment={appointmentToUpdate} />
-          </Modal>
+      <div className="calbody">
+        <div className="center-element">
+          <div className="center-child">
+            <div className="calbox">
+              <div className="greeting">
+                Hi
+                {' '}
+                {userName}
+                ,
+              </div>
+            </div>
+            <div className="calbox">
+              <div className="greeting1">
+                this is your personal Calendar
+              </div>
+            </div>
+
+            <Calendar
+              // className="calbody"
+              onChange={onChange}
+              value={value}
+              // tileDisabled={tileDisabled}
+              // tileContent={tileContent}
+              tileClassName={tileClassName}
+            />
+
+            <div className="select-body">
+
+              <div className="text-center">
+                <span className="bold">Selected Date: </span>
+                {value.toDateString()}
+                {'   '}
+                {appointmentName}
+              </div>
+
+              <div className="weather">
+
+                <div className="temperature">
+                  <div>
+                    Max Temp:
+                    {' '}
+                    { weatherTempMax }
+                    {' '}
+                    C
+                  </div>
+
+                  <div>
+                    Min Temp:
+                    {' '}
+                    { weatherTempMin }
+                    {' '}
+                    C
+                  </div>
+                </div>
+
+                <div className="conditions">
+                  {/* Weather:
+                  {' '} */}
+                  { weatherConditions }
+                  {'   '}
+                  <img src={weatherIcon} alt="" className="icon" />
+                </div>
+
+              </div>
+
+              <form onSubmit={submitEvent}>
+                <input maxLength="50" className="input-event" type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Create event" />
+                <input className="input-button" disabled={!name} type="submit" data-cy="submit" value="Submit" />
+              </form>
+
+              {error && <div className="error">{error}</div>}
+              {success && <div className="success">{success}</div>}
+
+            </div>
+          </div>
+
+          <div className="center-child1">
+            <div className="calbox" />
+            <div className="greeting" />
+            <div className="greeting2">Your upcoming appointments</div>
+            <div className="appointmentscroll">
+              <ul>
+                {appointmentsArray
+                  .filter((appointment) => new Date(new Date(appointment.date)
+                    .getTime() + (1000 * 3600 * 20)) >= new Date())
+                  .map((appointment, index) => (
+
+                    <li className="scroll-list" key={index}>
+                      <div>
+
+                        <div className="scroll-date1">
+                          {'When: '}
+                          {new Date(appointment.date).toLocaleDateString()}
+                          &ensp;
+                        </div>
+
+                        <div className="scroll-date">
+                          {'What: '}
+                          {appointment.name}
+                          &ensp;
+                        </div>
+
+                        <div className="scroll-date">
+                          {'Who: '}
+                          {'   '}
+                          {appointment.user_id.map((user, i) => (
+                            <span key={i}>
+                              {' '}
+                              {user.name}
+                            &ensp;
+                            </span>
+
+                          ))}
+                        </div>
+
+                        <button
+                          className="delete-button"
+                          type="submit"
+                          onClick={() => {
+                            // eslint-disable-next-line no-underscore-dangle
+                            deleteEvent(appointment._id, appointment.user_id);
+                          }}
+                        >
+                          Delete
+                        </button>
+                        <button
+                          className="update-button"
+                          type="submit"
+                          onClick={() => {
+                            setAppointmentToUpdate(appointment);
+                            setIsOpen(true);
+                          }}
+                        >
+                          Update
+                        </button>
+                      </div>
+                    </li>
+                  ))}
+              </ul>
+              <div>
+                <Modal open={isOpen} onClose={() => setIsOpen(false)}>
+                  <AppointmentUpdateForm appointment={appointmentToUpdate} />
+                </Modal>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </>
