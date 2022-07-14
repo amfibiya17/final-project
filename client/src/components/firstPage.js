@@ -2,7 +2,6 @@ import './firstPage.css';
 
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
-import Navbar from './navbar';
 
 function FirstPage() {
   const navigate = useNavigate();
@@ -16,13 +15,22 @@ function FirstPage() {
   };
 
   return (
-    <div className="body">
+    <div>
 
-      <Navbar />
+      <div className="logo-palendar">
+        <span className="span">Palendar</span>
+      </div>
 
-      <button className="first-button" type="submit" onClick={navigateToSignup}>Sign up</button>
+      <div className="body">
 
-      <button className="first-button" type="submit" onClick={navigateToLogin}>Log in</button>
+        <div className="two-buttons">
+
+          <button className="first-button" type="submit" onClick={navigateToSignup}>Sign up</button>
+
+          <button className="first-button" type="submit" onClick={navigateToLogin}>Log in</button>
+
+        </div>
+      </div>
 
     </div>
   );

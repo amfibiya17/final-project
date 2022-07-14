@@ -2,7 +2,7 @@ import './login.css';
 
 import axios from 'axios';
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 function Login() {
   const navigate = useNavigate();
@@ -29,37 +29,49 @@ function Login() {
   }
 
   return (
-    <div className="body">
+    <div>
 
-      <div className="Login">
+      <div className="body">
 
-        <form onSubmit={loginUser}>
+        <div className="Login">
 
-          <div className="input-container">
-            <input
-              className="input"
-              type="email"
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
-              placeholder="Email"
-            />
+          <form onSubmit={loginUser}>
+
+            <div className="input-container">
+              <input
+                className="input"
+                type="email"
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
+                placeholder="Email"
+              />
+            </div>
+
+            <br />
+
+            <div className="input-container">
+              <input
+                className="input"
+                type="password"
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
+                placeholder="Password"
+              />
+            </div>
+
+            <button className="login-button" data-cy="login" type="submit">Log In</button>
+            {error && <div className="error">{error}</div>}
+          </form>
+
+          <div className="text-center-login">
+            Already registered?
+            {' '}
+            <Link to="/signup">
+              Signup
+            </Link>
           </div>
 
-          <br />
-
-          <div className="input-container">
-            <input
-              className="input"
-              type="password"
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
-              placeholder="Password"
-            />
-          </div>
-
-          <button className="login-button" data-cy="login" type="submit">Log In</button>
-          {error && <div className="error">{error}</div>}
-        </form>
+        </div>
 
       </div>
 

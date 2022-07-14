@@ -67,6 +67,17 @@ function PersonalCalendar() {
     }
   }
 
+  async function getWeather(day) {
+    await axios.get(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/london/${day.toISOString().split('T')[0]}?unitGroup=metric&include=days&key=BQ886JAS7TD7RNBNA8DW9JENC&contentType=json`, {
+    })
+      .then((response) => {
+        setWeatherTempMax(response.data.days[0].tempmax);
+        setWeatherTempMin(response.data.days[0].tempmin);
+        setWeatherConditions(response.data.days[0].conditions);
+        setWeatherIcon(`./images/weather/${response.data.days[0].icon}.png`);
+      });
+  }
+
   async function getUserId() {
     await axios
       .get('http://localhost:8282/users/userId', {
@@ -87,6 +98,7 @@ function PersonalCalendar() {
       navigate('/login');
     } else {
       getUserId();
+      getWeather(value);
     }
   }, []);
 
@@ -122,17 +134,6 @@ function PersonalCalendar() {
     if (a === 0) {
       setAppointmentName('');
     }
-  }
-
-  async function getWeather(day) {
-    await axios.get(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/london/${day.toISOString().split('T')[0]}?unitGroup=metric&include=days&key=BQ886JAS7TD7RNBNA8DW9JENC&contentType=json`, {
-    })
-      .then((response) => {
-        setWeatherTempMax(response.data.days[0].tempmax);
-        setWeatherTempMin(response.data.days[0].tempmin);
-        setWeatherConditions(response.data.days[0].conditions);
-        setWeatherIcon(`./images/weather/${response.data.days[0].icon}.png`);
-      });
   }
 
   function onChange(nextValue) {
@@ -188,7 +189,9 @@ function PersonalCalendar() {
 
   return (
     <>
-      <Navbar />
+      <div className="nav-center">
+        <Navbar />
+      </div>
       <div className="calbody">
         <div className="center-element">
           <div className="center-child">
@@ -202,9 +205,10 @@ function PersonalCalendar() {
             </div>
             <div className="calbox">
               <div className="greeting1">
-                this is you personal Calendar
+                this is your personal Calendar
               </div>
             </div>
+
             <Calendar
               // className="calbody"
               onChange={onChange}
@@ -213,90 +217,96 @@ function PersonalCalendar() {
               // tileContent={tileContent}
               tileClassName={tileClassName}
             />
+
             <div className="select-body">
-              <p className="text-center">
-                <span className="bold">Selected Date:</span>
+
+              <div className="text-center">
+                <span className="bold">Selected Date: </span>
                 {value.toDateString()}
-              </p>
-              <p>
+                {'   '}
                 {appointmentName}
-              </p>
-              <div className="weather">
-                <p className="maxT">
-                  MaxT:
-                  {' '}
-                  { weatherTempMax }
-                  {' '}
-                  C
-                </p>
-                <p className="minT">
-                  MinT:
-                  {' '}
-                  { weatherTempMin }
-                  {' '}
-                  C
-                </p>
-                <p className="conditions">
-                  Weather:
-                  {' '}
-                  { weatherConditions }
-                </p>
-                <p className="icon">
-                  <img src={weatherIcon} alt="" />
-                </p>
               </div>
+
+              <div className="weather">
+
+                <div className="temperature">
+                  <div>
+                    Max Temp:
+                    {' '}
+                    { weatherTempMax }
+                    {' '}
+                    C
+                  </div>
+
+                  <div>
+                    Min Temp:
+                    {' '}
+                    { weatherTempMin }
+                    {' '}
+                    C
+                  </div>
+                </div>
+
+                <div className="conditions">
+                  {/* Weather:
+                  {' '} */}
+                  { weatherConditions }
+                  {'   '}
+                  <img src={weatherIcon} alt="" className="icon" />
+                </div>
+
+              </div>
+
               <form onSubmit={submitEvent}>
-                <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="event" />
-                <input disabled={!name} type="submit" data-cy="submit" value="Submit" />
+                <input maxLength="50" className="input-event" type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Create event" />
+                <input className="input-button" disabled={!name} type="submit" data-cy="submit" value="Submit" />
               </form>
+
               {error && <div className="error">{error}</div>}
               {success && <div className="success">{success}</div>}
-              <button
-                type="button"
-                onClick={() => {
-                  localStorage.removeItem('token');
-                  navigate('/login');
-                }}
-              >
-                Log out
-              </button>
-              <button
-                type="button"
-                data-cy="create-group-event"
-                onClick={() => {
-                  navigate('/group_event');
-                }}
-              >
-                Create group event
-              </button>
+
             </div>
           </div>
-          <div className="center-child">
+
+          <div className="center-child1">
             <div className="calbox" />
             <div className="greeting" />
-            <div className="greeting2">your upcoming appointments</div>
+            <div className="greeting2">Your upcoming appointments</div>
             <div className="appointmentscroll">
               <ul>
                 {appointmentsArray
                   .filter((appointment) => new Date(new Date(appointment.date)
                     .getTime() + (1000 * 3600 * 20)) >= new Date())
                   .map((appointment, index) => (
+
                     <li className="scroll-list" key={index}>
-                      <div className="appointment-overview">
-                        <span className="scroll-date">
+                      <div>
+
+                        <div className="scroll-date1">
+                          {'When: '}
                           {new Date(appointment.date).toLocaleDateString()}
-                        </span>
                           &ensp;
-                        <span>
+                        </div>
+
+                        <div className="scroll-date">
+                          {'What: '}
                           {appointment.name}
                           &ensp;
-                        </span>
-                        {appointment.user_id.map((user, i) => (
-                          <span key={i}>
-                            {user.name}
-                          &ensp;
-                          </span>
-                        ))}
+                        </div>
+
+                        <div className="scroll-date">
+                          {'Who: '}
+                          {'   '}
+                          {appointment.user_id.map((user, i) => (
+                            <span key={i}>
+                              {' '}
+                              {user.name}
+                            &ensp;
+                            </span>
+
+                          ))}
+                        </div>
+
                         <button
                           className="delete-button"
                           type="submit"
@@ -305,8 +315,9 @@ function PersonalCalendar() {
                             deleteEvent(appointment._id, appointment.user_id);
                           }}
                         >
-                          delete
+                          Delete
                         </button>
+
                       </div>
                     </li>
                   ))}
