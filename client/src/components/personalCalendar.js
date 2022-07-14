@@ -75,8 +75,8 @@ function PersonalCalendar() {
     await axios.get(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/london/${day.toISOString().split('T')[0]}?unitGroup=metric&include=days&key=BQ886JAS7TD7RNBNA8DW9JENC&contentType=json`, {
     })
       .then((response) => {
-        setWeatherTempMax(response.data.days[0].tempmax);
-        setWeatherTempMin(response.data.days[0].tempmin);
+        setWeatherTempMax(response.data.days[0].tempmax.toFixed(0));
+        setWeatherTempMin(response.data.days[0].tempmin.toFixed(0));
         setWeatherConditions(response.data.days[0].conditions);
         setWeatherIcon(`./images/weather/${response.data.days[0].icon}.png`);
       });
@@ -233,16 +233,14 @@ function PersonalCalendar() {
                     Max Temp:
                     {' '}
                     { weatherTempMax }
-                    {' '}
-                    C
+                    ºC
                   </div>
 
                   <div>
                     Min Temp:
                     {' '}
                     { weatherTempMin }
-                    {' '}
-                    C
+                    ºC
                   </div>
                 </div>
 
