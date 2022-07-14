@@ -3,7 +3,7 @@ import axios from 'axios';
 
 function AppointmentUpdateForm({ appointment }) {
   const [name, setName] = useState(appointment.name);
-  const [date, setDate] = useState(new Date(appointment.date).getTime() + 1000 * 3600 * 20);
+  const [date, setDate] = useState(new Date(appointment.date).getTime() + 1000 * 3600);
 
   async function submitEvent() {
     await axios.patch('http://localhost:8282/appointments/update', {
