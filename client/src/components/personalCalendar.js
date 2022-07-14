@@ -67,6 +67,17 @@ function PersonalCalendar() {
     }
   }
 
+  async function getWeather(day) {
+    await axios.get(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/london/${day.toISOString().split('T')[0]}?unitGroup=metric&include=days&key=BQ886JAS7TD7RNBNA8DW9JENC&contentType=json`, {
+    })
+      .then((response) => {
+        setWeatherTempMax(response.data.days[0].tempmax);
+        setWeatherTempMin(response.data.days[0].tempmin);
+        setWeatherConditions(response.data.days[0].conditions);
+        setWeatherIcon(`./images/weather/${response.data.days[0].icon}.png`);
+      });
+  }
+
   async function getUserId() {
     await axios
       .get('http://localhost:8282/users/userId', {
@@ -87,6 +98,7 @@ function PersonalCalendar() {
       navigate('/login');
     } else {
       getUserId();
+      getWeather(value);
     }
   }, []);
 
@@ -122,17 +134,6 @@ function PersonalCalendar() {
     if (a === 0) {
       setAppointmentName('');
     }
-  }
-
-  async function getWeather(day) {
-    await axios.get(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/london/${day.toISOString().split('T')[0]}?unitGroup=metric&include=days&key=BQ886JAS7TD7RNBNA8DW9JENC&contentType=json`, {
-    })
-      .then((response) => {
-        setWeatherTempMax(response.data.days[0].tempmax);
-        setWeatherTempMin(response.data.days[0].tempmin);
-        setWeatherConditions(response.data.days[0].conditions);
-        setWeatherIcon(`./images/weather/${response.data.days[0].icon}.png`);
-      });
   }
 
   function onChange(nextValue) {
