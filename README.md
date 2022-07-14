@@ -20,10 +20,10 @@ You also have a choice of who you would like to include in the shared calendar, 
 
 ### MERN Stack
 
-- [MongoDB](https://www.mongodb.com/) | No-sql Database integrated on cloud platform Atlas
-- [Express](https://expressjs.com/) | Web framework for Node.js (Back-end Development)
-- [React](https://reactjs.org/) | JavaScript library for building user interfaces (Front-end Development)
-- [NodeJS](https://nodejs.org/en/) | JavaScript runtime built on Chrome's V8 JavaScript engine (Back-end Development)
+- [MongoDB](https://www.mongodb.com/) | No-sql Database integrated on cloud platform Atlas.
+- [Express](https://expressjs.com/) | Web framework for Node.js (Back-end Development).
+- [React](https://reactjs.org/) | JavaScript library for building user interfaces (Front-end Development).
+- [NodeJS](https://nodejs.org/en/) | JavaScript runtime built on Chrome's V8 JavaScript engine (Back-end Development).
 
 ### Notable Others
 
@@ -39,10 +39,10 @@ You also have a choice of who you would like to include in the shared calendar, 
 
 ### Organisational & Planning Tools
 
-- [Trello](https://trello.com/en)
-- [Slack](https://slack.com/intl/en-gb/)
-- [Miro](https://miro.com/)
-- [Balsamiq](https://balsamiq.com/)
+- [Trello](https://trello.com/en).
+- [Slack](https://slack.com/intl/en-gb/).
+- [Miro](https://miro.com/).
+- [Balsamiq](https://balsamiq.com/).
 
 ## Card wall
 
@@ -100,7 +100,7 @@ You also have a choice of who you would like to include in the shared calendar, 
 ## How to Run Locally
 
 1. Fork this repository
-2. Rename your fork to `< INSERT APP NAME HERE >`
+2. Rename your fork to `Palendar`
 3. Clone your fork to your local machine
 4. Install Node.js dependencies
    ```
@@ -111,11 +111,11 @@ You also have a choice of who you would like to include in the shared calendar, 
 ### Start Server
 
 ```
-cd server
+cd backend
 npm start
 ```
 
-Leave this terminal running in the background.
+Please leave this terminal running in the background.
 
 ### Start Client
 
@@ -126,7 +126,7 @@ cd client
 npm start
 ```
 
-Once again leave this terminal running in the background, the application should open automatically.
+Please leave this terminal running in the background, the application should open automatically.
 
 ### Test
 
