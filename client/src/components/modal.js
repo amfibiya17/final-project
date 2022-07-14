@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './modal.css';
 // import { useNavigate } from 'react-rsouter-dom';
 
 const MODAL_STYLES = {
