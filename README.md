@@ -10,9 +10,11 @@
 
 ## Description
 
-< INSERT APP DESCRIPTION > 
+This app allows you to schedule a time to hang out with friends within your busy lifestyle. After signing up you'll be able to populate your calendar with your own personal events.
 
-This app allows you to schedule a time to hang out with friends within your busy lifestyle. After signing up you'll be able to import your personal calendar. Your calendar then gets cross referenced with your friends calendars, and determines which days you are all available to hang out. 
+You can then create a group event, where your calendar gets cross referenced with your friends calendars, and determines which days you are all available to hang out.
+
+You also have a choice of who you would like to include in the shared calendar, keeping it private.
 
 ## Technologies Used
 
