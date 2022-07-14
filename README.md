@@ -1,4 +1,4 @@
-# < APP NAME >
+# Palendar
 
 ## Contributors
 
