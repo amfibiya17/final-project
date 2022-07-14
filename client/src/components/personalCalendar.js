@@ -314,6 +314,7 @@ function PersonalCalendar() {
                         >
                           Delete
                         </button>
+
                         <button
                           className="update-button"
                           type="submit"
@@ -324,6 +325,7 @@ function PersonalCalendar() {
                         >
                           Update
                         </button>
+
                       </div>
                     </li>
                   ))}
