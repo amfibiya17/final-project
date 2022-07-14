@@ -39,13 +39,13 @@ function UserNavbar() {
 
       <div className="nav-link">
         <Link to="/group_event">
-          Create group event
+          Create Group Event
         </Link>
       </div>
 
       <div className="nav-link">
         <a href="/" onClick={logout}>
-          Log out
+          Log Out
         </a>
       </div>
 

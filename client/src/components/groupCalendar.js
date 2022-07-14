@@ -58,11 +58,11 @@ function GroupCalendar() {
   }
 
   async function getWeather(day) {
-    await axios.get(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/london/${day.toISOString().split('T')[0]}?unitGroup=metric&include=days&key=BQ886JAS7TD7RNBNA8DW9JENC&contentType=json`, {
+    await axios.get(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/london/${day.toISOString().split('T')[0]}?unitGroup=metric&include=days&key=SZLE9LUXLBZ7XMZGCYRKPGJWV&contentType=json`, {
     })
       .then((response) => {
-        setWeatherTempMax(response.data.days[0].tempmax);
-        setWeatherTempMin(response.data.days[0].tempmin);
+        setWeatherTempMax(response.data.days[0].tempmax.toFixed(0));
+        setWeatherTempMin(response.data.days[0].tempmin.toFixed(0));
         setWeatherConditions(response.data.days[0].conditions);
         setWeatherIcon(`./images/weather/${response.data.days[0].icon}.png`);
       });
@@ -192,7 +192,7 @@ function GroupCalendar() {
                 What do you have in mind?
               </div>
               <div className="greeting1">
-                Coordinate your next group event
+                Coordinate your next group event:
               </div>
             </div>
             <Calendar
@@ -207,32 +207,28 @@ function GroupCalendar() {
             ))} */}
             <div className="group-select-body">
               <div className="group-select-section">
-                <div data-testid="date-info" className="weather">
-                  <div className="temperature current-date-select ">
-                    <div>
-                      Max Temp:
-                      {' '}
-                      { weatherTempMax }
-                      {' '}
-                      C
-                    </div>
-
-                    <div>
-                      Min Temp:
-                      {' '}
-                      { weatherTempMin }
-                      {' '}
-                      C
-                    </div>
+                <div data-testid="date-info" className="temperature">
+                  <div>
+                    Max Temp:
+                    {' '}
+                    { weatherTempMax }
+                    ºC
                   </div>
 
-                  <div className="conditions current-date-select ">
-                    {/* Weather:
-                    {' '} */}
-                    { weatherConditions }
-                    {'   '}
-                    <img src={weatherIcon} alt="" className="icon" />
+                  <div>
+                    Min Temp:
+                    {' '}
+                    { weatherTempMin }
+                    ºC
                   </div>
+                </div>
+
+                <div className="conditions">
+                  {/* Weather:
+                  {' '} */}
+                  { weatherConditions }
+                  {'   '}
+                  <img src={weatherIcon} alt="" className="icon" />
                 </div>
               </div>
               <div className="group-select-section">

@@ -72,7 +72,7 @@ function PersonalCalendar() {
   }
 
   async function getWeather(day) {
-    await axios.get(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/london/${day.toISOString().split('T')[0]}?unitGroup=metric&include=days&key=BQ886JAS7TD7RNBNA8DW9JENC&contentType=json`, {
+    await axios.get(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/london/${day.toISOString().split('T')[0]}?unitGroup=metric&include=days&key=SZLE9LUXLBZ7XMZGCYRKPGJWV&contentType=json`, {
     })
       .then((response) => {
         setWeatherTempMax(response.data.days[0].tempmax.toFixed(0));
@@ -146,6 +146,8 @@ function PersonalCalendar() {
     setValue(nextValue);
     appointmentInformation(nextValue);
     getWeather(nextDay);
+    setError(null);
+    setSuccess(null); 
   }
 
   async function submitEvent(event) {
@@ -202,7 +204,7 @@ function PersonalCalendar() {
                 ,
               </div>
               <div className="greeting1">
-                this is your personal Calendar
+                this is your personal Calendar:
               </div>
             </div>
 
@@ -215,63 +217,59 @@ function PersonalCalendar() {
               tileClassName={tileClassName}
             />
 
-            <div className="select-body">
+            <div className="group-select-body1">
+              <div className="group-select-section1">
+                  <div className="temperature">
+                    <div>
+                      Max Temp:
+                      {' '}
+                      { weatherTempMax }
+                      ºC
+                    </div>
 
-              <div className="text-center">
-                <span className="bold">Selected Date: </span>
-                {value.toDateString()}
-                {'   '}
-                {appointmentName}
-              </div>
-
-              <div className="weather">
-
-                <div className="temperature">
-                  <div>
-                    Max Temp:
-                    {' '}
-                    { weatherTempMax }
-                    ºC
+                    <div>
+                      Min Temp:
+                      {' '}
+                      { weatherTempMin }
+                      ºC
+                    </div>
                   </div>
 
-                  <div>
-                    Min Temp:
-                    {' '}
-                    { weatherTempMin }
-                    ºC
-                  </div>
+                  <div className="conditions">
+                    {/* Weather:
+                    {' '} */}
+                    { weatherConditions }
+                    {'   '}
+                    <img src={weatherIcon} alt="" className="icon" />
                 </div>
-
-                <div className="conditions">
-                  {/* Weather:
-                  {' '} */}
-                  { weatherConditions }
-                  {'   '}
-                  <img src={weatherIcon} alt="" className="icon" />
-                </div>
-
               </div>
+              <div className="group-select-section1">
+                <div className="selected-text" data-testid="selected-date">
+                  <span className="current-date-select">Selected Date:</span>
+                  <br />
+                  <span className="current-date-select">{value.toDateString()}</span>
+                </div>
+                <form className="submit-form" onSubmit={submitEvent}>
+                  <input maxLength="50" className="input-evnt" type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Create event" />
+                  <input className="input-bttn" disabled={!name} type="submit" data-cy="submit" value="Submit" />
+                </form>
 
-              <form onSubmit={submitEvent}>
-                <input maxLength="50" className="input-event" type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Create event" />
-                <input className="input-button" disabled={!name} type="submit" data-cy="submit" value="Submit" />
-              </form>
+                {error && <div className="error">{error}</div>}
+                {success && <div className="success">{success}</div>}
 
-              {error && <div className="error">{error}</div>}
-              {success && <div className="success">{success}</div>}
-
+                {/* <div>
+                  <Modal open={isOpen} onClose={() => navigate('/home')}>
+                    Event Added
+                  </Modal>
+                </div> */}
+              </div>
             </div>
           </div>
-
           <div className="center-child1">
             <div className="header-buffer">
               {/* <div className="greeting2">your upcoming appointments</div> */}
             </div>
             <div className="appointmentscroll">
-              <form onSubmit={submitEvent}>
-                <input maxLength="50" className="input-event" type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Create event" />
-                <input className="input-button" disabled={!name} type="submit" data-cy="submit" value="Submit" />
-              </form>
               <ul>
                 {appointmentsArray
                   .filter((appointment) => new Date(new Date(appointment.date)
