@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './appointmentUpdateForm.css'
 
 function AppointmentUpdateForm({ appointment }) {
   const [name, setName] = useState(appointment.name);
@@ -7,30 +8,41 @@ function AppointmentUpdateForm({ appointment }) {
 
   async function submitEvent() {
     await axios.patch('http://localhost:8282/appointments/update', {
-        eventId : appointment._id,
-        date: new Date(new Date(date).getTime() - 1000 * 3600),
-        name,
-      });
+      eventId: appointment._id,
+      date: new Date(new Date(date).getTime() - 1000 * 3600),
+      name,
+    });
   }
 
   return (
-    <>
+    <div>
       <form onSubmit={submitEvent}>
-        <input disabled={!name} data-cy="submit" type="submit" value="Update appointment" />
+
         <input
+          className="input-date"
           type="date"
           value={new Date(date).toISOString().split('T')[0]}
           onChange={(e) => setDate(e.target.value)}
           data-cy="update-date"
         />
+
         <input
+          className="input-event"
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
           data-cy="update-text"
         />
+
+        <input className="input-button"
+          disabled={!name}
+          data-cy="submit"
+          type="submit"
+          value="Update appointment"
+        />
+
       </form>
-    </>
+    </div>
   );
 }
 

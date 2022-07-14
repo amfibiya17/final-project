@@ -40,6 +40,10 @@ function Signup() {
   return (
     <div>
 
+      <div className="logo-palendar">
+        <span className="span">Palendar</span>
+      </div>
+
       <div className="body">
         <div className="Signup">
 
