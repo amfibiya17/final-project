@@ -5,8 +5,8 @@ import React, { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
 // import 'react-calendar/dist/Calendar.css';
 import { differenceInCalendarDays } from 'date-fns';
-// import './personalCalendar.css';
-import './reactCal.css';
+import './personalCalendar.css';
+// import './reactCal.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Navbar from './navbar';
@@ -188,21 +188,21 @@ function PersonalCalendar() {
 
   return (
     <>
-      <Navbar />
+      <div className="nav-center">
+        <Navbar />
+      </div>
       <div className="calbody">
         <div className="center-element">
           <div className="center-child">
-            <div className="calbox">
+            <div className="header-buffer">
               <div className="greeting">
                 Hi
                 {' '}
                 {userName}
                 ,
               </div>
-            </div>
-            <div className="calbox">
               <div className="greeting1">
-                this is you personal Calendar
+                this is your personal calendar
               </div>
             </div>
             <Calendar
@@ -271,10 +271,10 @@ function PersonalCalendar() {
               </button>
             </div>
           </div>
-          <div className="center-child">
-            <div className="calbox" />
-            <div className="greeting" />
-            <div className="greeting2">your upcoming appointments</div>
+          <div className="center-child1">
+            <div className="header-buffer">
+              {/* <div className="greeting2">your upcoming appointments</div> */}
+            </div>
             <div className="appointmentscroll">
               <ul>
                 {appointmentsArray

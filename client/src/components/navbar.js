@@ -28,9 +28,6 @@ function UserNavbar() {
   }
   return (
     <div className="navbar">
-      <div className="logo">
-        <img className="logo" src="/IconoDeCalendario.jpeg" alt="" width="50px" />
-      </div>
       <div className="link">
         <Link to="/home">
           Home

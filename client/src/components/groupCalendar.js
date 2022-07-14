@@ -3,9 +3,10 @@
 /* eslint-disable react/jsx-no-bind */
 import React, { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
+// import 'react-calendar/dist/Calendar.css';
 import { differenceInCalendarDays } from 'date-fns';
 import './personalCalendar.css';
+// import './reactCal.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Navbar from './navbar';
@@ -179,83 +180,102 @@ function GroupCalendar() {
 
   return (
     <>
-      <Navbar />
-      <Calendar
-        onChange={onChange}
-        value={value}
-        tileDisabled={tileDisabled}
-        // tileContent={tileContent}
-        // tileClassName={tileClassName}
-      />
-      <p className="text-center" data-testid="selected-date">
-        <span className="bold">Selected Date:</span>
-        {' '}
-        {value.toDateString()}
-      </p>
-      <div data-testid="date-info" className="weather">
-        <p className="maxT">
-          MaxT:
-          {' '}
-          { weatherTempMax }
-          {' '}
-          C
-        </p>
-        <p className="minT">
-          MinT:
-          {' '}
-          { weatherTempMin }
-          {' '}
-          C
-        </p>
-        <p className="conditions">
-          Weather:
-          {' '}
-          { weatherConditions }
-        </p>
-        <p className="icon">
-          <img src={weatherIcon} alt="" />
-        </p>
+      <div className="nav-center">
+        <Navbar />
       </div>
-      <ul>
-        {usersAll.map((user, i) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <li key={i}>
-            <input
-              type="checkbox"
-              data-testid="checkbox"
-              data-cy="checkbox"
-              onChange={() => {
-                // eslint-disable-next-line no-underscore-dangle
-                addingUser(user._id);
-              }}
+      <div className="calbody">
+        <div className="center-element">
+          <div className="center-child">
+            <div className="header-buffer">
+              <div className="greeting">
+                What do you have in mind?
+              </div>
+              <div className="greeting1">
+                Coordinate your next group event
+              </div>
+            </div>
+            <Calendar
+              onChange={onChange}
+              value={value}
+              tileDisabled={tileDisabled}
+              // tileContent={tileContent}
+              // tileClassName={tileClassName}
             />
-            {user.name}
-          </li>
-        ))}
-      </ul>
-      <form onSubmit={submitEvent}>
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="event"
-        />
-        <input disabled={!name} type="submit" data-cy="submit-group-event" value="Submit" onClick={() => setIsOpen(true)} />
-      </form>
-      <div>
-        <Modal open={isOpen} onClose={() => setIsOpen(false)}>
-          Event Added
-        </Modal>
+            <div className="group-select-body">
+              <div className="group-select-section">
+                {/* <p className="text-center" data-testid="selected-date">
+                  <span className="bold">Selected Date:</span>
+                  {' '}
+                  {value.toDateString()}
+                </p> */}
+                <div data-testid="date-info" className="weather">
+                  <p className="maxT">
+                    MaxT:
+                    {' '}
+                    { weatherTempMax }
+                    {' '}
+                    C
+                  </p>
+                  <p className="minT">
+                    MinT:
+                    {' '}
+                    { weatherTempMin }
+                    {' '}
+                    C
+                  </p>
+                  <p className="conditions">
+                    Weather:
+                    {' '}
+                    { weatherConditions }
+                  </p>
+                  <p className="icon">
+                    <img src={weatherIcon} alt="" />
+                  </p>
+                </div>
+              </div>
+              <div className="group-select-section">
+                <form onSubmit={submitEvent}>
+                  <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="event"
+                  />
+                  <input disabled={!name} type="submit" data-cy="submit-group-event" value="Submit" onClick={() => setIsOpen(true)} />
+                  <div>
+                    <Modal open={isOpen} onClose={() => setIsOpen(false)}>
+                      Event Added
+                    </Modal>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div className="center-child1">
+            <div className="header-buffer" />
+            <div className="user-scroll">
+              <ul>
+                {usersAll.map((user, i) => (
+                  // eslint-disable-next-line react/no-array-index-key
+                  <li className="user-scroll-list" key={i}>
+                    <input
+                      className="checkbox"
+                      type="checkbox"
+                      data-testid="checkbox"
+                      data-cy="checkbox"
+                      onChange={() => {
+                        // eslint-disable-next-line no-underscore-dangle
+                        addingUser(user._id);
+                      }}
+                    />
+                    <div className="user-scroll-name">{user.name}</div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
-      <button
-        type="button"
-        onClick={() => {
-          localStorage.removeItem('token');
-          navigate('/login');
-        }}
-      >
-        Log out
-      </button>
     </>
   );
 }

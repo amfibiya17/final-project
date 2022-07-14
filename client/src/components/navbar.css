@@ -1,4 +1,18 @@
 .navbar {
   display: flex;
   flex-direction: row;
+  position: fixed;
+  background-color: #00000089;
+  width: 1150px;
+  border-radius: 25px;
+  margin-top: 20px;
+  height: 40px;
+}
+
+.link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
 }
