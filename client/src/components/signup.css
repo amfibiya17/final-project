@@ -36,6 +36,7 @@ a:-webkit-any-link:hover {
   max-height: 320px;
   margin: 1em;
   color: white;
+  margin-top: 100px;
 }
 
 .input-container {
@@ -134,4 +135,24 @@ input:-webkit-autofill:focus {
   color: #e7195a;
   border-radius: 4px;
   margin: 40px 0;
+}
+
+.logo-palendar {
+  position: absolute;
+  margin-left: -120px;
+  margin-top:10px;
+}
+
+.span {
+  display: inline;
+  position: relative;
+  font: 200px Helvetica, Sans-Serif;
+  letter-spacing: -5px;
+  color: rgba(0,0,255,0.5); 
+}
+
+.span:after {
+  content: "Palendar";
+  position: absolute; left: 10px; top: 5px;
+  color: rgba(255,0,0,0.5);   
 }
