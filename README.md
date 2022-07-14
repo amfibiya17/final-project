@@ -27,14 +27,15 @@ You also have a choice of who you would like to include in the shared calendar, 
 
 ### Notable Others
 
-- [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) | Frontend development
-- [Nodemon](https://nodemon.io/) | Reloads the server automatically
-- [Mongoose](https://mongoosejs.com) | Models objects in MongoDB
-- [ESLint](https://eslint.org) | Linting
-- [Jest](https://jestjs.io/) | Testing
-- [React Testing Library](https://testing-library.com/) | End-to-end testing
-- [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML) | Markup language
-- [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS) | Style sheet language
+- [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) | Frontend development.
+- [Nodemon](https://nodemon.io/) | Reloads the server automatically.
+- [Mongoose](https://mongoosejs.com) | Models objects in MongoDB.
+- [ESLint](https://eslint.org) | Linting.
+- [Jest](https://jestjs.io/) | Testing.
+- [React Testing Library](https://testing-library.com/) | End-to-end testing.
+- [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML) | Markup language.
+- [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS) | Style sheet language.
+- [bcrypt] (https://www.npmjs.com/package/bcrypt) | User password encryption and authentication.
 
 ### Organisational & Planning Tools
 
