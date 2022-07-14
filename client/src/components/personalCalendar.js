@@ -311,6 +311,7 @@ function PersonalCalendar() {
                             // eslint-disable-next-line no-underscore-dangle
                             deleteEvent(appointment._id, appointment.user_id);
                           }}
+                          data-cy="delete-personal-appointment"
                         >
                           Delete
                         </button>

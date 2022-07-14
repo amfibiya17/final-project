@@ -21,11 +21,13 @@ function AppointmentUpdateForm({ appointment }) {
           type="date"
           value={new Date(date).toISOString().split('T')[0]}
           onChange={(e) => setDate(e.target.value)}
+          data-cy="update-date"
         />
         <input
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
+          data-cy="update-text"
         />
       </form>
     </>
