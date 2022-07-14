@@ -37,7 +37,7 @@ function UserNavbar() {
         </Link>
       </div>
 
-      <div className="nav-link">
+      <div className="nav-link" data-cy="create-group-event">
         <Link to="/group_event">
           Create group event
         </Link>

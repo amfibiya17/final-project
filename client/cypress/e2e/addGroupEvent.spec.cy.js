@@ -14,7 +14,7 @@ describe("add group event", () => {
     cy.location('pathname', { timeout: 10000 }).should('eq', '/home')
 
     cy.get(`[aria-label="25 July 2022"]`).click();
-    cy.get("input[placeholder=\"event\"]").type("test");
+    cy.get("input[placeholder=\"Create event\"]").type("test");
     cy.get('[data-cy="submit"]').click()
 
     cy.get('[data-cy="create-group-event"]').click()
