@@ -16,6 +16,7 @@ function AppointmentUpdateForm({ appointment }) {
   return (
     <>
       <form onSubmit={submitEvent}>
+        <input disabled={!name} data-cy="submit" type="submit" value="Update appointment" />
         <input
           type="date"
           value={new Date(date).toISOString().split('T')[0]}
@@ -26,7 +27,6 @@ function AppointmentUpdateForm({ appointment }) {
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
-        <input disabled={!name} data-cy="submit" type="submit" value="Update appointment" />
       </form>
     </>
   );
