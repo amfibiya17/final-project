@@ -3,15 +3,6 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
 import GroupCalendar from './groupCalendar';
 
-test('Can render the calendar', () => {
-  const { container } = render(
-    <Router>
-      <GroupCalendar />
-    </Router>
-  );
-  expect(container.firstChild.classList.contains('react-calendar')).toBe(true);
-});
-
 test('Button should be rendered', () => {
   render(
     <Router>

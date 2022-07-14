@@ -9,7 +9,9 @@ import { differenceInCalendarDays } from 'date-fns';
 import './reactCal.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Modal from './modal';
 import Navbar from './navbar';
+import AppointmentUpdateForm from './appointmentUpdateForm';
 
 // const disabledDates = [new Date(), new Date(2022, 10)];
 // const datesToAddContentTo = [new Date(), new Date(2022, 10)];
@@ -43,10 +45,12 @@ function PersonalCalendar() {
   const [userName, setUserName] = useState('');
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
   const [weatherTempMax, setWeatherTempMax] = useState();
   const [weatherTempMin, setWeatherTempMin] = useState();
   const [weatherConditions, setWeatherConditions] = useState();
   const [weatherIcon, setWeatherIcon] = useState();
+  const [appointmentToUpdate, setAppointmentToUpdate] = useState();
 
   function getAppointments() {
     if (userId) {
@@ -125,7 +129,8 @@ function PersonalCalendar() {
     appointmentsArray.forEach((appointment) => {
       // eslint-disable-next-line eqeqeq
       if (
-        new Date(appointment.date).toDateString() === new Date(selectedDate).toDateString()
+        new Date(appointment.date).toDateString()
+        === new Date(selectedDate).toDateString()
       ) {
         setAppointmentName(appointment.name);
         a = 1;
@@ -167,22 +172,16 @@ function PersonalCalendar() {
 
   async function deleteEvent(eventId, eventUsersId) {
     if (eventUsersId.length <= 2) {
-      await axios.delete(
-        'http://localhost:8282/appointments/delete',
-        {
-          params: {
-            eventId,
-          },
-        },
-      );
-    } else {
-      await axios.patch(
-        'http://localhost:8282/appointments/remove_user',
-        {
+      await axios.delete('http://localhost:8282/appointments/delete', {
+        params: {
           eventId,
-          userId,
         },
-      );
+      });
+    } else {
+      await axios.patch('http://localhost:8282/appointments/remove_user', {
+        eventId,
+        userId,
+      });
     }
     getAppointments();
   }
@@ -317,11 +316,25 @@ function PersonalCalendar() {
                         >
                           Delete
                         </button>
-
+                        <button
+                          className="update-button"
+                          type="submit"
+                          onClick={() => {
+                            setAppointmentToUpdate(appointment);
+                            setIsOpen(true);
+                          }}
+                        >
+                          Update
+                        </button>
                       </div>
                     </li>
                   ))}
               </ul>
+              <div>
+                <Modal open={isOpen} onClose={() => setIsOpen(false)}>
+                  <AppointmentUpdateForm appointment={appointmentToUpdate} />
+                </Modal>
+              </div>
             </div>
           </div>
         </div>
