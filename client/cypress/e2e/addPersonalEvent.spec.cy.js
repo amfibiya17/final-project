@@ -1,4 +1,9 @@
 describe("add personal event", () => {
+  beforeEach(() => {
+    // run these tests as if in a desktop
+    // browser with a 720p monitor
+    cy.viewport(1280, 720)
+  })
   it("can make a personal event", () => {
     cy.visit("http://localhost:3000/login");
 

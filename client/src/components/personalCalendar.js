@@ -193,7 +193,7 @@ function PersonalCalendar() {
         <div className="center-element">
           <div className="center-child">
             <div className="calbox">
-              <div className="greeting">
+              <div className="greeting" data-testid="welcome-message">
                 Hi
                 {' '}
                 {userName}
@@ -213,7 +213,7 @@ function PersonalCalendar() {
               // tileContent={tileContent}
               tileClassName={tileClassName}
             />
-            <div className="select-body">
+            <div className="select-body" data-testid="selected-date">
               <p className="text-center">
                 <span className="bold">Selected Date:</span>
                 {value.toDateString()}
@@ -221,7 +221,7 @@ function PersonalCalendar() {
               <p>
                 {appointmentName}
               </p>
-              <div className="weather">
+              <div className="weather" data-testid="date-info">
                 <p className="maxT">
                   MaxT:
                   {' '}

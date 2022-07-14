@@ -1,4 +1,9 @@
 describe("add group event", () => {
+  beforeEach(() => {
+    // run these tests as if in a desktop
+    // browser with a 720p monitor
+    cy.viewport(1280, 720)
+  })
   it("can make a group event and add test user", () => {
     cy.visit("http://localhost:3000/login");
 
