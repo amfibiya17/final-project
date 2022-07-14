@@ -82,6 +82,10 @@
   filter: grayscale(1);
 }  
 
+.scroll {
+  overflow: scroll;
+  white-space: nowrap;
+}
 
 /* end .squaredThree */
 
@@ -106,34 +110,67 @@
 
 .appointment-overview {
   display: flex;
-}  
+  inline-size: 150px;
+  overflow-wrap: break-word;
+}
 
 .scroll-list {
   margin-left: 15px;
   margin-right: 15px;
-  height: 60px;
+  height: 80px;
+  max-height: 150px;
   border-bottom: 0.5px solid rgba(255, 255, 255, 0.268);
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   font-size: 14px;
+  display: block;
 }
 
 .scroll-date {
-  margin-left: 15px;
-  margin-right: 15px;
+  margin-top: 6px;
+  letter-spacing: 1.3px;
+  color: #000000;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+}
+
+.scroll-date1 {
   font-weight: bold;
-  font-size: 11px;
+  margin-top: 6px;
+  letter-spacing: 1.3px;
+  color: #000000;
+  font-size: 13px;
   display: flex;
   align-items: center;
 }
 
 .delete-button {
   /* background-color: rgba(0, 0, 0, 0.8); */
-  color: rgb(57, 56, 56);
+  /* color: rgb(57, 56, 56);
   height: 17px;
   width: 60px;
   font-size: 10px;
-  margin-right: 20px;
+  margin-right: 20px; */
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  /*optional*/
+  font-family: arial, sans-serif;
+  /*input has OS specific font-family*/
+  color: rgba(108, 108, 108, 0.796);
+  text-decoration: underline;
+  cursor: pointer;
+  background-color: #00000051;
+  text-align: center;
+  color: #00000085;
+  height: 25px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+}
+
+.delete-button:hover {
+  color: #64358a;
 }
 
 /* --end-- APPOINTMENT SCROLL -----------------------------------------------------------------end-- */
@@ -458,4 +495,173 @@ ul {
   color: #4BB543;
   border-radius: 4px;
   margin: 10px 0;
+}
+
+.nav-center {
+  display: flex;
+  /* align-items: center; */
+  justify-content: center;
+}
+
+.center-child1 {
+  /* border: 2px solid pink; */
+  width: 500px;
+}
+
+/* css for bar with weather
+.text-cnt {
+  text-decoration: none;
+  text-align: left;
+  color: #000000;
+  margin-left: 15px;
+  float: left;
+  /* padding: 9px 16px; */
+  /* font-weight: 500;
+  font-size: 100%;
+  letter-spacing: 0.06em;
+  width: 100%;
+  height: 80px;
+} */ 
+
+/* css for bar with weather */
+.text-center {
+  text-decoration: none;
+  text-align: left;
+  color: #000000;
+  margin-left: 15px;
+  float: left;
+  padding: 9px 16px;
+  font-weight: 500;
+  font-size: 100%;
+  letter-spacing: 0.06em;
+  width: 100%;
+}
+
+.weather {
+  text-decoration: none;
+  text-align: left;
+  color: #000000;
+  margin-left: 15px;
+  margin-top: 5px;
+  float: left;
+  padding: 9px 16px;
+  font-weight: 500;
+  font-size: 90%;
+  letter-spacing: 0.06em;
+  width: 100%;
+}
+
+.temperature {
+  float: left;
+  width: 55%;
+}
+
+.conditions {
+  float: left;
+  width: 40%;
+}
+
+.icon {
+  width: 40px;
+  max-width: 10%;
+  max-height: 10%;
+}
+
+.input-evnt {
+  /* margin-top: 20px; */
+  margin-left: 27px;
+  margin-right: 15px;
+  background-color: rgba(255, 255, 255, 0.504);
+  /* letter-spacing: 1.3px; */
+  box-sizing: border-box;
+  width: 150px;
+  border: none;
+  color: #000000;
+  padding: 11px 0px 12px 10px;
+  font-size: 17px;
+  outline: none;
+  height: 25px;
+  border-radius: 5px;
+  /* maxlength: 40; */
+  /* position: absolute;
+  bottom: 10px; */
+}
+
+.input-bttn {
+  background-color: #746292;
+  text-decoration: none;
+  text-align: center;
+  color: #00000085;
+  height: 25px;
+  font-weight: 500;
+  font-family: inherit;
+  letter-spacing: 0.06em;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  /* margin-bottom:5px; */
+  /* position: absolute;
+  left: 10px;
+  bottom: 2px; */
+}
+
+.input-event {
+  margin-top: 10px;
+  margin-left: 30px;
+  background-color: rgba(241, 241, 241, 0.272);
+  letter-spacing: 1.3px;
+  box-sizing: border-box;
+  width: 30%;
+  border: none;
+  color: #000000;
+  padding: 10px 1px 12px 25px;
+  font-size: 17px;
+  outline: none;
+  height: 25px;
+  maxlength: 40;
+}
+
+.input-button {
+  background-color: #00000051;
+  text-decoration: none;
+  text-align: center;
+  color: #00000085;
+  height: 25px;
+  font-weight: 500;
+  font-family: inherit;
+  letter-spacing: 0.06em;
+  border: none;
+  cursor: pointer;
+  margin-bottom:5px;
+}
+
+.input-button:hover {
+  color: rgba(135, 135, 135, 0.613);
+  background: rgba(255, 255, 255, 0.428);
+}
+
+.current-date-select {
+  color: white;
+  height: 20px;
+  /* margin-bottom: 30px; */
+  /* padding-bottom: 10px; */
+  /* padding: 0px 0px 12px 10px; */
+  font-weight: bold;
+}
+
+.submit-form  {
+  width: 280px;
+  /* height: 30px; */
+  position: absolute;
+  
+  /* left: 10px; */
+  bottom: 25px;
+  /* justify-content: center; */
+  /* align-items: center;  */
+}
+
+.selected-text {
+  height: 60px;
+  margin-left: 30px;
+  margin-top: 38px;
 }

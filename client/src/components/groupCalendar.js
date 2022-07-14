@@ -201,53 +201,60 @@ function GroupCalendar() {
               // tileContent={tileContent}
               // tileClassName={tileClassName}
             />
+            {/* {user.name}
+              </li>
+            ))} */}
             <div className="group-select-body">
               <div className="group-select-section">
-                {/* <p className="text-center" data-testid="selected-date">
-                  <span className="bold">Selected Date:</span>
-                  {' '}
-                  {value.toDateString()}
-                </p> */}
                 <div data-testid="date-info" className="weather">
-                  <p className="maxT">
-                    MaxT:
-                    {' '}
-                    { weatherTempMax }
-                    {' '}
-                    C
-                  </p>
-                  <p className="minT">
-                    MinT:
-                    {' '}
-                    { weatherTempMin }
-                    {' '}
-                    C
-                  </p>
-                  <p className="conditions">
-                    Weather:
-                    {' '}
+                  <div className="temperature">
+                    <div>
+                      Max Temp:
+                      {' '}
+                      { weatherTempMax }
+                      {' '}
+                      C
+                    </div>
+
+                    <div>
+                      Min Temp:
+                      {' '}
+                      { weatherTempMin }
+                      {' '}
+                      C
+                    </div>
+                  </div>
+
+                  <div className="conditions">
+                    {/* Weather:
+                    {' '} */}
                     { weatherConditions }
-                  </p>
-                  <p className="icon">
-                    <img src={weatherIcon} alt="" />
-                  </p>
+                    {'   '}
+                    <img src={weatherIcon} alt="" className="icon" />
+                  </div>
                 </div>
               </div>
               <div className="group-select-section">
-                <form onSubmit={submitEvent}>
+                <div className="selected-text" data-testid="selected-date">
+                  <span className="current-date-select">Selected Date:</span>
+                  <br />
+                  <span className="current-date-select">{value.toDateString()}</span>
+                </div>
+                <form className="submit-form" onSubmit={submitEvent}>
                   <input
+                    className="input-evnt"
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    placeholder="event"
+                    placeholder="Create event"
                   />
-                  <input disabled={!name} type="submit" data-cy="submit-group-event" value="Submit" onClick={() => setIsOpen(true)} />
-                  <div>
-                    <Modal open={isOpen} onClose={() => setIsOpen(false)}>
-                      Event Added
-                    </Modal>
-                  </div>
+                  <input className="input-bttn" disabled={!name} type="submit" data-cy="submit-group-event" value="Submit" onClick={() => setIsOpen(true)} />
                 </form>
+                <div>
+                  <Modal open={isOpen} onClose={() => navigate('/home')}>
+                    Event Added
+                  </Modal>
+                </div>
               </div>
             </div>
           </div>

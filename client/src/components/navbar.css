@@ -2,17 +2,27 @@
   display: flex;
   flex-direction: row;
   position: fixed;
-  background-color: #00000089;
+  background-color: #2d2d2d7e;
   width: 1150px;
   border-radius: 25px;
-  margin-top: 20px;
-  height: 40px;
+  margin-top: 15px;
 }
 
-.link {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
+.nav-link {
+  text-decoration: none;
+  text-align: center;
+  color: #ca90f9;
+  margin-left: 25px;
+  float: left;
+  padding: 11px 16px;
+  font-weight: 700;
+  font-family: inherit;
+  font-size: 120%;
+  letter-spacing: 0.06em;
 }
+
+.nav-link:hover {
+  color: rgb(135, 135, 135);
+  /* text-shadow: 0 0 10px #228DFF, 0 0 20px #228DFF, 0 0 30px #228DFF, 0 0 40px #228DFF, 0 0 70px #228DFF, 0 0 80px #228DFF, 0 0 100px #228DFF, 0 0 150px #228DFF; */
+}
+
