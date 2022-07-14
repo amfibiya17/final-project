@@ -75,8 +75,8 @@ function PersonalCalendar() {
     await axios.get(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/london/${day.toISOString().split('T')[0]}?unitGroup=metric&include=days&key=BQ886JAS7TD7RNBNA8DW9JENC&contentType=json`, {
     })
       .then((response) => {
-        setWeatherTempMax(response.data.days[0].tempmax.toFixed(0));
-        setWeatherTempMin(response.data.days[0].tempmin.toFixed(0));
+        setWeatherTempMax(response.data.days[0].tempmax);
+        setWeatherTempMin(response.data.days[0].tempmin);
         setWeatherConditions(response.data.days[0].conditions);
         setWeatherIcon(`./images/weather/${response.data.days[0].icon}.png`);
       });
@@ -195,13 +195,14 @@ function PersonalCalendar() {
         <div className="center-element">
           <div className="center-child">
             <div className="calbox">
-              <div className="greeting">
+              <div className="greeting" data-testid="welcome-message">
                 Hi
                 {' '}
                 {userName}
                 ,
               </div>
             </div>
+            <div data-testid="date-info" />
             <div className="calbox">
               <div className="greeting1">
                 this is your personal Calendar
@@ -216,9 +217,7 @@ function PersonalCalendar() {
               // tileContent={tileContent}
               tileClassName={tileClassName}
             />
-
-            <div className="select-body">
-
+            <div className="select-body" data-testid="selected-date">
               <div className="text-center">
                 <span className="bold">Selected Date: </span>
                 {value.toDateString()}
@@ -233,14 +232,16 @@ function PersonalCalendar() {
                     Max Temp:
                     {' '}
                     { weatherTempMax }
-                    ºC
+                    {' '}
+                    C
                   </div>
 
                   <div>
                     Min Temp:
                     {' '}
                     { weatherTempMin }
-                    ºC
+                    {' '}
+                    C
                   </div>
                 </div>
 
@@ -284,7 +285,6 @@ function PersonalCalendar() {
                           {new Date(appointment.date).toLocaleDateString()}
                           &ensp;
                         </div>
-
                         <div className="scroll-date">
                           {'What: '}
                           {appointment.name}
