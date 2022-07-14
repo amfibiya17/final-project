@@ -39,10 +39,10 @@ You also have a choice of who you would like to include in the shared calendar, 
 
 ### Organisational & Planning Tools
 
-- [Trello](https://trello.com/en).
-- [Slack](https://slack.com/intl/en-gb/).
-- [Miro](https://miro.com/).
-- [Balsamiq](https://balsamiq.com/).
+- [Trello](https://trello.com/en) | Kanban tool.
+- [Slack](https://slack.com/intl/en-gb/) | Communication tool.
+- [Miro](https://miro.com/) | Diagramming tool.
+- [Balsamiq](https://balsamiq.com/) | Wireframing tool.
 
 ## Card wall
 
