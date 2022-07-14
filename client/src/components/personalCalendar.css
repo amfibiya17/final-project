@@ -665,3 +665,32 @@ ul {
   margin-left: 30px;
   margin-top: 38px;
 }
+
+.update-button {
+  /* background-color: rgba(0, 0, 0, 0.8); */
+  /* color: rgb(57, 56, 56);
+  height: 17px;
+  width: 60px;
+  font-size: 10px;
+  margin-right: 20px; */
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  /*optional*/
+  font-family: arial, sans-serif;
+  /*input has OS specific font-family*/
+  color: rgba(108, 108, 108, 0.796);
+  text-decoration: underline;
+  cursor: pointer;
+  background-color: #00000051;
+  text-align: center;
+  color: #00000085;
+  height: 25px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  margin-left:10px;
+}
+
+.update-button:hover {
+  color: #64358a;
+}
