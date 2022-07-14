@@ -234,16 +234,14 @@ function PersonalCalendar() {
                     Max Temp:
                     {' '}
                     { weatherTempMax }
-                    {' '}
-                    C
+                    ºC
                   </div>
 
                   <div>
                     Min Temp:
                     {' '}
                     { weatherTempMin }
-                    {' '}
-                    C
+                    ºC
                   </div>
                 </div>
 
