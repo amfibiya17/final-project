@@ -27,7 +27,6 @@ You also have a choice of who you would like to include in the shared calendar, 
 
 ### Notable Others
 
-- [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) | Frontend development.
 - [Nodemon](https://nodemon.io/) | Reloads the server automatically.
 - [Mongoose](https://mongoosejs.com) | Models objects in MongoDB.
 - [ESLint](https://eslint.org) | Linting.
