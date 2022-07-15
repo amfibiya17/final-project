@@ -68,10 +68,10 @@ function Login() {
           </form>
 
           <div className="text-center-login">
-            Already registered?
+            Dont have an account?
             {' '}
             <Link to="/signup">
-              Signup
+              <u>Sign Up</u>
             </Link>
           </div>
 

@@ -36,7 +36,7 @@ a:-webkit-any-link:hover {
   max-height: 320px;
   margin: 1em;
   color: white;
-  margin-top: 100px;
+  margin-top: 150px;
 }
 
 .input-container {
@@ -139,7 +139,7 @@ input:-webkit-autofill:focus {
 
 .logo-palendar {
   position: absolute;
-  margin-left: -120px;
+  margin-left: -70px;
   margin-top:10px;
 }
 
