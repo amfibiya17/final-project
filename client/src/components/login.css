@@ -36,7 +36,7 @@ a:-webkit-any-link:hover {
   max-height: 270px;
   margin: 1em;
   color: white;
-  margin-top: 50px;
+  margin-top: 100px;
 }
 
 .input-container {
@@ -126,7 +126,7 @@ a:-webkit-any-link:hover {
 
 .logo-palendar {
   position: absolute;
-  margin-left: -120px;
+  margin-left: -70px;
 }
 
 .span {
